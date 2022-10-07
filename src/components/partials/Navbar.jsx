@@ -5,12 +5,16 @@ export default function Navbar({ currentUser, handleLogout }) {
 		<>
 			{/* if the user is logged in... */}
 			<Link to="/">
-				<span onClick={handleLogout}>logout</span>
+				<span onClick={handleLogout}>Logout</span>
 			</Link>
 
 			<Link to="/profile">
-				profile
+				Profile
 			</Link>
+
+			<Link to="/posts"> Posts </Link>
+			
+			<Link to="/posts/new"> Create a Post </Link>
 		</>
 	 )
 
