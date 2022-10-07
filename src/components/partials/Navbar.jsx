@@ -15,6 +15,7 @@ export default function Navbar({ currentUser, handleLogout }) {
 			<Link to="/posts"> Posts </Link>
 			
 			<Link to="/posts/new"> Create a Post </Link>
+			<Link to='/search'>Search</Link>
 		</>
 	 )
 

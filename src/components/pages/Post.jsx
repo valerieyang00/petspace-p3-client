@@ -1,11 +1,11 @@
-const axios = require("axios")
+
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-
-export default function Post({props}){
+const axios = require("axios")
+export default function Post(){
 
     
-    const {id} = useParams()
+    const {postId, commentId} = useParams()
     const [post, setPost] = useState({})
     const [errorMessage, setErrorMessage] = useState("")
     const [comment, setComment] = useState("")
@@ -20,7 +20,7 @@ export default function Post({props}){
     useEffect(() => {
         const getPost = async () => {
             try{
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts/${props.params.id}`)
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts/${postId}`)
                 setPost(response.data)
                 setUser(response.data.user)
                 setComments(response.data.comments)
@@ -34,37 +34,29 @@ export default function Post({props}){
     const handleDelete = async (e) => {
         e.preventDefault()
         try{
-            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/posts/${props.params.id}`)
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/posts/${postId}`)
             setPost(response.data)
         }catch(err){
             setErrorMessage(err.message)
         }
     }
-    const handleEdit = async (e) => {
-        e.preventDefault()
-        try{
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/EditPosts/${props.params.id}`, {content})
-            setPost(response.data)
-        }catch(err){
-            setErrorMessage(err.message)
-        }
-    }
+
     // Renders the comments
     const handleComment = async (e) => {
         e.preventDefault()
         try{
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/posts/${props.params.id}/comments`, {comment})
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/posts/${commentId}/comments`, {comment})
             setComments([...comments, response.data])
             setComment("")
         }catch(err){
             setCommentErrorMessage(err.message)
         }
-    }}
+    }
     // Allows users to link a comment to a post
     const handleCommentLikes = async (e) => {
         e.preventDefault()
         try{
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/posts/${props.params.id}/comments/${comment.id}/likes`)
+            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/posts/${commentId}/comments/${commentId}/likes`)
             setCommentLikes(response.data)
         }catch(err){
             setCommentErrorMessage(err.message)
@@ -75,7 +67,7 @@ export default function Post({props}){
     const handleLikes = async (e) => {
         e.preventDefault()
         try{
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/posts/${props.params.id}/likes`)
+            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/posts/${postId}/likes`)
             setLikes(response.data)
         }catch(err){
             setErrorMessage(err.message)
@@ -86,7 +78,7 @@ export default function Post({props}){
         e.preventDefault()
         try{
             if(post.user.id === user.id){
-                const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/editpost/${props.params.id}`, {post})
+                const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/editpost/${postId}`, {post})
                 setPost(response.data)
                 
             }
@@ -132,3 +124,4 @@ export default function Post({props}){
 
         </div>
     )
+}
