@@ -21,6 +21,16 @@ export default function posts(){
         getPosts()
 },[])
 
+	const handleCreate = async (e) => {
+		e.preventDefault()
+		try{
+			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/posts`, {content})
+			setPosts([...posts, response.data])
+			setContent("")
+		}catch(err){
+			setErrorMessage(err.message)
+		}
+	}
 const renderPosts = posts.map((post) => {
     return (
         <div key={post.id}>
