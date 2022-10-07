@@ -5,6 +5,7 @@ import axios from 'axios'
 export default function Profile({ currentUser, handleLogout }) {
 	// state for the secret message (aka user privilaged data)
 	const [msg, setMsg] = useState('')
+	const [bio, setBio] = useState('')
 
 	// useEffect for getting the user data and checking auth
 	useEffect(() => {

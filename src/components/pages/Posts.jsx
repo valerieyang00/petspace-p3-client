@@ -1,11 +1,11 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
 
-export default function posts(){
+export default function Posts(){
 	
     const [posts, setPosts] = useState([])
     const [errorMessage, setErrorMessage] = useState("")
-    
+    const [content, setContent] = useState("")
 
 
     useEffect(() => {
