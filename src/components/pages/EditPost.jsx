@@ -50,7 +50,7 @@ export default function EditPost() {
             
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor='title'>Wanted for:</label>
+                    <label htmlFor='title'>title:</label>
                     <input 
                         type='text'
                         id='title'
@@ -60,7 +60,7 @@ export default function EditPost() {
                     />
                 </div>
                 <div>
-                    <label htmlFor='caption'>Wanted for:</label>
+                    <label htmlFor='caption'>caption:</label>
                     <input 
                         type='text'
                         id='caption'
@@ -70,7 +70,7 @@ export default function EditPost() {
                     />
                 </div>
                 <div>
-                    <label htmlFor='image'>Wanted for:</label>
+                    <label htmlFor='image'>image:</label>
                     <input 
                         type='text'
                         id='image'
