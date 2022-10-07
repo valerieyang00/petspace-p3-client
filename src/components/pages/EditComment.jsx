@@ -43,7 +43,7 @@ export default function EditComment() {
 
     return(
         <div>
-            <h1>Edit Bounty:</h1>
+            <h1>Edit Comment:</h1>
             <p>{errorMessage}</p>
             
             <form onSubmit={handleSubmit}>
