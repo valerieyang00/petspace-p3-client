@@ -82,18 +82,18 @@ export default function Post({props}){
         }
     }
     // Allows users to edit their post
-    // const handleEdit = async (e) => {
-    //     e.preventDefault()
-    //     try{
-    //         if(post.user.id === user.id){
-    //             const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/posts/${props.params.id}`, {post})
-    //             setPost(response.data)
+    const handleEdit = async (e) => {
+        e.preventDefault()
+        try{
+            if(post.user.id === user.id){
+                const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/editpost/${props.params.id}`, {post})
+                setPost(response.data)
                 
-    //         }
-    //     }catch(err){
-    //             setErrorMessage(err.message)
-    //         }
-    //     }
+            }
+        }catch(err){
+                setErrorMessage(err.message)
+            }
+        }
 
     // renders comments to the post with likes
     const renderComments = comments.map((comment) => {
@@ -115,6 +115,7 @@ export default function Post({props}){
             <p>{post.content}</p>
             <p>{post.likes}</p>
             <button onClick={handleLikes}>Like</button>
+            <button onClick={handleEdit}>Edit</button>
             
             {/* Comment form to create a new comment */}
             <h1>Comments</h1>

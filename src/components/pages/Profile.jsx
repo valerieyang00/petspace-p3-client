@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
+
 export default function Profile({ currentUser, handleLogout }) {
 	// state for the secret message (aka user privilaged data)
 	const [msg, setMsg] = useState('')
@@ -9,26 +10,22 @@ export default function Profile({ currentUser, handleLogout }) {
 	useEffect(() => {
 	const fetchData = async () => {
 			try {
-				// get the token from local storage
+				// get the token
 				const token = localStorage.getItem('jwt')
-				// make the auth headers
+				// make the auth headers 
 				const options = {
 					headers: {
 						'Authorization': token
 					}
 				}
-				// hit the auth locked endpoint
 				const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/auth-locked`, options)
-				// example POST with auth headers (options are always last argument)
 				// await axios.post(url, requestBody (form data), options)
-				// set the secret user message in state
 				setMsg(response.data.msg)
 			} catch (err) {
-				// if the error is a 401 -- that means that auth failed
+				// Auth Failed
 				console.warn(err)
 				if (err.response) {
 					if (err.response.status === 401) {
-						// panic!
 						handleLogout()
 					}
 				}
@@ -47,12 +44,11 @@ export default function Profile({ currentUser, handleLogout }) {
 					'Authorization': token
 				}
 			}
-			// hit the auth locked endpoint
+
 			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/profile`, {bio: bio}, options)
-			// await axios.post(url, requestBody (form data), options
 			setMsg(response.data.msg)
 		} catch (err) {
-			// if the error is a 401 -- that means that auth failed
+			//Auth failed
 			console.warn(err)
 			if (err.response) {
 				if (err.response.status === 401) {
@@ -78,7 +74,7 @@ export default function Profile({ currentUser, handleLogout }) {
 				/>
 				<button type="submit">Submit</button>
 			</form>
-			
+
 		</div>
 	)
 }}}
