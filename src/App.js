@@ -59,7 +59,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route 
-            path="/"
+            path="/posts"
             element={<Posts />}
           />
 
@@ -69,7 +69,7 @@ function App() {
           />
 
           <Route 
-            path="/login"
+            path="/"
             element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser} />}
           />
 
@@ -83,7 +83,7 @@ function App() {
 
 
           <Route 
-            path="/editComment"
+            path="/editcomment"
             element={<EditComment />}
           />
            <Route 
@@ -103,7 +103,7 @@ function App() {
             element={<EditProfile />}
           />
            <Route 
-            path="/Search"
+            path="/search"
             element={<Search />}
           />
         </Routes>
