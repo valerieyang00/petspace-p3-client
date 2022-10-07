@@ -48,7 +48,7 @@ export default function EditComment() {
             
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor='content'>Wanted for:</label>
+                    <label htmlFor='content'>Comment:</label>
                     <input 
                         type='text'
                         id='content'
