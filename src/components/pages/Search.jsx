@@ -37,7 +37,6 @@ export default function Search() {
         <div>
             <div>
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor='search'>Search:</label>
                         <input 
                             type='text'
                             id='username'
