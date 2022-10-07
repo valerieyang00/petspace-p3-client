@@ -48,15 +48,6 @@ export default function EditComment() {
             
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor='username'>Username:</label>
-                    <input 
-                        hidden
-                        type='text'
-                        value={res.local.user}   
-                    />
-                </div>
-
-                <div>
                     <label htmlFor='content'>Wanted for:</label>
                     <input 
                         type='text'
