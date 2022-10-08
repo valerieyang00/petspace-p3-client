@@ -20,7 +20,7 @@ export default function Post(){
     useEffect(() => {
         const getPost = async () => {
             try{
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts/${postId}`)
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postId}`)
                 setPost(response.data)
                 setUser(response.data.user)
                 setComments(response.data.comments)
@@ -34,7 +34,7 @@ export default function Post(){
     const handleDelete = async (e) => {
         e.preventDefault()
         try{
-            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/posts/${postId}`)
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postId}`)
             setPost(response.data)
         }catch(err){
             setErrorMessage(err.message)
@@ -45,29 +45,30 @@ export default function Post(){
     const handleComment = async (e) => {
         e.preventDefault()
         try{
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/posts/${commentId}/comments`, {comment})
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${commentId}/comments`, {comment})
             setComments([...comments, response.data])
             setComment("")
         }catch(err){
             setCommentErrorMessage(err.message)
         }
     }
-    // Allows users to link a comment to a post
-    const handleCommentLikes = async (e) => {
-        e.preventDefault()
-        try{
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/posts/${commentId}/comments/${commentId}/likes`)
-            setCommentLikes(response.data)
-        }catch(err){
-            setCommentErrorMessage(err.message)
-        }
+    // // Allows users to link a comment to a post
+    // const handleCommentLikes = async (e) => {
+    //     e.preventDefault()
+    //     try{
+    //         const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${commentId}/comments/${commentId}/likes`)
+    //         setCommentLikes(response.data)
+    //     }catch(err){
+    //         setCommentErrorMessage(err.message)
+    //     }
 
-    }
+    // }
     // Allows users to like a post
     const handleLikes = async (e) => {
         e.preventDefault()
         try{
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/posts/${postId}/likes`)
+            // need to check this route again after setting up on backend to account for likes on both Post model and User model
+            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/posts/${postId}`)
             setLikes(response.data)
         }catch(err){
             setErrorMessage(err.message)
@@ -93,7 +94,7 @@ export default function Post(){
             <div key={comment.id}>
                 <p>{comment.comment}</p>
                 <p>{comment.likes}</p>
-                <button onClick={handleCommentLikes}>Like</button>
+                {/* <button onClick={handleCommentLikes}>Like</button> */}
             </div>
         )
     })

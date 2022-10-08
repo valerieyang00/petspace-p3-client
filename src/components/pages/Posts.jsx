@@ -11,7 +11,7 @@ export default function Posts(){
     useEffect(() => {
         const getPosts = async () => {
             try{
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts`)
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts`)
                 setPosts(response.data)
             }catch(err){
                 setErrorMessage(err.message)
@@ -21,25 +21,17 @@ export default function Posts(){
         getPosts()
 },[])
 
-	const handleCreate = async (e) => {
-		e.preventDefault()
-		try{
-			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/posts`, {content})
-			setPosts([...posts, response.data])
-			setContent("")
-		}catch(err){
-			setErrorMessage(err.message)
-		}
-	}
+
 const renderPosts = posts.map((post) => {
     return (
         <div key={post.id}>
-            <img src={post.image_url} alt={post.title}/>
-            <h1>{post.title}</h1>
+            <img src={post.photo} alt={post._id}/>
             <p>{post.content}</p>
             <p>{post.user_Id}</p>
-            <p>{post.comment}</p>
-            <p>{post.likes}</p>
+            {/* need to map an array of comments and hide it on Posts route */}
+            {/* <p>{post.comment}</p> */}
+            {/* changed this to '.length' to show number of likes */}
+            <p>{post.likes.length} likes</p>
         </div>
     )
 

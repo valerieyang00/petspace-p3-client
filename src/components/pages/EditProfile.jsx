@@ -17,7 +17,7 @@ export default function EditProfile() {
     useEffect(() => {
         const getUser = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/${username}/edit`)
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}`)
                 setForm(response.data)
             } catch(err) {
                 console.warn(err)
@@ -33,7 +33,7 @@ export default function EditProfile() {
         try{
             e.preventDefault()
             // axios.put/.post('url', data for the req body)
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/users/${username}/edit`, form)
+            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}/edit`, form)
             // navigate back to the details page for this bounty
             setForm(response.data)
         } catch(err) {
