@@ -22,12 +22,12 @@ export default function Posts(){
 },[])
 
 
-const renderPosts = posts.map((post) => {
+const renderPosts = posts.map((post, idx) => {
     return (
-        <div key={post.id}>
+        <div key={`key-${idx}`}>
             <img src={post.photo} alt={post._id}/>
             <p>{post.content}</p>
-            <p>{post.user_Id}</p>
+            <p>{post.username}</p>
             {/* need to map an array of comments and hide it on Posts route */}
             {/* <p>{post.comment}</p> */}
             {/* changed this to '.length' to show number of likes */}

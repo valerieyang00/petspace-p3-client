@@ -42,7 +42,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 
 	// conditionally render a navigate component
 	if (currentUser) {
-		return <Navigate to="/profile" />
+		return <Navigate to={`/${currentUser.username}`} />
 	}
 
 	return (
@@ -52,7 +52,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 			<p>{msg}</p>
 
 			<form onSubmit={handleSubmit}>
-				<label htmlFor='name'>Name:</label>
+				<label htmlFor='username'>Name:</label>
 				<input 
 					type="text"
 					id="username"
