@@ -8,7 +8,7 @@ export default function Navbar({ currentUser, handleLogout }) {
 				<span onClick={handleLogout}>Logout</span>
 			</Link>
 
-			<Link to="/profile">
+			<Link to={`/${currentUser.username}`}>
 				Profile
 			</Link>
 
