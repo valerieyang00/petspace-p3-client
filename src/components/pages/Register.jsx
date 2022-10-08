@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom'
 
 export default function Register({ currentUser, setCurrentUser }) {
 	// state for the controlled form
-	const [name, setName] = useState('')
+	const [username, setUsername] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [msg, setMsg] = useState('')
@@ -16,10 +16,10 @@ export default function Register({ currentUser, setCurrentUser }) {
 		try {
 			// post fortm data to the backend
 			const reqBody = {
-				name,
+				username,
 				email, 
-				password
-			}
+				password,
+				}
 			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/register`, reqBody)
 
 			// save the token in localstorage
@@ -52,13 +52,13 @@ export default function Register({ currentUser, setCurrentUser }) {
 			<p>{msg}</p>
 
 			<form onSubmit={handleSubmit}>
-				<label htmlFor='name'>Name:</label>
+				<label htmlFor='username'>Username:</label>
 				<input 
 					type="text"
-					id="name"
+					id="username"
 					placeholder='your username...'
-					onChange={e => setName(e.target.value)}
-					value={name}
+					onChange={e => setUsername(e.target.value)}
+					value={username}
 				/>
 
 				<label htmlFor='email'>Email:</label>
