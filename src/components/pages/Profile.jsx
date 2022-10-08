@@ -56,6 +56,7 @@ export default function Profile({ currentUser, handleLogout }) {
 					handleLogout()
 				}
 			}
+		}}
 	return (
 		<div>
 			<h1>Hello, {currentUser.name}</h1>
@@ -78,4 +79,4 @@ export default function Profile({ currentUser, handleLogout }) {
 
 		</div>
 	)
-}}}
+}
