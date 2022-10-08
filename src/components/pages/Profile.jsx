@@ -9,6 +9,9 @@ export default function Profile({ currentUser, setCurrentUser }){
 	const [content, setContent] = useState([])
 	const [friends, setFriends] = useState([])
 
+
+
+	
 	// Find a profile
 	useEffect(() => {
 		const getProfile = async () => {
@@ -29,7 +32,7 @@ export default function Profile({ currentUser, setCurrentUser }){
 			<div key={`key-${idx}`}>
 				{/* <img src={post.photo} alt={post._id}/> */}
 				<p>{post.content}</p>
-				<p>{`${post}.${currentUser.username}`}</p>
+				<p>{`-${currentUser.username}`}</p>
 				{/* need to map an array of comments and hide it on Posts route */}
 				{/* <p>{post.comment}</p> */}
 				{/* changed this to '.length' to show number of likes */}
@@ -67,7 +70,7 @@ export default function Profile({ currentUser, setCurrentUser }){
 				
 				{/* <li>Friends: {renderFriends}</li> */}
 
-				<li>Posts: {renderPosts}</li>
+				<ul>Posts: {renderPosts}</ul>
 			
 		</div>
 	)
