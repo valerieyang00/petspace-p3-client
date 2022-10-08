@@ -1,6 +1,12 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Navbar({ currentUser, handleLogout }) {
+	let username = ''
+
+	if(currentUser){
+		username = currentUser.username
+	}
 	 const loggedIn = (
 		<>
 			{/* if the user is logged in... */}
@@ -8,9 +14,10 @@ export default function Navbar({ currentUser, handleLogout }) {
 				<span onClick={handleLogout}>Logout</span>
 			</Link>
 
-			<Link to={`/${currentUser.username}`}>
+			
+			 <Link to={`/{username}`}>
 				Profile
-			</Link>
+			</Link> 
 
 			<Link to="/posts"> Posts </Link>
 			
@@ -18,7 +25,9 @@ export default function Navbar({ currentUser, handleLogout }) {
 			<Link to='/search'>Search</Link>
 		</>
 	 )
+		
 
+		
 	 const loggedOut = (
 		<>
 			{/* if the user is not logged in... */}

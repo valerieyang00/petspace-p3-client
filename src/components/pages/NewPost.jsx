@@ -26,7 +26,8 @@ export default function NewPost(){
             <h1>New Post</h1>
             <form>   
                 <label htmlFor="content">Content</label>
-                <input type="text" name="content" id="content"/>
+
+                <input type="text" name="content" id="content" value={content} onChange={(e) => setContent(e.target.value)}/>
                 {/* <input hidden type="text" name="user" id="user"/> */}
                     {/* for when we add image upload functionality */}
                 {/* <label htmlFor="image_url">Image URL</label> */}
