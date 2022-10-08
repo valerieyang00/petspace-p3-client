@@ -1,31 +1,37 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 export default function Search() {
-    const [form, setForm] = useState({
-        username: ''
-    })
-
+    const [search, setSearch] = useState('')
     const [results, setResults] = useState([])
     const [errorMessage, setErrorMessage] = useState('')
 
-    const handleSubmit = async e => {
-        try { 
-            e.preventDefault() 
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/search`, form)
-            // console.log(response.data)
-            setResults(response.data)
-        } catch(err) {
-            console.warn(err)
-            if (err.response) {
-                setErrorMessage(err.response.data.message)
+    useEffect(() => {
+        const getUsers = async () => {
+            try{
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/users`)
+                setResults(response.data)
+            }catch(err){
+                setErrorMessage(err.message)
+
             }
         }
+        getUsers()
+    },[])
+    
+
+    const handleSearch = (e) => {
+        setSearch(e.target.value)
      }
 
+    const filteredUsers = results.filter(result => {
+        return result.username.toLowerCase().includes(search.toLowerCase())
+    })
+ 
 
-    const userLinks = results.map(user => {
+
+    const userLinks = filteredUsers.map(user => {
         return (
             <div key={user._id}>
                 <Link to={`/${user.username}`}>{user.username}</Link>
@@ -36,15 +42,15 @@ export default function Search() {
     return (
         <div>
             <div>
-                <form onSubmit={handleSubmit}>
+                <form>
                         <input 
                             type='text'
                             id='username'
-                            value={form.username}
+                            value={search}
                             placeholder='search username...'
-                            onChange={e => setForm({ ...form, username: e.target.value })}
+                            onChange={handleSearch}
                         />
-                        <button type='submit'>Search</button>
+                        {/* <button type='submit'>Search</button> */}
                 </form>
             </div>
 
