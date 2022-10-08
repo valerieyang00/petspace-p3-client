@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 const axios = require("axios")
-export default function Post(){
+export default function Post({ currentUser, setCurrentUser }){
 
     
     const {postId, commentId} = useParams()
@@ -45,7 +45,7 @@ export default function Post(){
     const handleComment = async (e) => {
         e.preventDefault()
         try{
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${commentId}/comments`, {comment})
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${commentId}/comments`, {comment, user : currentUser})
             setComments([...comments, response.data])
             setComment("")
         }catch(err){

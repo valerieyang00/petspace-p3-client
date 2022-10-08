@@ -60,7 +60,7 @@ function App() {
         <Routes>
           <Route 
             path="/posts"
-            element={<Posts />}
+            element={<Posts currentUser={currentUser} setCurrentUser={setCurrentUser} />}
           />
 
           <Route 
@@ -92,7 +92,7 @@ function App() {
           />
            <Route 
             path="/posts/new"
-            element={<NewPost />}
+            element={<NewPost currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
           />
            <Route 
             path="/posts/:postId"

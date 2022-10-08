@@ -22,6 +22,7 @@ export default function Posts(){
 },[])
 
 
+
 const renderPosts = posts.map((post, idx) => {
     return (
         <div key={`key-${idx}`}>
