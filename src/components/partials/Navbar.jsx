@@ -26,7 +26,7 @@ export default function Navbar({ currentUser, handleLogout }) {
 				register
 			</Link>
 
-			<Link to="/login">
+			<Link to="/">
 				login
 			</Link>
 		</>
