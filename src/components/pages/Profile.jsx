@@ -1,82 +1,63 @@
-import { useState, useEffect } from 'react'
+import {useState,useEffect} from 'react'
 import axios from 'axios'
 
 
-export default function Profile({ currentUser, handleLogout }) {
-	// state for the secret message (aka user privilaged data)
-	const [msg, setMsg] = useState('')
-	const [bio, setBio] = useState('')
-
-	// useEffect for getting the user data and checking auth
+export default function Profile(){
+	const [username, setUsername] = useState('')
+	const [posts, setPosts] = useState([])
+	const [errorMessage, setErrorMessage] = useState('')
+	const [content, setContent] = useState('')
+	const [friends, setFriends] = useState([])
 	useEffect(() => {
-	const fetchData = async () => {
-			try {
-				// get the token
-				const token = localStorage.getItem('jwt')
-				// make the auth headers 
-				const options = {
-					headers: {
-						'Authorization': token
-					}
-				}
-				const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/auth-locked`, options)
-				// await axios.post(url, requestBody (form data), options)
-				setMsg(response.data.msg)
-			} catch (err) {
-				// Auth Failed
+		const getProfile = async () => {
+			try{
+				const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}`)
+				setUsername(response.data)
+				setPosts(response.data.posts)
+
+			}catch(err){
 				console.warn(err)
-				if (err.response) {
-					if (err.response.status === 401) {
-						handleLogout()
-					}
-				}
 			}
 		}
-		fetchData()
+		getProfile()
 	},[])
-	const handleBioSubmit = async e => {
-		e.preventDefault()
-		try {
-			// get the token from local storage
-			const token = localStorage.getItem('jwt')
-			// make the auth headers
-			const options = {
-				headers: {
-					'Authorization': token
-				}
-			}
-
-			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/profile`, {bio: bio}, options)
-			setMsg(response.data.msg)
-		} catch (err) {
-			//Auth failed
-			console.warn(err)
-			if (err.response) {
-				if (err.response.status === 401) {
-					handleLogout()
-				}
-			}
-		}}
-	return (
+	const renderPosts = posts.map((post) => {
+		return (
+			<div key={post.id}>
+				<img src={post.photo} alt={post._id}/>
+				<p>{post.content}</p>
+				<p>{post.user_Id}</p>
+				{/* need to map an array of comments and hide it on Posts route */}
+				{/* <p>{post.comment}</p> */}
+				{/* changed this to '.length' to show number of likes */}
+				<p>{post.likes.length} likes</p>
+			</div>
+		)
+	})
+	// useEffect(() => {
+	// 	const findFriends = async () => {
+	// 		try{
+	// 			const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}/friends`)
+	// 			setFriends(response.data.friends)
+	// 		}catch(err){
+	// 			console.warn(err)
+	// 		}
+	// 	}
+	// 	findFriends()
+	// },[])
+	return(
 		<div>
-			<h1>Hello, {currentUser.name}</h1>
-
-			<p>your email is {currentUser.email}</p>
-
-			<h2>Here is the secret message that is only availible to users of User App:</h2>
-
-			<h3>{msg}</h3>
-			<form onSubmit={handleBioSubmit}>
-				<label htmlFor='bio'>Bio:</label>
-				<input
-					type="text"
-					name="bio"
-					value={bio}
-					onChange={e => setBio(e.target.value)}
-				/>
-				<button type="submit">Submit</button>
-			</form>
-
+			
+			<h1>Welcome to the profile of {username}</h1>
+			<p>{username}</p>
+			
+				<li>Posts</li>
+				<li>Friends</li>
+				<li>Following</li>
+				<li>{renderPosts}</li>
+			
 		</div>
 	)
 }
+
+
