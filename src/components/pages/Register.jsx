@@ -18,8 +18,8 @@ export default function Register({ currentUser, setCurrentUser }) {
 			const reqBody = {
 				username,
 				email, 
-				password
-			}
+				password,
+				}
 			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/register`, reqBody)
 
 			// save the token in localstorage
@@ -52,7 +52,9 @@ export default function Register({ currentUser, setCurrentUser }) {
 			<p>{msg}</p>
 
 			<form onSubmit={handleSubmit}>
-				<label htmlFor='username'>Name:</label>
+
+				<label htmlFor='username'>Username:</label>
+
 				<input 
 					type="text"
 					id="username"
