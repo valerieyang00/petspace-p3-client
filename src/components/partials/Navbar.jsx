@@ -15,7 +15,7 @@ export default function Navbar({ currentUser, handleLogout }) {
 			</Link>
 
 			
-			 <Link to={`/{username}`}>
+			 <Link to={`/${username}`}>
 				Profile
 			</Link> 
 
