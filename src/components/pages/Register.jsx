@@ -46,43 +46,61 @@ export default function Register({ currentUser, setCurrentUser }) {
 	}
 
 	return (
-		<div>
-			<h1>Register for an account:</h1>
+		<div className='Register'>
+			<div className='container'>
+				<div className='row content justify-content-center align-content-center inner-row'>
+					<div className='col-md-5'>
+						<div className='form-box bg-white p-4 rounded'>
+							<div className='form-title'>
+								<h1 className='mb-4 text-center fs-1'>Register for an account:</h1>
+								<p>{msg}</p>
+							</div>
+							<form className='mb-3' onSubmit={handleSubmit}>
+								<div className='form-floating mb-3'>
+									<label htmlFor='floatingInput'>Username</label>
 
-			<p>{msg}</p>
+									<input className="form-control form-control-sm rounded"
+										type="text"
+										id="floatingInput"
+										placeholder='your username...'
+										onChange={e => setUsername(e.target.value)}
+										name='username'
+										value={username}
+									/>
+								</div>
+								<div className="form-floating mb-3">
+									<input className='form-control form-control-sm' 
+										type="email"
+										id="email"
+										placeholder='your email...'
+										onChange={e => setEmail(e.target.value)}
+										value={email}
+									/>
+									<label htmlFor='email'>Email:</label>
+								</div>
 
-			<form onSubmit={handleSubmit}>
-
-				<label htmlFor='username'>Username:</label>
-
-				<input 
-					type="text"
-					id="username"
-					placeholder='your username...'
-					onChange={e => setUsername(e.target.value)}
-					value={username}
-				/>
-
-				<label htmlFor='email'>Email:</label>
-				<input 
-					type="email"
-					id="email"
-					placeholder='your email...'
-					onChange={e => setEmail(e.target.value)}
-					value={email}
-				/>
-
-				<label htmlFor='password'>Password:</label>
-				<input 
-					type="password"
-					id="password"
-					placeholder='password...'
-					onChange={e => setPassword(e.target.value)}
-					value={password}
-				/>
-
-				<button type="submit">Register</button>
-			</form>
+								<div className="form-floating mb-3">
+									<label htmlFor='password'>Password:</label>
+									<input className="form-control form-control-sm"
+										type="password"
+										id="password"
+										placeholder='password...'
+										onChange={e => setPassword(e.target.value)}
+										value={password}
+									/>
+								</div>
+								
+								<div className='d-grid gap-2 mb-3'>
+									<button type="submit" className='btn btn-dark btn-lg border-0 rounded-4'>Register</button>
+								</div>
+								
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
 		</div>
 	)
 }
