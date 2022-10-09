@@ -20,13 +20,16 @@ export default function Search() {
         getUsers()
     },[])
     
+    // console.log(results)
+
 
     const handleSearch = (e) => {
         setSearch(e.target.value)
      }
 
     const filteredUsers = results.filter(result => {
-        return result.username.toLowerCase().includes(search.toLowerCase())
+        return result.email.toLowerCase().includes(search.toLowerCase())
+    
     })
  
 
