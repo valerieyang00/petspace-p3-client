@@ -37,7 +37,7 @@ export default function Profile({ currentUser, handleLogout }){
 			}
 		}
 		getProfile()
-	},[follow])
+	},[username])
 
 	// Render Posts to a map
 	const renderPosts = posts.map((post ,idx) => {
@@ -59,6 +59,8 @@ export default function Profile({ currentUser, handleLogout }){
 		try {			
 			e.preventDefault()
 			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}`, currentUser)
+			setFollowing(response.data.following)
+			setFollowers(response.data.followers)
 			setFollow(!follow)
 
 		}catch(err) {
