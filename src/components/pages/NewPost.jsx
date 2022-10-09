@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 export default function NewPost({ currentUser, setCurrentUser }){
-    const [posts, setPosts] = useState([{}])
+    const [posts, setPosts] = useState([])
     const [content, setContent] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
 
