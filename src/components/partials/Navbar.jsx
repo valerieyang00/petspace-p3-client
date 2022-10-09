@@ -11,16 +11,16 @@ export default function Navbar({ currentUser, handleLogout }) {
 			{/* if the user is logged in... */}
 			<Link to="/">
 				<span onClick={handleLogout}>Logout</span>
-			</Link>
+			</Link>{' | '}
 
 			
 			 <Link to={`/${username}`}>
 				Profile
-			</Link> 
+			</Link> {' | '}
 
-			<Link to="/posts"> Posts </Link>
+			<Link to="/posts"> Posts </Link>{' | '}
 			
-			<Link to="/posts/new"> Create a Post </Link>
+			<Link to="/posts/new"> Create a Post </Link>{' | '}
 			<Link to='/search'>Search</Link>
 		</>
 	 )
@@ -28,11 +28,11 @@ export default function Navbar({ currentUser, handleLogout }) {
 
 		
 	 const loggedOut = (
-		<>
+		<ul>
 			{/* if the user is not logged in... */}
 			<Link to="/register">
 				register
-			</Link>
+			</Link>{' | '}
 
 			<Link to="/">
 				login
@@ -41,13 +41,27 @@ export default function Navbar({ currentUser, handleLogout }) {
 	 )
 
 	return (
-		<nav>
-			{/* user always sees this section */}
-			<Link to="/">
-				<p>User App</p>
-			</Link>
+		<nav className='navbar navbar-expand-lg navbar-dark'>
+			<div className='container'>
+				{/* image logo */}
+				<div className='collapse navbar-collapse'>
+					{/* user always sees this section */}
 
-			{currentUser ? loggedIn : loggedOut}
+					<ul className='navbar-nav'>
+					{currentUser ? loggedIn : loggedOut}
+
+						<li class='nav-item'>
+							<Link to="/">
+								<p>Home</p>
+							</Link>
+						</li>
+					</ul>
+					
+				</div>
+			</div>
+
+			
+
 		</nav>
 	)
 }

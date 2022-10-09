@@ -13,6 +13,13 @@ import Navbar from './components/partials/Navbar'
 import './App.css'
 import jwt_decode from 'jwt-decode'
 
+import NewPost from './components/pages/NewPost'
+import Post from './components/pages/Post'
+import Search from './components/pages/Search'
+import EditComment from './components/pages/EditComment'
+import EditPost from './components/pages/EditPost'
+import EditProfile from './components/pages/EditProfile'
+
 function App() {
   // the currently logged in user will be stored up here in state
   const [currentUser, setCurrentUser] = useState(null)
@@ -72,6 +79,33 @@ function App() {
             element={currentUser ? <Profile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} /> : <Navigate to="/login" />}
           />
 
+
+
+
+          <Route 
+            path="/editComment"
+            element={<EditComment />}
+          />
+           <Route 
+            path="/editpost"
+            element={<EditPost />}
+          />
+           <Route 
+            path="/newpost"
+            element={<NewPost />}
+          />
+           <Route 
+            path="/post"
+            element={<Post />}
+          />
+           <Route 
+            path="/editprofile"
+            element={<EditProfile />}
+          />
+           <Route 
+            path="/Search"
+            element={<Search />}
+          />
         </Routes>
       </div>
     </Router>
