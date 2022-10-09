@@ -82,8 +82,7 @@ export default function Profile({ currentUser, handleLogout }){
 	 const viewUserProfile = (
 		<>
 			{/* if the user viewing their own profile... */}
-			<h1>Welcome to YOUR profile {username}</h1>
-			{/* button to switch between follow/unfollow based on state changes */}
+			<h1>Welcome to your profile, {username}!</h1>
 			<p>{posts.length} Posts</p>
 			<p>{followers.length} Followers</p>
 			<p>{following.length} Following</p>
@@ -94,8 +93,8 @@ export default function Profile({ currentUser, handleLogout }){
 
 	 const viewOtherProfile = (
 		<>
-			{/* if the user viewing their own profile... */}
-			<h1>Welcome to {username}'s profile</h1>
+			{/* if the user viewing someone else's profile... */}
+			<h1>{username}'s profile</h1>
 			{/* button to switch between follow/unfollow based on state changes */}
 			<button onClick={handleFollowClick}>{follow ? "unfollow" : "Follow"}</button>
 			<p>{posts.length} Posts</p>
