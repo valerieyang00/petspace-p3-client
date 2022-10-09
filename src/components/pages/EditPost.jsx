@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams, Link, useNavigate } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import axios from "axios"
 
 export default function EditPost() {
@@ -10,13 +10,12 @@ export default function EditPost() {
     })
     const [errorMessage, setErrorMessage] = useState('')
 
-    const {postId} = useParams()
-    const navigate = useNavigate()
+    const {postid} = useParams()
 
     useEffect(() => {
         const getPost = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postId}`)
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}`)
                 setForm(response.data)
             } catch(err) {
                 console.warn(err)
@@ -26,13 +25,13 @@ export default function EditPost() {
             }
         }
         getPost()
-    }, [])
+    }, [postid])
 
     const handleSubmit = async e => {
         try{
             e.preventDefault()
             // axios.put/.post('url', data for the req body)
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postId}`, form)
+            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}`, form)
             // navigate back to the details page for this bounty
             setForm(response.data)
         } catch(err) {
@@ -83,7 +82,7 @@ export default function EditPost() {
                 <button type='submit'>Submit</button>
             </form>
             
-            <Link to={`/posts/${postId}`}>
+            <Link to={`/posts/${postid}`}>
                 <button>Cancel</button>
             </Link>
         </div>
