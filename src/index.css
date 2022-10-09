@@ -1,3 +1,5 @@
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +13,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.content {
+  height: 100vh;
+}
+
+.btn-dark{
+  background: #262525 
+}
+
+
+
+.Login {
+  background-image: linear-gradient(134deg, rgb(0, 0, 0) 50%, rgb(118, 118, 118) 100%)
+}
+
+.Register {
+  background-image: linear-gradient(134deg, rgb(0, 0, 0) 50%, rgb(118, 118, 118) 100%)
+}
+

@@ -13,13 +13,6 @@ import Navbar from './components/partials/Navbar'
 import './App.css'
 import jwt_decode from 'jwt-decode'
 
-import NewPost from './components/pages/NewPost'
-import Post from './components/pages/Post'
-import Search from './components/pages/Search'
-import EditComment from './components/pages/EditComment'
-import EditPost from './components/pages/EditPost'
-import EditProfile from './components/pages/EditProfile'
-
 function App() {
   // the currently logged in user will be stored up here in state
   const [currentUser, setCurrentUser] = useState(null)
@@ -59,8 +52,8 @@ function App() {
       <div className="App">
         <Routes>
           <Route 
-            path="/posts"
-            element={<Posts currentUser={currentUser} setCurrentUser={setCurrentUser} />}
+            path="/"
+            element={<Posts />}
           />
 
           <Route 
@@ -69,43 +62,16 @@ function App() {
           />
 
           <Route 
-            path="/"
+            path="/login"
             element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser} />}
           />
 
           {/* conditionally render auth locked routes */}
           <Route 
-            path="/:username"
+            path="/profile"
             element={currentUser ? <Profile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} /> : <Navigate to="/login" />}
           />
 
-
-
-
-          <Route 
-            path="/posts/:postId/comments/:commentId"
-            element={<EditComment />}
-          />
-           <Route 
-            path="/posts/:postId/edit"
-            element={<EditPost />}
-          />
-           <Route 
-            path="/posts/new"
-            element={<NewPost currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
-          />
-           <Route 
-            path="/posts/:postId"
-            element={<Post />}
-          />
-           <Route 
-            path="/:username/edit"
-            element={<EditProfile />}
-          />
-           <Route 
-            path="/search"
-            element={<Search />}
-          />
         </Routes>
       </div>
     </Router>
