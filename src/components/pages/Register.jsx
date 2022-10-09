@@ -46,7 +46,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 	}
 
 	return (
-		<div>
+		<div className='Register'>
 			<div className='container'>
 				<div className='row content justify-content-center align-content-center inner-row'>
 					<div className='col-md-5'>
@@ -60,7 +60,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 								<div className='form-floating mb-3'>
 									<label htmlFor='floatingInput'>Username</label>
 
-									<input class="form-control form-control-sm rounded"
+									<input className="form-control form-control-sm rounded"
 										type="text"
 										id="floatingInput"
 										placeholder='your username...'
@@ -83,7 +83,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 
 								<div className="form-floating mb-3">
 									<label htmlFor='password'>Password:</label>
-									<input class="form-control form-control-sm"
+									<input className="form-control form-control-sm"
 										type="password"
 										id="password"
 										placeholder='password...'
