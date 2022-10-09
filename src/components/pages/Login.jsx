@@ -47,7 +47,7 @@ export default function Login({ currentUser, setCurrentUser }) {
 	return (
 		<div>
 			<div className='container'>
-				<div className='row content d-flex justify-content-center align-items-center'>
+				<div className='row content d-flex justify-content-center align-content-center'>
 					<div className='col-md-5'>
 						<div className='form-box shadow bg-white p-4 rounded'>
 							<div className='form-title'>	

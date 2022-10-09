@@ -48,7 +48,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 	return (
 		<div>
 			<div className='container'>
-				<div className='row content justify-content-center align-items-center inner-row'>
+				<div className='row content justify-content-center align-content-center inner-row'>
 					<div className='col-md-5'>
 						<div className='form-box bg-white p-4 rounded'>
 							<div className='form-title'>
