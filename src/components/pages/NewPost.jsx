@@ -8,7 +8,7 @@ export default function NewPost({ currentUser, setCurrentUser }){
     const [errorMessage, setErrorMessage] = useState("")
 
     const navigate = useNavigate()
-
+    console.log(currentUser)
     const handleCreate = async (e) => {
 		e.preventDefault()
 		try{

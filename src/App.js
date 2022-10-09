@@ -83,23 +83,23 @@ function App() {
 
 
           <Route 
-            path="/editComment"
+            path="/Comment/:id/edit"
             element={<EditComment />}
           />
            <Route 
-            path="/editpost"
+            path="/post/:id/edit"
             element={<EditPost />}
           />
            <Route 
-            path="/newpost"
-            element={<NewPost />}
+            path="/posts/new"
+            element={<NewPost currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
           />
            <Route 
             path="/post"
             element={<Post />}
           />
            <Route 
-            path="/editprofile"
+            path="/profile/:username/edit"
             element={<EditProfile />}
           />
            <Route 
