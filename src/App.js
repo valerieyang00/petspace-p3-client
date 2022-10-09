@@ -92,7 +92,7 @@ function App() {
           />
            <Route 
             path="/posts/new"
-            element={<NewPost />}
+            element={<NewPost currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
           />
            <Route 
             path="/posts/:postid"
