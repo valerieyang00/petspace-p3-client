@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Link } from 'react-router-dom'
 
 export default function Login({ currentUser, setCurrentUser }) {
 	// state for the controlled form
@@ -45,32 +45,53 @@ export default function Login({ currentUser, setCurrentUser }) {
 	}
 
 	return (
-		<div>
-			<h1>Login to Your Account:</h1>
-
-			<p>{msg}</p>
-
-			<form onSubmit={handleSubmit}>
-				<label htmlFor='email'>Email:</label>
-				<input 
-					type="email"
-					id="email"
-					placeholder='your email...'
-					onChange={e => setEmail(e.target.value)}
-					value={email}
-				/>
-
-				<label htmlFor='password'>Password:</label>
-				<input 
-					type="password"
-					id="password"
-					placeholder='password...'
-					onChange={e => setPassword(e.target.value)}
-					value={password}
-				/>
-
-				<button type="submit">Login</button>
-			</form>
+		<div className='Login'>
+			<div className='container'>
+				<div className='row content d-flex justify-content-center align-content-center'>
+					<div className='col-md-5'>
+						<div className='form-box shadow bg-white p-4 rounded'>
+							<div className='form-title'>	
+								<h3 className='mb-4 text-center fs-1'>Login:</h3>
+											<p>{msg}</p>
+							</div>
+							<form className='mb-3' onSubmit={handleSubmit}>
+								<div className='form-floating mb-3'>
+									<label htmlFor='floatingInput'>Email</label>
+									<input 
+									className="form-control form-control-sm rounded"
+										type="email"
+										id="floatingInput"
+										placeholder='your email...'
+										onChange={e => setEmail(e.target.value)}
+										value={email}
+										required
+									/>
+								</div>
+								
+								<div className='form-floating mb-3'>
+									<label htmlFor='floatingPassword'>Password</label>
+									<input 
+									className="form-control form-control-sm rounded"
+										type="password"
+										id="floatingPassword"
+										placeholder='password...'
+										onChange={e => setPassword(e.target.value)}
+										value={password}
+										required
+									/>
+								</div>
+								<div className='d-grid gap-2 mb-3'>
+									<button type="submit" className='btn btn-dark btn-lg border-0 rounded-4'>Login</button>
+								</div>
+							</form>
+							<div className='sign-up-accounts d-flex justify-content-end'>
+								<Link to='/register'>Sign up</Link>
+							</div>
+						</div>
+					</div>	
+				</div>
+			</div>
 		</div>
+		
 	)
 }
