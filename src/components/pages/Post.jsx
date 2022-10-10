@@ -47,7 +47,7 @@ export default function Post({ currentUser, setCurrentUser }){
     const handleComment = async (e) => {
         e.preventDefault()
         try{
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/comments`, {comment, user : currentUser})
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/comments`, {content: comment, userId : currentUser.id})
             setComments([...comments, response.data])
             setComment("")
         }catch(err){
@@ -94,7 +94,8 @@ export default function Post({ currentUser, setCurrentUser }){
     const renderComments = comments.map((comment) => {
         return (
             <div key={comment.id}>
-                <p>{comment.comment}</p>
+                <p>{comment.user.username}</p>
+                <p>{comment.content}</p>
                 <Moment fromNow>{comment.createdAt}</Moment>
                 <p>{comment.likes}</p>
                 {/* <button onClick={handleCommentLikes}>Like</button> */}
