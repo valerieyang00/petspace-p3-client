@@ -141,11 +141,23 @@ export default function Profile({ currentUser, handleLogout }){
 		}
 	}
 
+	const bioCheck = () => {
+		if (user.bio) {
+			return (
+				<h4>{user.bio}</h4>
+			)
+		} else {
+			return (
+				<p>Click 'Edit Profile' to add a bio...</p>
+			)
+		}
+	}
+
 	 const viewUserProfile = (
 		<>
 			{/* if the user viewing their own profile... */}
 			<h1>Welcome to your profile, {username}!</h1>
-			<h4>{user.bio}</h4>
+			{bioCheck()}
 			<Link to={`/${username}/edit`}>
                 <button>Edit Profile</button>
             	</Link>
@@ -162,6 +174,7 @@ export default function Profile({ currentUser, handleLogout }){
 		<>
 			{/* if the user viewing someone else's profile... */}
 			<h1>{username}'s profile</h1>
+			<h4>{user.bio}</h4>
 			{/* button to switch between follow/unfollow based on state changes */}
 			<button onClick={handleFollowClick}>{follow ? "unfollow" : "Follow"}</button>
 			<p>{posts.length} Posts</p>
