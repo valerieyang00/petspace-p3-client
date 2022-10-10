@@ -122,9 +122,9 @@ export default function Profile({ currentUser, handleLogout }){
 	}
 
 	 const viewUserProfile = (
-		<>
+		<div className='profile'>
 			{/* if the user viewing their own profile... */}
-			<h1>Welcome to your profile, {username}!</h1>
+			<h1><i class="bi bi-person-circle"></i>@{username}</h1>
 			<h4>{user.bio}</h4>
 			<Link to={`/${username}/edit`}>
                 <button>Edit Profile</button>
@@ -134,7 +134,7 @@ export default function Profile({ currentUser, handleLogout }){
 			<p>{following.length} Following</p>
 				<ul>Posts: {renderPostsUser}</ul>
 			
-		</>
+		</div>
 	 )
 
 	 const viewOtherProfile = (
