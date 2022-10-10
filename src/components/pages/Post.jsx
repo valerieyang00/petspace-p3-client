@@ -12,6 +12,7 @@ export default function Post({ currentUser, setCurrentUser }){
     const [errorMessage, setErrorMessage] = useState("")
     const [comment, setComment] = useState("")
     const [likes, setLikes] = useState(0)
+    const [like, setLike] = useState(false)
     const [user, setUser] = useState({})
     const [comments, setComments] = useState([])
     const [commentLikes, setCommentLikes] = useState(0)
@@ -26,6 +27,12 @@ export default function Post({ currentUser, setCurrentUser }){
                 setPost(response.data)
                 setUser(response.data.user)
                 setComments(response.data.comments)
+                response.data.likes.forEach((like) => {
+                    if (like.user === currentUser) {
+                        setLike(true)
+                    }
+                })
+
             }catch(err){
                 setErrorMessage(err.message)
             }
@@ -69,13 +76,22 @@ export default function Post({ currentUser, setCurrentUser }){
     const handleLikes = async (e) => {
         e.preventDefault()
         try{
-            // need to check this route again after setting up on backend to account for likes on both Post model and User model
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/posts/${postid}`)
-            setLikes(response.data)
+            if (like) {
+                const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/like`, {userId: currentUser.id})
+                setLike(false)
+                setLikes(response.data.likes.length)
+            } else {
+                // need to check this route again after setting up on backend to account for likes on both Post model and User model
+                const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/like`, {userId: currentUser.id})
+                setLike(true)
+                setLikes(response.data.likes.length)
+            }
+            
         }catch(err){
             setErrorMessage(err.message)
         }
     }
+    
     // // Allows users to edit their post
     // const handleEdit = async (e) => {
     //     e.preventDefault()
@@ -109,8 +125,8 @@ export default function Post({ currentUser, setCurrentUser }){
             <h1>{post.title}</h1>
             <p>{post.content}</p>
             <Moment fromNow>{post.createdAt}</Moment>
-            <p>{post.likes}</p>
-            <button onClick={handleLikes}>Like</button>
+            <p>{likes} likes</p>
+            <button onClick={handleLikes}>{like? "Unlike" : "Like"}</button>
             <Link to={`/posts/${post._id}/edit`}> <button>Edit</button>
             	</Link>
             
