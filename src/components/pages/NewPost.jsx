@@ -5,7 +5,7 @@ import {
 } from "react"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import {Image} from 'cloudinary-react'
+
 
 
 export default function NewPost({ currentUser, setCurrentUser }){
@@ -17,7 +17,7 @@ export default function NewPost({ currentUser, setCurrentUser }){
     const [fileInputState, setFileInputState] = useState('')
     const [selectedFile, setSelectedFile] = useState('')
     const [previewSource, setPreviewSource] = useState('')
-    const [imageIds, setImagesIds] = useState()
+    
 
     // Multer
     const inputRef = useRef(null)
@@ -41,9 +41,7 @@ export default function NewPost({ currentUser, setCurrentUser }){
 
         }
     }
-    useEffect(() => {
-        loadImages()
-    }, [])
+    
     // console.log(previewSource, "PREVIEW SOURCE")
     // console.log(selectedFile, "SELECTED FILE")
     const uploadImage = async (base64EncodedImage) => {
@@ -61,15 +59,7 @@ export default function NewPost({ currentUser, setCurrentUser }){
         }
     
     }
-    const loadImages = async() => {
-        try{
-            const res =await fetch(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/api/images`)
-            const data = await res.json()
-            setImagesIds(data)
-        }catch(err){
-            console.log(err)
-        }
-    }
+ 
     const handleCreate = async (e) => {
 		e.preventDefault()
         if(!previewSource) return;
@@ -102,15 +92,6 @@ export default function NewPost({ currentUser, setCurrentUser }){
     return(
         <div>
             <h1>New Post</h1>
-            {imageIds && imageIds.map((imageId, idx) => (
-                <Image
-                    key = {idx}
-                    cloudName ="sdfie0"
-                    publicId = {imageId}
-                    width = '300'
-                    crop = 'scale'
-                />
-            ))}
             <form>   
                 <label htmlFor="content">Content</label>
                 <input type="text" name="content" id="content" value={content} onChange={(e) => setContent(e.target.value)}/>
@@ -129,8 +110,10 @@ export default function NewPost({ currentUser, setCurrentUser }){
                 <button type="submit" onClick={handleCreate}>Submit</button>
             </form>
             {previewSource && ( //If previewSource is true, then show the image
-                <img src={previewSource} alt="User uploaded image" 
-                style={{height: '300px'}}/>
+                <img 
+                src={previewSource} alt="User uploaded image" 
+                style={{height: '300px'}}
+            />
             )}
         </div>
     )
