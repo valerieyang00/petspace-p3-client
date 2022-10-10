@@ -31,5 +31,17 @@ code {
 }
 
 nav {
-  background-color: black;
+  background-image: linear-gradient(134deg, rgb(0, 0, 0) 66%, rgb(64, 64, 64) 100%);
+}
+
+.logo {
+  display: flex;
+  max-width: 170px;
+  justify-content: flex-end;
+}
+
+.navBarCont {
+  margin-left: 20px;
+  margin-top: -7px;
+  margin-bottom: -3px;
 }
