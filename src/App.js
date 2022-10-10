@@ -76,7 +76,7 @@ function App() {
           {/* conditionally render auth locked routes */}
           <Route 
             path="/:username"
-            element={currentUser ? <Profile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} /> : <Navigate to="/login" />}
+            element={currentUser ? <Profile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} /> : <Navigate to="/" />}
           />
 
 
@@ -96,7 +96,7 @@ function App() {
           />
            <Route 
             path="/posts/:postid"
-            element={<Post />}
+            element={<Post currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
           />
            <Route 
             path="/:username/edit"

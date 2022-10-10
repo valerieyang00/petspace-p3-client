@@ -3,22 +3,31 @@ import { useParams, Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 export default function EditProfile() {
+    const {username} = useParams()
     const [form, setForm] = useState({
-        username: '',
+        username: username,
         bio: ''
         // profilePic: '' 
         // edit user password?
     })
     const [errorMessage, setErrorMessage] = useState('')
 
-    const {username} = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
         const getUser = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}`)
-                setForm(response.data)
+                // get the token from local storage
+				const token = localStorage.getItem('jwt')
+				// make the auth headers
+				const options = {
+					headers: {
+						'Authorization': token
+					}
+				}
+				// hit the auth locked endpoint
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}`, options)
+                // console.log(response.data)
             } catch(err) {
                 console.warn(err)
                 if (err.response) {
@@ -35,7 +44,8 @@ export default function EditProfile() {
             // axios.put/.post('url', data for the req body)
             const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}/edit`, form)
             // navigate back to the details page for this bounty
-            setForm(response.data)
+            setForm({username: response.data.username, bio: response.data.bio})
+            navigate(`/${username}`)
         } catch(err) {
             console.warn(err)
             if (err.response) {
@@ -56,7 +66,6 @@ export default function EditProfile() {
                         type='text'
                         id='username'
                         value={form.username}
-                        placeholder='username...'
                         onChange={e => setForm({ ...form, username: e.target.value })}
                     />
                 </div>
@@ -66,7 +75,6 @@ export default function EditProfile() {
                         type='text'
                         id='bio'
                         value={form.bio}
-                        placeholder='bio...'
                         onChange={e => setForm({ ...form, bio: e.target.value })}
                     />
                 </div>

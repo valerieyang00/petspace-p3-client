@@ -1,11 +1,13 @@
 
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-const axios = require("axios")
+import { useParams, Link } from "react-router-dom"
+import Moment from 'react-moment';
+import axios from 'axios'
+
 export default function Post({ currentUser, setCurrentUser }){
 
     
-    const {postId, commentId} = useParams()
+    const {postid} = useParams()
     const [post, setPost] = useState({})
     const [errorMessage, setErrorMessage] = useState("")
     const [comment, setComment] = useState("")
@@ -20,7 +22,7 @@ export default function Post({ currentUser, setCurrentUser }){
     useEffect(() => {
         const getPost = async () => {
             try{
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postId}`)
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}`)
                 setPost(response.data)
                 setUser(response.data.user)
                 setComments(response.data.comments)
@@ -34,7 +36,7 @@ export default function Post({ currentUser, setCurrentUser }){
     const handleDelete = async (e) => {
         e.preventDefault()
         try{
-            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postId}`)
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}`)
             setPost(response.data)
         }catch(err){
             setErrorMessage(err.message)
@@ -45,7 +47,7 @@ export default function Post({ currentUser, setCurrentUser }){
     const handleComment = async (e) => {
         e.preventDefault()
         try{
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${commentId}/comments`, {comment, user : currentUser})
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/comments`, {comment, user : currentUser})
             setComments([...comments, response.data])
             setComment("")
         }catch(err){
@@ -68,31 +70,32 @@ export default function Post({ currentUser, setCurrentUser }){
         e.preventDefault()
         try{
             // need to check this route again after setting up on backend to account for likes on both Post model and User model
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/posts/${postId}`)
+            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/posts/${postid}`)
             setLikes(response.data)
         }catch(err){
             setErrorMessage(err.message)
         }
     }
-    // Allows users to edit their post
-    const handleEdit = async (e) => {
-        e.preventDefault()
-        try{
-            if(post.user.id === user.id){
-                const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/editpost/${postId}`, {post})
-                setPost(response.data)
+    // // Allows users to edit their post
+    // const handleEdit = async (e) => {
+    //     e.preventDefault()
+    //     try{
+    //         if(post.user.id === user.id){
+    //             const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/editpost/${postid}`, {post})
+    //             setPost(response.data)
                 
-            }
-        }catch(err){
-                setErrorMessage(err.message)
-            }
-        }
+    //         }
+    //     }catch(err){
+    //             setErrorMessage(err.message)
+    //         }
+    //     }
 
     // renders comments to the post with likes
     const renderComments = comments.map((comment) => {
         return (
             <div key={comment.id}>
                 <p>{comment.comment}</p>
+                <Moment fromNow>{comment.createdAt}</Moment>
                 <p>{comment.likes}</p>
                 {/* <button onClick={handleCommentLikes}>Like</button> */}
             </div>
@@ -106,9 +109,11 @@ export default function Post({ currentUser, setCurrentUser }){
             <a href={`/users/${user.id}`}>{user.username}</a>
             <h1>{post.title}</h1>
             <p>{post.content}</p>
+            <Moment fromNow>{post.createdAt}</Moment>
             <p>{post.likes}</p>
             <button onClick={handleLikes}>Like</button>
-            <button onClick={handleEdit}>Edit</button>
+            <Link to={`/posts/${post._id}/edit`}> <button>Edit</button>
+            	</Link>
             
             {/* Comment form to create a new comment */}
             <h1>Comments</h1>
