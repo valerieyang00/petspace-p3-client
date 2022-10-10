@@ -94,10 +94,8 @@ export default function Post({ currentUser, setCurrentUser }){
     const renderComments = comments.map((comment) => {
         return (
             <div key={comment.id}>
-                <p>{comment.user.username}</p>
-                <p>{comment.content}</p>
+                <p>{comment.user.username} {comment.content}</p>
                 <Moment fromNow>{comment.createdAt}</Moment>
-                <p>{comment.likes}</p>
                 {/* <button onClick={handleCommentLikes}>Like</button> */}
             </div>
         )
