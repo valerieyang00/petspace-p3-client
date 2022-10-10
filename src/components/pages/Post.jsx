@@ -104,11 +104,29 @@ export default function Post({ currentUser, setCurrentUser }){
 
     return(
         <div>
-            <h1>Post</h1>
-            <img src={post.image_url} alt={post.title}/>
-            <a href={`/users/${user.id}`}>{user.username}</a>
-            <h1>{post.title}</h1>
-            <p>{post.content}</p>
+            {/* <div className='container'>
+                <div className='row'>
+                    <div className="col-sm-8">
+                        <div class='card'>
+                            <h1>Post:</h1>
+                            <div className='card-header'>
+                               <a href={`/users/${user.id}`}>{user.username}</a> 
+                            </div>
+
+                            <div className='card-body'>
+                            <img src={post.image_url} alt={`${user.username} post`} className='mw-100'/>
+                            </div>
+                            <div className='card-footer'></div>
+                        </div>
+                    </div>
+                    <div class='col-sm-4'></div>
+                </div>
+            </div> */}
+            
+            
+            
+            <h1></h1>
+            <p>caption{post.content}</p>
             <Moment fromNow>{post.createdAt}</Moment>
             <p>{post.likes}</p>
             <button onClick={handleLikes}>Like</button>
