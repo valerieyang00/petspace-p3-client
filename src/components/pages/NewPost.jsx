@@ -1,16 +1,28 @@
-import { useEffect, useState } from "react"
+import { 
+    useEffect, 
+    useState,
+    useRef
+} from "react"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import {Image} from 'cloudinary-react'
+
 
 export default function NewPost({ currentUser, setCurrentUser }){
     const [posts, setPosts] = useState([])
     const [content, setContent] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
+
+    // Cloudinary 
     const [fileInputState, setFileInputState] = useState('')
     const [selectedFile, setSelectedFile] = useState('')
     const [previewSource, setPreviewSource] = useState('')
     const [imageIds, setImagesIds] = useState()
+
+    // Multer
+    const inputRef = useRef(null)
+    const [formImg, setFormImg] = useState('')
+    const [displayImg, setDisplayImg] = useState('')
 
     const navigate = useNavigate()
 
@@ -63,7 +75,22 @@ export default function NewPost({ currentUser, setCurrentUser }){
         if(!previewSource) return;
         uploadImage(previewSource);
 		try{
-			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts`, {content, userId : currentUser.id})
+            const formData = new FormData()
+            formData.append('image', formImg)
+            const options = {
+                headers: {
+                    "Content-Type" : "multipart/form-data"
+                }
+            }
+			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts`, {
+                content, 
+                userId : currentUser.id,
+                formData,
+                options
+            })
+            setDisplayImg(response.cloudinaryUrl)
+            if(inputRef) inputRef.current.value = '' 
+
 			setPosts([...posts, response.data])
 			setContent("")
             navigate('/posts')
@@ -89,7 +116,15 @@ export default function NewPost({ currentUser, setCurrentUser }){
                 <input type="text" name="content" id="content" value={content} onChange={(e) => setContent(e.target.value)}/>
 
                 <label htmlFor="file">File</label>
-                <input type = "file" name = "image" id = "image" onChange={handleFileInputChange} value={fileInputState}/>
+                <input 
+                    type = "file"  
+                    name = "image" 
+                    id = "image"
+                    ref = {inputRef}
+
+                    onChange={handleFileInputChange} 
+                    value={fileInputState}    
+                />
                
                 <button type="submit" onClick={handleCreate}>Submit</button>
             </form>
