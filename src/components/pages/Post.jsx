@@ -93,7 +93,7 @@ export default function Post({ currentUser, setCurrentUser }){
     // renders comments to the post with likes
     const renderComments = comments.map((comment) => {
         return (
-            <div key={comment.id}>
+            <div key={comment._id}>
                 <p>{comment.user.username} {comment.content}</p>
                 <Moment fromNow>{comment.createdAt}</Moment>
                 {/* <button onClick={handleCommentLikes}>Like</button> */}
@@ -105,7 +105,7 @@ export default function Post({ currentUser, setCurrentUser }){
         <div>
             <h1>Post</h1>
             <img src={post.image_url} alt={post.title}/>
-            <a href={`/users/${user.id}`}>{user.username}</a>
+            <a href={`/${user.username}`}>{user.username}</a>
             <h1>{post.title}</h1>
             <p>{post.content}</p>
             <Moment fromNow>{post.createdAt}</Moment>
