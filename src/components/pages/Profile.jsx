@@ -155,12 +155,26 @@ export default function Profile({ currentUser, handleLogout }){
 
 	 const viewUserProfile = (
 		<div className='profile'>
-			{/* if the user viewing their own profile... */}
-			<h1><i class="bi bi-person-circle"></i>@{username}</h1>
-			{bioCheck()}
-			<Link to={`/${username}/edit`}>
-                <button>Edit Profile</button>
-            	</Link>
+		{/* if the user viewing their own profile... */}
+			<div className='container text-center'>
+				<div className='row'>
+					{/* <div className='col'>
+						profile pic
+					</div> */}
+					<div className='col'>
+						<h1><i class="bi bi-person-circle"></i>@{username}</h1>
+						{bioCheck()}
+						<Link to={`/${username}/edit`} className=''>
+							Edit Profile <i className="bi bi-pencil"></i>
+            			</Link>
+					</div>
+				</div>
+
+			</div>
+			
+			
+			
+                
 			<button onClick={handleDeleteUser}>Delete Account</button>
 			<p>{posts.length} Posts</p>
 			<p>{followers.length} Followers</p>
