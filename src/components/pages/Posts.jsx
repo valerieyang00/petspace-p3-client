@@ -3,11 +3,14 @@ import axios from "axios"
 import { dblClick } from "@testing-library/user-event/dist/click"
 import Moment from 'react-moment';
 
+import {Image} from 'cloudinary-react'
 export default function Posts({ currentUser, setCurrentUser }){
 	
     const [posts, setPosts] = useState([])
     const [errorMessage, setErrorMessage] = useState("")
     const [content, setContent] = useState("")
+
+    const [imageIds, setImagesIds] = useState()
 
    
     useEffect(() => {
@@ -28,7 +31,20 @@ export default function Posts({ currentUser, setCurrentUser }){
         getPosts()
 },[])
 
+useEffect(() => {
+    loadImages()
+}, [])
 
+const loadImages = async() => {
+    try{
+        const res =await fetch(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/api/images`)
+        const data = await res.json()
+        setImagesIds(data)
+        console.log('IMG ID - > ', data)
+    }catch(err){
+        console.log(err)
+    }
+}
 
 // const findUserById = (id) => {
 //     const user = db.users.find({'_id': id})
@@ -58,6 +74,15 @@ const renderPosts = posts.map((post, idx) => {
         
             <h1>Posts</h1>
             {renderPosts}
+            {imageIds && imageIds.map((imageId, idx) => (
+                <Image
+                    key = {idx}
+                    cloudName ="sdfie0"
+                    publicId = {imageId}
+                    width = '300'
+                    crop = 'scale'
+                />
+            ))}
         </div>
     )
 }
