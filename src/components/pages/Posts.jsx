@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { dblClick } from "@testing-library/user-event/dist/click"
+import Moment from 'react-moment';
 
 export default function Posts({ currentUser, setCurrentUser }){
 	
@@ -40,6 +41,7 @@ const renderPosts = posts.map((post, idx) => {
         <div key={`key-${idx}`}>
             {/* <img src={post.photo} alt={post._id}/> */}
             <p>{post.content}</p>
+            <Moment fromNow>{post.createdAt}</Moment>
             {/* need to map an array of comments and hide it on Posts route */}
             {/* <p>{post.comment}</p> */}
             {/* changed this to '.length' to show number of likes */}

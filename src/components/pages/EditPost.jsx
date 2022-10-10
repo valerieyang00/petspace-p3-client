@@ -1,22 +1,19 @@
-import { useEffect, useState } from "react"
-import { useParams, Link } from "react-router-dom"
+import { useEffect, useState} from "react"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 export default function EditPost() {
-    const [form, setForm] = useState({
-        title: '',
-        caption: '',
-        image: ''
-    })
+    const [form, setForm] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
     const {postid} = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const getPost = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}`)
-                setForm(response.data)
+                setForm(response.data.content)
             } catch(err) {
                 console.warn(err)
                 if (err.response) {
@@ -25,15 +22,17 @@ export default function EditPost() {
             }
         }
         getPost()
-    }, [postid])
+    }, [])
 
     const handleSubmit = async e => {
         try{
             e.preventDefault()
             // axios.put/.post('url', data for the req body)
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}`, form)
+            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}`, {content: form})
             // navigate back to the details page for this bounty
-            setForm(response.data)
+            setForm(response.data.content)
+            navigate(`/posts/${postid}`)
+
         } catch(err) {
             console.warn(err)
             if (err.response) {
@@ -49,16 +48,15 @@ export default function EditPost() {
             
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor='title'>title:</label>
+                    <label htmlFor='content'>content:</label>
                     <input 
                         type='text'
-                        id='title'
-                        value={form.title}
-                        placeholder='title...'
-                        onChange={e => setForm({ ...form, title: e.target.value })}
+                        id='content'
+                        value={form}
+                        onChange={e => setForm(e.target.value)}
                     />
                 </div>
-                <div>
+                {/* <div>
                     <label htmlFor='caption'>caption:</label>
                     <input 
                         type='text'
@@ -77,7 +75,7 @@ export default function EditPost() {
                         placeholder='image...'
                         onChange={e => setForm({ ...form, image: e.target.value })}
                     />
-                </div>
+                </div> */}
 
                 <button type='submit'>Submit</button>
             </form>

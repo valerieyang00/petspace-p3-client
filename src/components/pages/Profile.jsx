@@ -1,11 +1,13 @@
 import {useState,useEffect} from 'react'
-import { useParams} from 'react-router-dom'
+import { useParams, Link} from 'react-router-dom'
 import axios from 'axios'
+import Moment from 'react-moment';
 
 
 export default function Profile({ currentUser, handleLogout }){
 	const [posts, setPosts] = useState([])
 	const [errorMessage, setErrorMessage] = useState('')
+	const [user, setUser] = useState([])
 	const [profile, setProfile] = useState(true)
 	const [followers, setFollowers] = useState([])
 	const [following, setFollowing] = useState([])
@@ -36,6 +38,7 @@ export default function Profile({ currentUser, handleLogout }){
 					setProfile(true)
 				} else { setProfile(false)}
 
+				setUser(response.data)
 				setFollowing(response.data.following)
 				setFollowers(response.data.followers)
 				setPosts(response.data.posts)
@@ -49,17 +52,56 @@ export default function Profile({ currentUser, handleLogout }){
 		//username is passed in the array to render the useEffect again each time user goes to different user's profile
 	},[username])
 
+	const handleDeletePost = async (postId) => {
+		try {
+			await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postId}`)
+			// get the token from local storage
+			const token = localStorage.getItem('jwt')
+			// make the auth headers
+			const options = {
+				headers: {
+					'Authorization': token
+				}
+			}
+			// hit the auth locked endpoint
+			const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}`, options)
+			setPosts(response.data.posts)
+
+		}catch(err) {
+			console.warn(err)
+		}
+	} 
+
 	// Render Posts to a map
-	const renderPosts = posts.map((post ,idx) => {
+	const renderPostsAll = posts.map((post ,idx) => {
 		return (
 			<div key={`key-${idx}`}>
 				{/* <img src={post.photo} alt={post._id}/> */}
 				<p>{post.content}</p>
-				<p>{`-${username}`}</p>
+				<Moment fromNow>{post.createdAt}</Moment>
 				{/* need to map an array of comments and hide it on Posts route */}
 				{/* <p>{post.comment}</p> */}
 				{/* changed this to '.length' to show number of likes */}
 				<p>{post.likes.length} likes</p>
+
+			</div>
+		)
+	})
+	const renderPostsUser = posts.map((post ,idx) => {
+		// console.log(posts)
+		return (
+			<div key={`key-${idx}`}>
+				{/* <img src={post.photo} alt={post._id}/> */}
+				<p>{post.content}</p>
+				<Moment fromNow>{post.createdAt}</Moment>
+				{/* need to map an array of comments and hide it on Posts route */}
+				{/* <p>{post.comment}</p> */}
+				{/* changed this to '.length' to show number of likes */}
+				<p>{post.likes.length} likes</p>
+				<Link to={`/posts/${post._id}/edit`}>
+                <button>Edit</button>
+            	</Link>
+				<button onClick={(e) => handleDeletePost(post._id)}>Delete</button>
 
 			</div>
 		)
@@ -83,10 +125,14 @@ export default function Profile({ currentUser, handleLogout }){
 		<>
 			{/* if the user viewing their own profile... */}
 			<h1>Welcome to your profile, {username}!</h1>
+			<h4>{user.bio}</h4>
+			<Link to={`/${username}/edit`}>
+                <button>Edit Profile</button>
+            	</Link>
 			<p>{posts.length} Posts</p>
 			<p>{followers.length} Followers</p>
 			<p>{following.length} Following</p>
-				<ul>Posts: {renderPosts}</ul>
+				<ul>Posts: {renderPostsUser}</ul>
 			
 		</>
 	 )
@@ -100,7 +146,7 @@ export default function Profile({ currentUser, handleLogout }){
 			<p>{posts.length} Posts</p>
 			<p>{followers.length} Followers</p>
 			<p>{following.length} Following</p>
-				<ul>Posts: {renderPosts}</ul>
+				<ul>Posts: {renderPostsAll}</ul>
 			
 		</>
 	 )
