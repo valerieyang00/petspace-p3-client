@@ -27,6 +27,9 @@ export default function EditProfile() {
 				}
 				// hit the auth locked endpoint
                 const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}`, options)
+                if(response.data.bio) {
+                    setForm({...form, bio: response.data.bio})
+                }
                 // console.log(response.data)
             } catch(err) {
                 console.warn(err)
@@ -45,7 +48,7 @@ export default function EditProfile() {
             const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}/edit`, form)
             // navigate back to the details page for this bounty
             setForm({username: response.data.username, bio: response.data.bio})
-            navigate(`/${username}`)
+            navigate(`/${form.username}`)
         } catch(err) {
             console.warn(err)
             if (err.response) {
