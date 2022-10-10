@@ -31,7 +31,7 @@ export default function Post({ currentUser, setCurrentUser }){
             }
         }
         getPost()
-    },[postid])
+    },[])
 
     const handleDelete = async (e) => {
         e.preventDefault()
