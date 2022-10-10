@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Link } from 'react-router-dom'
 
 export default function Register({ currentUser, setCurrentUser }) {
 	// state for the controlled form
@@ -51,14 +51,16 @@ export default function Register({ currentUser, setCurrentUser }) {
 				<div className='row content justify-content-center align-content-center inner-row'>
 					<div className='col-md-5'>
 						<div className='form-box bg-white p-4 rounded'>
-							<div className='form-title'>
-								<h1 className='mb-4 text-center fs-1'>Register for an account:</h1>
+							<div className='mb-3 border-bottom border-3 border-dark'>
+								<img src={require('../../assets/petspaceBlk.png')} className='formLg mb-2'/>
+							</div>
+
+							<div>
+								<p className='mb-4 text-center fs-6'>Register for an account</p>
 								<p>{msg}</p>
 							</div>
 							<form className='mb-3' onSubmit={handleSubmit}>
 								<div className='form-floating mb-3'>
-									<label htmlFor='floatingInput'>Username</label>
-
 									<input className="form-control form-control-sm rounded"
 										type="text"
 										id="floatingInput"
@@ -66,7 +68,9 @@ export default function Register({ currentUser, setCurrentUser }) {
 										onChange={e => setUsername(e.target.value)}
 										name='username'
 										value={username}
+										required
 									/>
+									<label htmlFor='floatingInput'>Username:</label>
 								</div>
 								<div className="form-floating mb-3">
 									<input className='form-control form-control-sm' 
@@ -75,19 +79,21 @@ export default function Register({ currentUser, setCurrentUser }) {
 										placeholder='your email...'
 										onChange={e => setEmail(e.target.value)}
 										value={email}
+										required
 									/>
 									<label htmlFor='email'>Email:</label>
 								</div>
 
 								<div className="form-floating mb-3">
-									<label htmlFor='password'>Password:</label>
 									<input className="form-control form-control-sm"
 										type="password"
 										id="password"
 										placeholder='password...'
 										onChange={e => setPassword(e.target.value)}
 										value={password}
+										required
 									/>
+									<label htmlFor='password'>Password:</label>
 								</div>
 								
 								<div className='d-grid gap-2 mb-3'>
@@ -95,6 +101,10 @@ export default function Register({ currentUser, setCurrentUser }) {
 								</div>
 								
 							</form>
+							<div className='sign-up-accounts d-flex justify-content-center'>
+								<p>Already have an account? <Link to='/'> Login</Link></p>
+								
+							</div>
 						</div>
 					</div>
 				</div>
