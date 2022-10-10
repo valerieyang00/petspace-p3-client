@@ -121,6 +121,26 @@ export default function Profile({ currentUser, handleLogout }){
 		}
 	}
 
+	const handleDeleteUser = async (e) => {
+		try {
+			e.preventDefault()
+			// get the token from local storage
+			const token = localStorage.getItem('jwt')
+			// make the auth headers
+			const options = {
+				headers: {
+					'Authorization': token
+				}
+			}
+			// hit the auth locked endpoint
+			const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}`, options)
+			handleLogout()
+
+		}catch(err) {
+			console.warn(err)
+		}
+	}
+
 	 const viewUserProfile = (
 		<>
 			{/* if the user viewing their own profile... */}
@@ -129,6 +149,7 @@ export default function Profile({ currentUser, handleLogout }){
 			<Link to={`/${username}/edit`}>
                 <button>Edit Profile</button>
             	</Link>
+			<button onClick={handleDeleteUser}>Delete Account</button>
 			<p>{posts.length} Posts</p>
 			<p>{followers.length} Followers</p>
 			<p>{following.length} Following</p>
