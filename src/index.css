@@ -40,6 +40,15 @@ nav {
   justify-content: flex-end;
 }
 
+.formLg {
+  max-width: 280px;
+  align-content: center;
+}
+
+.formTitle {
+  font-size: 20px;
+}
+
 .navBarCont {
   margin-left: 20px;
   margin-top: -7px;
