@@ -56,7 +56,7 @@ const loadImages = async() => {
 const renderPosts = posts.map((post, idx) => {
     return (
         <div key={`key-${idx}`}>
-            {/* <img src={post.photo} alt={post._id}/> */}
+            <img src={post.photo} alt={post._id} width="300" height="auto"/>
             <p>{post.likes.length} likes</p>
             <p>{post.user.username} {post.content}</p>
             <p><Link to={`/posts/${post._id}`}>View all {post.comments.length} coments</Link> </p>
@@ -77,7 +77,7 @@ const renderPosts = posts.map((post, idx) => {
         
             <h1>Posts</h1>
             {renderPosts}
-            {imageIds && imageIds.map((imageId, idx) => (
+            {/* {imageIds && imageIds.map((imageId, idx) => (
                 <Image
                     key = {idx}
                     cloudName ="sdfie0"
@@ -85,7 +85,7 @@ const renderPosts = posts.map((post, idx) => {
                     width = '300'
                     crop = 'scale'
                 />
-            ))}
+            ))} */}
         </div>
     )
 }
