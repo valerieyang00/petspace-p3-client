@@ -160,7 +160,7 @@ export default function Profile({ currentUser, handleLogout }){
 				<div className='row mt-5'>
 					<div className='col-5  ms-auto align-item-center'>
 							{/* profile pic */}						
-						 <img src='https://chico.ca.us/sites/main/files/imagecache/lightbox/main-images/dog_license.jpg' className='rounded-5 mw-100 profilePic'/>
+						 <img src={user.image} className='rounded-5 mw-100 profilePic'/>
 					</div>
 					<div className='col-6 me-auto'>
 						<div className='row justify-content-space-between'>

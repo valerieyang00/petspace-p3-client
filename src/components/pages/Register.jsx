@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { Navigate, Link } from 'react-router-dom'
@@ -10,17 +10,50 @@ export default function Register({ currentUser, setCurrentUser }) {
 	const [password, setPassword] = useState('')
 	const [msg, setMsg] = useState('')
 
+	    // Cloudinary 
+		const [fileInputState, setFileInputState] = useState('')
+		// const [selectedFile, setSelectedFile] = useState('')
+		// const [previewSource, setPreviewSource] = useState('')
+		// const [imageIds, setImagesIds] = useState()
+		
+	
+		// Multer
+		const inputRef = useRef(null)
+		const [formImg, setFormImg] = useState('')
+
+		const handleFileInputChange = (e) => {
+			const file = e.target.files[0]
+			// previewFile(file);
+			setFormImg(file)
+		}
+	
+	
+		// const previewFile = (file) => {
+		// 	const reader = new FileReader();
+		// 	reader.readAsDataURL(file); //Converts the file to a url
+		// 	reader.onloadend = () => { //Once the reader is done loading
+		// 		setPreviewSource(reader.result);	
+		// 	}
+		// }
+		
+		
+
 	// submit event handler
 	const handleSubmit = async e => {
 		e.preventDefault()
 		try {
 			// post fortm data to the backend
-			const reqBody = {
-				username,
-				email, 
-				password,
+			const formData = new FormData()
+			formData.append('username', username)
+			formData.append('email', email)
+			formData.append('password', password)
+			formData.append('image', formImg)
+			const options = {
+				headers: {
+					"Content-Type" : "multipart/form-data"
 				}
-			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/register`, reqBody)
+			}
+			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/register`, formData, options)
 
 			// save the token in localstorage
 			const { token } = response.data
@@ -94,6 +127,18 @@ export default function Register({ currentUser, setCurrentUser }) {
 										required
 									/>
 									<label htmlFor='password'>Password:</label>
+								</div>
+								<div className="form-floating mb-3">
+									<input className="form-control form-control-sm"
+										placeholder='add a profile photo (optional)...'
+										type = "file"  
+										name = "image" 
+										id = "image"
+										ref = {inputRef}					
+										onChange={handleFileInputChange} 
+										value={fileInputState}    
+									/>
+									<label htmlFor='file'>Profile Photo:</label>
 								</div>
 								
 								<div className='d-grid gap-2 mb-3'>
