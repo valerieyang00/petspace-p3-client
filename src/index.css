@@ -69,3 +69,12 @@ nav {
   max-height: 100px;
   margin-top: 10px;
 }
+
+.postTitleNCont {
+  font-size:14px;
+}
+
+.commentsLink {
+  text-decoration: none;
+  color: #696767;
+}
