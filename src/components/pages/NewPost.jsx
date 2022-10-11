@@ -117,12 +117,15 @@ export default function NewPost({ currentUser, setCurrentUser }){
                     name = "image" 
                     id = "image"
                     ref = {inputRef}
-
                     onChange={handleFileInputChange} 
                     value={fileInputState}    
                 />
                
-                <button type="submit" onClick={handleCreate}>Submit</button>
+                <button 
+                    type="submit" 
+                    onClick={handleCreate}
+                    style = {{backgroundColor: '#fc6767', width: '150px' }}
+                >Submit</button>
             </form>
             {previewSource && ( //If previewSource is true, then show the image
                 <img 
