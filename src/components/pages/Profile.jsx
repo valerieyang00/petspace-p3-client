@@ -99,9 +99,9 @@ export default function Profile({ currentUser, handleLogout }){
 				{/* changed this to '.length' to show number of likes */}
 				<p>{post.likes.length} likes</p>
 				<Link to={`/posts/${post._id}/edit`}>
-                <button>Edit</button>
+                <button style = {{backgroundColor: '#FC6767', width: '150px' }}>Edit</button>
             	</Link>
-				<button onClick={(e) => handleDeletePost(post._id)}>Delete</button>
+				<button style = {{backgroundColor: '#FC6767', width: '150px' }} onClick={(e) => handleDeletePost(post._id)}>Delete</button>
 
 			</div>
 		)
@@ -144,7 +144,7 @@ export default function Profile({ currentUser, handleLogout }){
 	const bioCheck = () => {
 		if (user.bio) {
 			return (
-				<h4>{user.bio}</h4>
+				<h3 className='userBio'>{user.bio}</h3>
 			)
 		} else {
 			return (
@@ -157,17 +157,43 @@ export default function Profile({ currentUser, handleLogout }){
 		<div className='profile'>
 		{/* if the user viewing their own profile... */}
 			<div className='container text-center'>
-				<div className='row'>
-					{/* <div className='col'>
-						profile pic
-					</div> */}
-					<div className='col'>
-						<h1><i class="bi bi-person-circle"></i>@{username}</h1>
-						{bioCheck()}
-						<Link to={`/${username}/edit`} className=''>
-							Edit Profile <i className="bi bi-pencil"></i>
-            			</Link>
+				<div className='row mt-5'>
+					<div className='col-5  ms-auto align-item-center'>
+							{/* profile pic */}						
+						 <img src='https://chico.ca.us/sites/main/files/imagecache/lightbox/main-images/dog_license.jpg' className='rounded-5 mw-100 profilePic'/>
 					</div>
+					<div className='col-6 me-auto'>
+						<div className='row justify-content-space-between'>
+							<div className='col-5'>
+								<h3>@{username}</h3>	
+							</div>
+							<div className='col-3 justify-content-end'>
+								<Link to={`/${username}/edit`} className=''>
+									<button className='btn btn-sm btn-outline-secondary btn-light fw-bold' style = {{backgroundColor: '#FC6767', width: '150px' }}>Edit Profile</button>
+								</Link>	
+							</div>
+
+						</div>
+						<div className='row justify-content-start'>
+							<div className='col-2 m-0 fw-bold'><p>{posts.length} Posts</p></div>
+							<div className='col-3 m-0 fw-bold'><p>{followers.length} Followers</p></div>
+							<div className='col-3 m-0 fw-bold'><p>{following.length} Following</p></div>	
+						</div>
+					</div>
+						
+
+						
+
+
+						
+						{bioCheck()}
+						<button onClick={handleDeleteUser} style = {{backgroundColor: '#FC6767', width: '150px' }}>Delete Account</button>
+							
+								<ul>Posts: {renderPostsUser}</ul>
+				</div>
+
+				<div className='row'>
+				
 				</div>
 
 			</div>
@@ -175,11 +201,7 @@ export default function Profile({ currentUser, handleLogout }){
 			
 			
                 
-			<button onClick={handleDeleteUser}>Delete Account</button>
-			<p>{posts.length} Posts</p>
-			<p>{followers.length} Followers</p>
-			<p>{following.length} Following</p>
-				<ul>Posts: {renderPostsUser}</ul>
+			
 			
 		</div>
 	 )

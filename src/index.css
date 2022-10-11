@@ -58,7 +58,14 @@ nav {
 
 .profile {
   display: flex;
+  justify-content: center;
   align-items: center;
   font-size: .8em;
   margin-bottom: .85em;
+}
+
+.profilePic {
+  max-width: 100px;
+  max-height: 100px;
+  margin-top: 10px;
 }
