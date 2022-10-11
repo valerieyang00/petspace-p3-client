@@ -74,6 +74,20 @@ nav {
   font-size:14px;
 }
 
+.postCard {
+  max-width: 850px;
+  max-height: 600px;
+}
+.postCardTitle {
+  text-decoration: none;
+}
+
+.commentsSection {
+  max-width: fit-content;
+  max-height: 200px;
+  overflow: scroll;
+}
+
 .commentsLink {
   text-decoration: none;
   color: #696767;

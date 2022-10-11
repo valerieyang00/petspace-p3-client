@@ -10,7 +10,9 @@ export default function Navbar({ currentUser, handleLogout }) {
 	const loggedIn = (
 		<nav className='navbar navbar-expand-md navbar-dark'>
 			<div className='container navBarCont'>
-			  <img src={require('../../assets/petspace.png')} className='logo navbar-brand'/>
+				<Link to='/posts'>
+			  		<img src={require('../../assets/petspace.png')} className='logo navbar-brand'/>
+				</Link>
 				<button className='navbar-toggler ms-auto' type= 'button' data-bs-toggle='collapse' data-bs-target='#navmenu'>
 					<span className='navbar-toggler-icon'></span>
 				</button>
