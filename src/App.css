@@ -36,3 +36,48 @@
     transform: rotate(360deg);
   }
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+
+*{
+font-family: 'Atkinson Hyperlegible', sans-serif;
+margin:0px;
+line-height: 28px;
+box-sizing: border-box;
+}
+
+label{
+  font-size:14px;
+  font-weight:600;
+}
+
+h2{
+  padding:1em;
+  text-align: center;
+  color:#ec008c;
+}
+form{
+  padding:2em;
+  margin: auto;
+  max-width: 370px;
+  
+  border-radius:40px;
+}
+input{
+  padding: 4px 16px;
+  width: 100%;
+  border: unset;
+  box-shadow: 0 0 10px #9CA3AF;   
+  border-radius:10px;
+}
+button{
+  padding: 4px 16px;
+  width: 150px;
+  margin: 10px 0;
+  font-weight: 600;
+  border: unset;
+  box-shadow: 0 0 10px #9CA3AF;
+  background: radial-gradient(#ec008c, #fc6767);
+  color: #fff;
+  border-radius:10px;
+}
