@@ -101,13 +101,13 @@ export default function EditProfile({handleLogout}) {
                     />
                 </div>
 
-                <button type='submit'>Submit</button>
+                <button type='submit' style = {{backgroundColor: '#FC6767', width: '150px' }}>Submit</button>
             </form>
             
             <Link to={`/${username}`}>
-                <button>Cancel</button>
+                <button style = {{backgroundColor: '#FC6767', width: '150px' }}>Cancel</button>
             </Link>
-            <button onClick={handleDeleteUser} style = {{backgroundColor: '#FC6767', width: '150px' }}>Delete Account</button>		
+            <button onClick={handleDeleteUser} style = {{backgroundColor: 'red', width: '150px' }}>Delete Account</button>		
         </div>
     )
 }

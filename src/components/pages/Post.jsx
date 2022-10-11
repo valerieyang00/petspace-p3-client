@@ -129,15 +129,15 @@ export default function Post({ currentUser, setCurrentUser }){
             <p>{post.content}</p>
             <Moment fromNow>{post.createdAt}</Moment>
             <p>{likes} likes</p>
-            <button onClick={handleLikes}>{like? "Unlike" : "Like"}</button>
-            <Link to={`/posts/${post._id}/edit`}> <button>Edit</button>
+            <button onClick={handleLikes} style = {{backgroundColor: '#FC6767', width: '100px' }}>{like? "Unlike" : "Like"}</button>
+            <Link to={`/posts/${post._id}/edit`}> <button style = {{backgroundColor: '#FC6767', width: '100px' }}>Edit</button>
             	</Link>
             
             {/* Comment form to create a new comment */}
             <h1>Comments</h1>
             <form onSubmit={handleComment}>
                 <input type="text" value={comment} onChange={(e) => setComment(e.target.value)}/>
-                <button type="submit">Submit</button>
+                <button type="submit" style = {{backgroundColor: '#FC6767', width: '150px' }}>Submit</button>
             </form>
             {/* Render the list of comments */}
             {renderComments}
