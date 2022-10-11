@@ -158,14 +158,21 @@ export default function Post({ currentUser, setCurrentUser }){
                 <div className="card mb-3 postCard">
                     <div className="row g-0">
                         <div className="col-md-6">
-                            <img src={post.photo} alt={post.id} className='rounded-start mw-100 justify-content-center' height="auto"/>
+                            <img src={post.photo} alt={post.id} className='rounded-start mw-100' height="auto"/>
                         </div>
                         <div className="col-md-6">
-                            <div className='card-header d-flex justify-content-start'>
-                                <a href={`/${user.username}`}>
-                                    <h5 className="card-title postCardTitle">{user.username}</h5>
-                                </a>
-
+                            <div className='card-header d-flex justify-content-between'>
+                                <div>
+                                    <a href={`/${user.username}`} className='postCardTitle'>
+                                        <h5 className="card-title d-flex justify-content-start">{user.username}</h5>
+                                    </a>
+                                </div>
+                                <div>
+                                    <button onClick={handleLikes}>{like ? "Unlike" : "Like"}</button>
+                                    { curUser ? <Link to={`/posts/${post._id}/edit`}> <button> Edit</button>
+                                    </Link>: <p></p>}
+                                </div>
+                                
                             </div>
 
                             <div className=" row card-body commentsSection">
@@ -181,9 +188,6 @@ export default function Post({ currentUser, setCurrentUser }){
 
                             <div className='card-body d-flex justify-content-center'>
                                 <p>{likes} likes</p>
-                                <button onClick={handleLikes}>{like ? "Unlike" : "Like"}</button>
-                                { curUser ? <Link to={`/posts/${post._id}/edit`}> <button> Edit</button>
-                                </Link>: <p></p>}
                                 <p className="card-text"><Moment fromNow>{post.createdAt}</Moment></p>
                             </div>
 

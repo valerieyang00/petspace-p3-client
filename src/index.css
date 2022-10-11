@@ -80,6 +80,8 @@ nav {
 }
 .postCardTitle {
   text-decoration: none;
+  color:#262525;
+  font-weight:bold;
 }
 
 .commentsSection {
