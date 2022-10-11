@@ -42,11 +42,8 @@ export default function Posts({ currentUser, setCurrentUser }){
             }
         }
         getPosts()
-},[currentUser])
+},[currentUser, likeNum])
 
-useEffect(() => {
-    loadImages()
-}, [])
 
 const loadImages = async() => {
     try{
@@ -77,15 +74,13 @@ const handleLikes = async (postid) => {
             const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/like`, {userId: currentUser.id})
             like[postid] = false
             setLike(like)
-            likeNum[postid] = likeNum[postid] - 1
-            setLikeNum(likeNum)
+            setLikeNum({...likeNum, postid: response.data.likes.length})
         } else {
             // need to check this route again after setting up on backend to account for likes on both Post model and User model
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/like`, {userId: currentUser.id})
             like[postid] = true
             setLike(like)
-            likeNum[postid] = likeNum[postid] + 1
-            setLikeNum(likeNum)
+            setLikeNum({...likeNum, postid: response.data.likes.length})
         }
         
     }catch(err){
