@@ -8,12 +8,13 @@ export default function Post({ currentUser, setCurrentUser }){
 
     
     const {postid} = useParams()
-    const [post, setPost] = useState({})
+    const [post, setPost] = useState({user: {_id: ''}})
     const [errorMessage, setErrorMessage] = useState("")
     const [comment, setComment] = useState("")
     const [likes, setLikes] = useState(0)
     const [like, setLike] = useState(false)
     const [user, setUser] = useState({})
+    const [curUser, setCurUser] = useState(false)
     const [comments, setComments] = useState([])
     const [commentLikes, setCommentLikes] = useState(0)
     const [commentErrorMessage, setCommentErrorMessage] = useState("")
@@ -28,7 +29,12 @@ export default function Post({ currentUser, setCurrentUser }){
                 setUser(response.data.user)
                 setComments(response.data.comments)
                 setLikes(response.data.likes.length)
-                console.log(response.data.likes)
+                if (currentUser.id === response.data.user._id) {
+                    setCurUser(true)
+                }
+                
+                console.log(response.data)
+                console.log(currentUser)
                 response.data.likes.forEach((like) => {
                     if (like.user === currentUser.id) {
                         setLike(true)
@@ -40,7 +46,7 @@ export default function Post({ currentUser, setCurrentUser }){
             }
         }
         getPost()
-    },[])
+    },[currentUser])
 
     const handleDelete = async (e) => {
         e.preventDefault()
@@ -59,6 +65,14 @@ export default function Post({ currentUser, setCurrentUser }){
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/comments`, {content: comment, userId : currentUser.id})
             setComments([...comments, response.data])
             setComment("")
+        }catch(err){
+            setCommentErrorMessage(err.message)
+        }
+    }
+    const deleteComment = async (commentid) => {
+        try{
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/comments/${commentid}`)
+            setComments(response.data.comments)
         }catch(err){
             setCommentErrorMessage(err.message)
         }
@@ -110,11 +124,13 @@ export default function Post({ currentUser, setCurrentUser }){
     //     }
 
     // renders comments to the post with likes
+
     const renderComments = comments.map((comment) => {
         return (
             <div key={comment._id}>
                 <p>{comment.user.username} {comment.content}</p>
                 <Moment fromNow>{comment.createdAt}</Moment>
+                {comment.user.username === currentUser.username ? <div> <Link to={`/posts/${postid}/comments/${comment._id}/edit`}><button>Edit</button></Link> <button onClick={() => deleteComment(comment._id)}>Delete</button> </div>: <p></p>}
                 {/* <button onClick={handleCommentLikes}>Like</button> */}
             </div>
         )
@@ -123,15 +139,16 @@ export default function Post({ currentUser, setCurrentUser }){
     return(
         <div>
             <h1>Post</h1>
-            <img src={post.image_url} alt={post.title}/>
+            <img src={post.photo} alt={post.id} width="500" height="auto"/>
             <a href={`/${user.username}`}>{user.username}</a>
             <h1>{post.title}</h1>
             <p>{post.content}</p>
             <Moment fromNow>{post.createdAt}</Moment>
             <p>{likes} likes</p>
             <button onClick={handleLikes}>{like? "Unlike" : "Like"}</button>
-            <Link to={`/posts/${post._id}/edit`}> <button>Edit</button>
-            	</Link>
+            { curUser ? <Link to={`/posts/${post._id}/edit`}> <button>Edit</button>
+            	</Link>: <p></p>}
+            
             
             {/* Comment form to create a new comment */}
             <h1>Comments</h1>

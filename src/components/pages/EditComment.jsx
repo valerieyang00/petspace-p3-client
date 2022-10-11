@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 export default function EditComment() {
@@ -9,7 +9,7 @@ export default function EditComment() {
     const [errorMessage, setErrorMessage] = useState('')
 
     const {postid, commentid} = useParams()
-
+    const navigate = useNavigate()
 
     useEffect(() => {
         const getComment = async () => {
@@ -33,6 +33,7 @@ export default function EditComment() {
             const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/comments/${commentid}`, form)
             // navigate back to the details page for this bounty
             setForm(response.data)
+            navigate(`/posts/${postid}`)
         } catch(err) {
             console.warn(err)
             if (err.response) {
@@ -53,7 +54,6 @@ export default function EditComment() {
                         type='text'
                         id='content'
                         value={form.content}
-                        placeholder='comment...'
                         onChange={e => setForm({ ...form, content: e.target.value })}
                     />
                 </div>
