@@ -128,7 +128,7 @@ export default function Post({ currentUser, setCurrentUser }){
     const renderComments = comments.map((comment) => {
         return (
             <div key={comment._id}>
-                <p>{comment.user.username} {comment.content}</p>
+                <p>@{comment.user.username} {comment.content}</p>
                 <Moment fromNow>{comment.createdAt}</Moment>
                 {comment.user.username === currentUser.username ? <div> <Link to={`/posts/${postid}/comments/${comment._id}/edit`}><button>Edit</button></Link> <button onClick={() => deleteComment(comment._id)}>Delete</button> </div>: <p></p>}
                 {/* <button onClick={handleCommentLikes}>Like</button> */}
@@ -139,8 +139,8 @@ export default function Post({ currentUser, setCurrentUser }){
     return(
         <div>
             <h1>Post</h1>
-            <img src={post.photo} alt={post.id} width="500" height="auto"/>
             <a href={`/${user.username}`}>{user.username}</a>
+            <p><img src={post.photo} alt={post.id} width="500" height="auto"/></p>
             <h1>{post.title}</h1>
             <p>{post.content}</p>
             <Moment fromNow>{post.createdAt}</Moment>
@@ -153,6 +153,7 @@ export default function Post({ currentUser, setCurrentUser }){
             {/* Comment form to create a new comment */}
             <h1>Comments</h1>
             <form onSubmit={handleComment}>
+                <label htmlFor="comment">@{currentUser.username}</label>
                 <input type="text" value={comment} onChange={(e) => setComment(e.target.value)}/>
                 <button type="submit" style = {{backgroundColor: '#FC6767', width: '150px' }}>Submit</button>
             </form>
