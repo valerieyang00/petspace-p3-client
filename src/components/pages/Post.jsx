@@ -108,7 +108,6 @@ export default function Post({ currentUser, setCurrentUser }){
             setErrorMessage(err.message)
         }
     }
-    
     // // Allows users to edit their post
     // const handleEdit = async (e) => {
     //     e.preventDefault()
@@ -152,16 +151,19 @@ export default function Post({ currentUser, setCurrentUser }){
             
             {/* Comment form to create a new comment */}
             <h1>Comments</h1>
+            {currentUser?
             <form onSubmit={handleComment}>
-                <label htmlFor="comment">@{currentUser.username}</label>
-                <input type="text" value={comment} onChange={(e) => setComment(e.target.value)}/>
-                <button type="submit" style = {{backgroundColor: '#FC6767', width: '150px' }}>Submit</button>
-            </form>
+            <label htmlFor="comment">@{currentUser.username}</label>
+            <input type="text" value={comment} onChange={(e) => setComment(e.target.value)}/>
+            <button type="submit" style = {{backgroundColor: '#FC6767', width: '150px' }}>Submit</button>
+            </form> 
+            : <p></p>}
+            
             {/* Render the list of comments */}
             {renderComments}
             {/* Error messages if they occur */}
-            {errorMessage}
-            {commentErrorMessage}
+            {/* {errorMessage}
+            {commentErrorMessage} */}
 
 
         </div>
