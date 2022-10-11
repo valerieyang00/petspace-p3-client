@@ -128,24 +128,10 @@ export default function Post({ currentUser, setCurrentUser }){
     const renderComments = comments.map((comment) => {
         return (
             <div key={comment._id}>
-                <div className="row">
-                    <div className='col-md-5 me-2'>
-                        <p className='fw-bold'>{comment.user.username}</p>
-                    </div>
-                    <div className='col-md-3' id='comments'>
-                        <p> {comment.content}</p>
-                    </div>
-                    <div className='row d-flex justify-content-end'>
-                        {comment.user.username === currentUser.username ?<div className='row d-flex justify-content-end'> 
-                        <Link to={`/posts/${postid}/comments/${comment._id}/edit`}>
-                        <button>Edit</button>
-                        </Link> 
-                        <button onClick={() => deleteComment(comment._id)}>Delete</button> 
-                        </div>: <p></p>}
-                        {/* <button onClick={handleCommentLikes}>Like</button> */}
-                    </div>
-                        <Moment fromNow>{comment.createdAt}</Moment>
-                </div>
+                <p>@{comment.user.username} {comment.content}</p>
+                <Moment fromNow>{comment.createdAt}</Moment>
+                {comment.user.username === currentUser.username ? <div> <Link to={`/posts/${postid}/comments/${comment._id}/edit`}><button>Edit</button></Link> <button onClick={() => deleteComment(comment._id)}>Delete</button> </div>: <p></p>}
+                {/* <button onClick={handleCommentLikes}>Like</button> */}
             </div>
         )
     })
@@ -153,6 +139,31 @@ export default function Post({ currentUser, setCurrentUser }){
     return(
         <div>
             <h1>Post</h1>
+            <a href={`/${user.username}`}>{user.username}</a>
+            <p><img src={post.photo} alt={post.id} width="500" height="auto"/></p>
+            <h1>{post.title}</h1>
+            <p>{post.content}</p>
+            <Moment fromNow>{post.createdAt}</Moment>
+            <p>{likes} likes</p>
+            <button onClick={handleLikes} style = {{backgroundColor: '#FC6767', width: '100px' }} >{like? "Unlike" : "Like"}</button>
+            { curUser ? <Link to={`/posts/${post._id}/edit`}> <button style = {{backgroundColor: '#FC6767', width: '100px' }}> Edit</button>
+            	</Link>: <p></p>}
+            
+            
+            {/* Comment form to create a new comment */}
+            <h1>Comments</h1>
+            {currentUser?
+            <form onSubmit={handleComment}>
+            <label htmlFor="comment">@{currentUser.username}</label>
+            <input type="text" value={comment} onChange={(e) => setComment(e.target.value)}/>
+            <button type="submit" style = {{backgroundColor: '#FC6767', width: '150px' }}>Submit</button>
+            </form> 
+            : <p></p>}
+            {/* Render the list of comments */}
+            {renderComments}
+            {/* Error messages if they occur */}
+            {errorMessage}
+            {commentErrorMessage}
 
             <div className='container d-flex justify-content-center'>
                 <div className="card mb-3 postCard">
