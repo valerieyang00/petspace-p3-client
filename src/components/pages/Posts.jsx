@@ -30,7 +30,7 @@ export default function Posts({ currentUser, setCurrentUser }){
             }
         }
         getPosts()
-},[])
+},[currentUser])
 
 useEffect(() => {
     loadImages()

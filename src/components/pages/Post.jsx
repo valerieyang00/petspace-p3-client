@@ -27,8 +27,10 @@ export default function Post({ currentUser, setCurrentUser }){
                 setPost(response.data)
                 setUser(response.data.user)
                 setComments(response.data.comments)
+                setLikes(response.data.likes.length)
+                console.log(response.data.likes)
                 response.data.likes.forEach((like) => {
-                    if (like.user === currentUser) {
+                    if (like.user === currentUser.id) {
                         setLike(true)
                     }
                 })
@@ -77,7 +79,8 @@ export default function Post({ currentUser, setCurrentUser }){
         e.preventDefault()
         try{
             if (like) {
-                const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/like`, {userId: currentUser.id})
+                const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/like`, {userId: currentUser.id})
+                console.log(currentUser.id)
                 setLike(false)
                 setLikes(response.data.likes.length)
             } else {
