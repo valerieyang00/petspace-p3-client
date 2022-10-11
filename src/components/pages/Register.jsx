@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef,useEffect } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { Navigate, Link } from 'react-router-dom'
@@ -9,7 +9,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [msg, setMsg] = useState('')
-
+	const [formText, setFormText] = useState('No profile photo currently selected')
 	    // Cloudinary 
 		const [fileInputState, setFileInputState] = useState('')
 		// const [selectedFile, setSelectedFile] = useState('')
@@ -27,7 +27,18 @@ export default function Register({ currentUser, setCurrentUser }) {
 			setFormImg(file)
 		}
 	
-	
+		const handleFormText = (e) => {
+			if( formImg != ""){
+				setFormText('Profile photo uploaded successfully!')
+			}else{
+		
+			}
+		  }
+		
+			useEffect(() => {
+				handleFormText()
+			}, [formImg])
+
 		// const previewFile = (file) => {
 		// 	const reader = new FileReader();
 		// 	reader.readAsDataURL(file); //Converts the file to a url
@@ -128,16 +139,25 @@ export default function Register({ currentUser, setCurrentUser }) {
 									/>
 									<label htmlFor='password'>Password:</label>
 								</div>
+
+						
 								<div className="form-floating mb-3">
 									<input className="form-control form-control-sm"
-										placeholder='add a profile photo (optional)...'
+										title='add a profile photo (optional)...'
 										type = "file"  
 										name = "image" 
 										id = "image"
 										ref = {inputRef}					
 										onChange={handleFileInputChange} 
-										value={fileInputState}    
+										value={fileInputState}
+										accept=".jpg, .jpeg, .png"
+										style = {{height: '60px', color: 'transparent'}}
+
 									/>
+								<div class="preview">
+   									 <p>{formText}</p>
+  								</div>
+
 									<label htmlFor='file'>Profile Photo:</label>
 								</div>
 								
