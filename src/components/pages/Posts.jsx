@@ -64,23 +64,32 @@ const handleComment = async (e, post_id) => {
         setErrorMessage(err.message)
     }
 }
-// const findUserById = (id) => {
-//     const user = db.users.find({'_id': id})
-//     return user.username
-// }
+
 const handleLikes = async (postid) => {
     try{
         if (like[postid]) {
             const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/like`, {userId: currentUser.id})
             like[postid] = false
             setLike(like)
+<<<<<<< HEAD
             setLikeNum({...likeNum, postid: response.data.likes.length})
+=======
+            // likeNum[postid] = likeNum[postid] - 1
+            console.log(response.data.likes)
+            setLikeNum(response.data.likes.length)
+>>>>>>> 98210b1 (before pulling)
         } else {
             // need to check this route again after setting up on backend to account for likes on both Post model and User model
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/like`, {userId: currentUser.id})
             like[postid] = true
             setLike(like)
+<<<<<<< HEAD
             setLikeNum({...likeNum, postid: response.data.likes.length})
+=======
+            // likeNum[postid] = likeNum[postid] + 1
+            console.log(response.data)
+            setLikeNum(response.data.likes.length)
+>>>>>>> 98210b1 (before pulling)
         }
         
     }catch(err){
