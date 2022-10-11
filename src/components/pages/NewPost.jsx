@@ -9,32 +9,26 @@ import { useNavigate } from 'react-router-dom'
 
 
 export default function NewPost({ currentUser, setCurrentUser }){
-    const [posts, setPosts] = useState([])
     const [content, setContent] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
 
     // Cloudinary 
     const [fileInputState, setFileInputState] = useState('')
-    const [selectedFile, setSelectedFile] = useState('')
+    // const [selectedFile, setSelectedFile] = useState('')
     const [previewSource, setPreviewSource] = useState('')
-    const [imageIds, setImagesIds] = useState()
+    // const [imageIds, setImagesIds] = useState()
     
 
     // Multer
     const inputRef = useRef(null)
     const [formImg, setFormImg] = useState('')
-    const [displayImg, setDisplayImg] = useState('')
+    
 
     const navigate = useNavigate()
-
-    useEffect(() => {
-        loadImages()
-    }, [])
 
     const handleFileInputChange = (e) => {
         const file = e.target.files[0]
         previewFile(file);
-        setSelectedFile(file)
         setFormImg(file)
     }
 
@@ -48,36 +42,7 @@ export default function NewPost({ currentUser, setCurrentUser }){
         }
     }
     
-    // console.log(previewSource, "PREVIEW SOURCE")
-    // console.log(selectedFile, "SELECTED FILE")
-    // const uploadImage = async (base64EncodedImage) => {
-       
-    //     try {
-    //         // const stringifyImage = JSON.stringif({data: base64EncodedImage})
-    //     await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts`, 
-    //     {content, 
-    //         userId : currentUser.id, 
-    //         body: base64EncodedImage,
-    //         headers: {'Content-Type': 'application/json'}, })
-        
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
     
-    // }
-
-    
-    const loadImages = async() => {
-        try{
-            const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/api/images`)
-            const data = await res.json()
-            setImagesIds(data)
-            // console.log('IMG ID - > ', data)
-        }catch(err){
-            console.log(err)
-        }
-    }
- 
     const handleCreate = async (e) => {
 		e.preventDefault()
         if(!previewSource) return;
@@ -93,10 +58,7 @@ export default function NewPost({ currentUser, setCurrentUser }){
                 }
             }
 			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts`, formData, options)
-            setDisplayImg(response.cloudinaryUrl)
             if(inputRef) inputRef.current.value = '' 
-
-			setPosts([...posts, response.data])
 			setContent("")
             navigate('/posts')
 		}catch(err){
@@ -122,7 +84,7 @@ export default function NewPost({ currentUser, setCurrentUser }){
                     value={fileInputState}    
                 />
                
-                <button type="submit" onClick={handleCreate}>Submit</button>
+                <button type="submit" style = {{backgroundColor: '#FC6767', width: '150px' }} onClick={handleCreate}>Submit</button>
             </form>
             {previewSource && ( //If previewSource is true, then show the image
                 <img 
