@@ -295,5 +295,3 @@ export default function Profile({ currentUser, handleLogout }) {
 		</div>
 	)
 }
-
-
