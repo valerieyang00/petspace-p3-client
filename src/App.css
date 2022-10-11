@@ -79,9 +79,3 @@ button{
   color: #fff;
   border-radius:10px;
 }
-
-
-
-input:focus + label {
-  outline: 2px solid;
-}
