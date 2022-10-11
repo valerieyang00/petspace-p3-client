@@ -100,7 +100,7 @@ function App() {
           />
            <Route 
             path="/:username/edit"
-            element={<EditProfile />}
+            element={<EditProfile handleLogout={handleLogout}/>}
           />
            <Route 
             path="/search"

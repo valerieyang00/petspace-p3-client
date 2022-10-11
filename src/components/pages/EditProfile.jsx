@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 
-export default function EditProfile() {
+export default function EditProfile({handleLogout}) {
     const {username} = useParams()
     const [form, setForm] = useState({
         username: username,
@@ -56,6 +56,25 @@ export default function EditProfile() {
             }
         }
     }
+    const handleDeleteUser = async (e) => {
+		try {
+			e.preventDefault()
+			// get the token from local storage
+			const token = localStorage.getItem('jwt')
+			// make the auth headers
+			const options = {
+				headers: {
+					'Authorization': token
+				}
+			}
+			// hit the auth locked endpoint
+			const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}`, options)
+			handleLogout()
+
+		}catch(err) {
+			console.warn(err)
+		}
+	}
 
     return(
         <div>
@@ -88,6 +107,7 @@ export default function EditProfile() {
             <Link to={`/${username}`}>
                 <button>Cancel</button>
             </Link>
+            <button onClick={handleDeleteUser} style = {{backgroundColor: '#FC6767', width: '150px' }}>Delete Account</button>		
         </div>
     )
 }

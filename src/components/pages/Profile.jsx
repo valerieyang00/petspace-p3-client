@@ -121,25 +121,6 @@ export default function Profile({ currentUser, handleLogout }){
 		}
 	}
 
-	const handleDeleteUser = async (e) => {
-		try {
-			e.preventDefault()
-			// get the token from local storage
-			const token = localStorage.getItem('jwt')
-			// make the auth headers
-			const options = {
-				headers: {
-					'Authorization': token
-				}
-			}
-			// hit the auth locked endpoint
-			const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}`, options)
-			handleLogout()
-
-		}catch(err) {
-			console.warn(err)
-		}
-	}
 
 	const bioCheck = () => {
 		if (user.bio) {
@@ -179,17 +160,15 @@ export default function Profile({ currentUser, handleLogout }){
 							<div className='col-3 m-0 fw-bold'><p>{followers.length} Followers</p></div>
 							<div className='col-3 m-0 fw-bold'><p>{following.length} Following</p></div>	
 						</div>
-					</div>
-						
+					</div>			
 
 						
 
 
 						
 						{bioCheck()}
-						<button onClick={handleDeleteUser} style = {{backgroundColor: '#FC6767', width: '150px' }}>Delete Account</button>
-							
-								<ul>Posts: {renderPostsUser}</ul>
+					
+						<ul>Posts: {renderPostsUser}</ul>
 				</div>
 
 				<div className='row'>
