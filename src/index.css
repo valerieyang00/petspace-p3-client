@@ -75,7 +75,7 @@ nav {
 }
 
 
-/* Posts page */
+/* Posts page (plural) */
 .postTitleNCont {
   font-size:14px;
 }
@@ -85,20 +85,83 @@ nav {
   color: #696767;
 }
 
-/* Post Page */
+/* Post Page (singular) */
 .postCard {
-  max-width: 850px;
-  max-height: 600px;
+  max-width: 800px;
+  max-height: 900px;
+  border: #262525;
 }
 .postCardTitle {
   text-decoration: none;
-  color:#262525;
+  color:#d86e03;
   font-weight:bold;
 }
 
-.commentsSection {
-  max-width: fit-content;
-  max-height: 200px;
-  overflow: scroll;
+.editHeaderBtn {
+  width: 52px;
+  height: 25px;
+  margin: -1;
+  padding: 0;
+  text-align: center;
 }
 
+.btnComment {
+  display: flex;
+  margin: 0;
+  background-color: none;
+  border: none;
+  border-radius: 15px;
+  width: 25px;
+  height: 25px;
+  align-content: center;
+  justify-content: center;
+  color: #d86e03;
+}
+
+.commentsSection {
+  max-width: 400px;
+  max-height: 225px;
+  overflow: scroll;
+  font-size: 14px;
+}
+
+.postImage {
+ height: fit-content;
+ width: fit-content;
+}
+
+.inputBarPost {
+  width: 260px;
+  height: 35px;
+}
+
+.cardSubComment {
+  display: flex;
+  max-height: 100px;
+  align-items: flex-start;
+  padding-top: -20px;
+  overflow: hidden;
+}
+.postTitlePage {
+  font-size: 40px;
+}
+
+.likeBtnPost {
+  display: flex;
+  background-color: none;
+  border: none;
+  border-radius: 15px;
+  width: 25px;
+  height: 25px;
+  align-content: center;
+  justify-content: center;
+  font-size: smaller;
+}
+
+.cardPostBody {
+  max-height: 30px;
+}
+
+.postCardHeader {
+ max-height: 40px;
+}
