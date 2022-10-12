@@ -108,7 +108,6 @@ export default function Post({ currentUser, setCurrentUser }){
             setErrorMessage(err.message)
         }
     }
-    
     // // Allows users to edit their post
     // const handleEdit = async (e) => {
     //     e.preventDefault()
@@ -153,93 +152,19 @@ export default function Post({ currentUser, setCurrentUser }){
             {/* Comment form to create a new comment */}
             <h1>Comments</h1>
             {currentUser?
+            {currentUser?
             <form onSubmit={handleComment}>
             <label htmlFor="comment">@{currentUser.username}</label>
             <input type="text" value={comment} onChange={(e) => setComment(e.target.value)}/>
             <button type="submit" style = {{backgroundColor: '#FC6767', width: '150px' }}>Submit</button>
             </form> 
             : <p></p>}
+            
             {/* Render the list of comments */}
             {renderComments}
             {/* Error messages if they occur */}
-            {errorMessage}
-            {commentErrorMessage}
-
-            <div className='container d-flex justify-content-center'>
-                <div className="card mb-3 postCard">
-                    <div className="row g-0">
-                        <div className="col-md-6">
-                            <img src={post.photo} alt={post.id} className='rounded-start mw-100' height="auto"/>
-                        </div>
-                        <div className="col-md-6">
-                            <div className='card-header d-flex justify-content-between'>
-                                <div>
-                                    <a href={`/${user.username}`} className='postCardTitle'>
-                                        <h5 className="card-title d-flex justify-content-start">{user.username}</h5>
-                                    </a>
-                                </div>
-                                <div>
-                                    <button onClick={handleLikes}>{like ? "Unlike" : "Like"}</button>
-                                    { curUser ? <Link to={`/posts/${post._id}/edit`}> <button> Edit</button>
-                                    </Link>: <p></p>}
-                                </div>
-                                
-                            </div>
-
-                            <div className=" row card-body commentsSection">
-                                <p className="card-text d-flex justify-content-start">{post.content}</p>
-                                <div className='cardComments'>
-                                    {/* Render the list of comments */}
-                                    {renderComments}
-                                    {/* Error messages if they occur */}
-                                    {errorMessage}
-                                    {commentErrorMessage}
-                                </div>
-                            </div>
-
-                            <div className='card-body d-flex justify-content-center'>
-                                <p>{likes} likes</p>
-                                <p className="card-text"><Moment fromNow>{post.createdAt}</Moment></p>
-                            </div>
-
-                            <div className='card-footer'>
-                                {/* Comment form to create a new comment */}
-                                <form onSubmit={handleComment}>
-                                    <input type="text" value={comment} placeholder='Add a comment...' onChange={(e) => setComment(e.target.value)}/>
-                                    <button type="submit" style = {{backgroundColor: '#FC6767', width: '150px' }}>Submit</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        // <div>
-        //     <h1>Post</h1>
-        //     <a href={`/${user.username}`}>{user.username}</a>
-        //     <img src={post.photo} alt={post.id} width="500" height="auto"/>
-        //     <h1>{post.title}</h1>
-        //     <p>{post.content}</p>
-        //     <Moment fromNow>{post.createdAt}</Moment>
-        //     <p>{likes} likes</p>
-        //     <button onClick={handleLikes} style = {{backgroundColor: '#FC6767', width: '100px' }} >{like? "Unlike" : "Like"}</button>
-        //     { curUser ? <Link to={`/posts/${post._id}/edit`}> <button style = {{backgroundColor: '#FC6767', width: '100px' }}> Edit</button>
-        //     	</Link>: <p></p>}
-            
-            
-        //     {/* Comment form to create a new comment */}
-        //     <h1>Comments</h1>
-        //     <form onSubmit={handleComment}>
-        //         <input type="text" value={comment} onChange={(e) => setComment(e.target.value)}/>
-        //         <button type="submit" style = {{backgroundColor: '#FC6767', width: '150px' }}>Submit</button>
-        //     </form>
-        //     {/* Render the list of comments */}
-        //     {renderComments}
-        //     {/* Error messages if they occur */}
-        //     {errorMessage}
-        //     {commentErrorMessage}
+            {/* {errorMessage}
+            {commentErrorMessage} */}
 
 
         // </div>
