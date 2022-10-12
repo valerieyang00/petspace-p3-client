@@ -9,7 +9,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [msg, setMsg] = useState('')
-	const [formText, setFormText] = useState('No profile photo currently selected')
+	// const [formText, setFormText] = useState('No profile photo currently selected')
 	    // Cloudinary 
 		const [fileInputState, setFileInputState] = useState('')
 	
@@ -24,16 +24,16 @@ export default function Register({ currentUser, setCurrentUser }) {
 			setFormImg(file)
 		}
 	
-		const handleFormText = (e) => {
-			if( formImg != ""){
-				setFormText('Profile photo uploaded successfully!')
-			}else{
+		// const handleFormText = (e) => {
+		// 	if( formImg != ""){
+		// 		setFormText('Profile photo uploaded successfully!')
+		// 	}else{
 		
-			}
-		  }		
-			useEffect(() => {
-				handleFormText()
-			}, [formImg])
+		// 	}
+		//   }		
+		// 	useEffect(() => {
+		// 		handleFormText()
+		// 	}, [formImg])
 	
 		
 
@@ -131,7 +131,6 @@ export default function Register({ currentUser, setCurrentUser }) {
 						
 								<div className="form-floating mb-3">
 									<input className="form-control form-control-sm"
-										placeholder='add a profile photo (optional)...'
 										type = "file"  
 										name = "image" 
 										id = "image"
@@ -139,14 +138,14 @@ export default function Register({ currentUser, setCurrentUser }) {
 										onChange={handleFileInputChange} 
 										value={fileInputState}
 										accept=".jpg, .jpeg, .png"
-										style = {{height: '60px', color: 'transparent'}}
+										style = {{height: '60px', color: formImg ? 'transparent' : ''}}
 
 									/>
 								<div className="preview">
-   									 <p>{formText}</p>
+   									 <p>{formImg ? 'Profile photo uploaded successfully!' : 'No profile photo currently selected'}</p>
   								</div>
 
-									<label htmlFor='file'>Profile Photo:</label>
+									<label htmlFor='file'>Profile Photo (optional):</label>
 								</div>
 								
 								<div className='d-grid gap-2 mb-3'>
