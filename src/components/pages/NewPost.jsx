@@ -23,7 +23,7 @@ export default function NewPost({ currentUser, setCurrentUser }) {
     const inputRef = useRef(null)
     const [formImg, setFormImg] = useState('')
 
-    const [formStyle, setFormStyle] = useState('')
+    // const [formStyle, setFormStyle] = useState('')
     // const [imgSelected, setImgSelected] = useState('')
 
     const navigate = useNavigate()
