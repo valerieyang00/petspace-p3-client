@@ -35,8 +35,8 @@ export default function Post({ currentUser, setCurrentUser }){
                     setCurUser(true)
                 }
                 
-                console.log(response.data)
-                console.log(currentUser)
+                // console.log(response.data)
+                // console.log(currentUser)
                 response.data.likes.forEach((like) => {
                     if (like.user === currentUser.id) {
                         setLike(true)
@@ -80,24 +80,13 @@ export default function Post({ currentUser, setCurrentUser }){
             setCommentErrorMessage(err.message)
         }
     }
-    // // Allows users to link a comment to a post
-    // const handleCommentLikes = async (e) => {
-    //     e.preventDefault()
-    //     try{
-    //         const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${commentId}/comments/${commentId}/likes`)
-    //         setCommentLikes(response.data)
-    //     }catch(err){
-    //         setCommentErrorMessage(err.message)
-    //     }
 
-    // }
-    // Allows users to like a post
     const handleLikes = async (e) => {
         e.preventDefault()
         try{
             if (like) {
                 const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}/like`, {userId: currentUser.id})
-                console.log(currentUser.id)
+                // console.log(currentUser.id)
                 setLike(false)
                 setLikes(response.data.likes.length)
             } else {
@@ -111,25 +100,11 @@ export default function Post({ currentUser, setCurrentUser }){
             setErrorMessage(err.message)
         }
     }
-    // // Allows users to edit their post
-    // const handleEdit = async (e) => {
-    //     e.preventDefault()
-    //     try{
-    //         if(post.user.id === user.id){
-    //             const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/editpost/${postid}`, {post})
-    //             setPost(response.data)
-                
-    //         }
-    //     }catch(err){
-    //             setErrorMessage(err.message)
-    //         }
-    //     }
+ 
 
-    // renders comments to the post with likes
-
-    const renderComments = comments.map((comment) => {
+    const renderComments = comments.map((comment, idx) => {
         return (
-            <div key={`comment-${comment._id}`}>
+            <div key={`comment-${comment._id}-${idx}`}>
                 <div className="row p-0 d-flex border-bottom border-2">
                     <div className='col-md-9 d-flex p-0 align-items-start mt-1 ms-2'>
                        <p><span className='fw-bold d-flex'>{comment.user.username}: </span>
@@ -148,10 +123,7 @@ export default function Post({ currentUser, setCurrentUser }){
                             <Moment fromNow>{comment.createdAt}</Moment>
                         </div>
                 </div>
-                {/* <p>@{comment.user.username} {comment.content}</p>
-                <Moment fromNow>{comment.createdAt}</Moment>
-                {comment.user.username === currentUser.username ? <div> <Link to={`/posts/${postid}/comments/${comment._id}/edit`}><button>Edit</button></Link> <button onClick={() => deleteComment(comment._id)}>Delete</button> </div>: <p></p>}
-                <button onClick={handleCommentLikes}>Like</button> */}
+
             </div>
         )
     })
@@ -160,11 +132,11 @@ export default function Post({ currentUser, setCurrentUser }){
         <div>
             <h1 className="postTitlePage my-3">Post</h1>
             <div className='container d-flex justify-content-center'>
-                <div className="card mb-3 border postCard">
+                <div className="card mb-3 border postCard" style={{width: "75vw"}}>
                     <div className="row g-0">
                          {/* Holds image for card */}
                         <div className="col-md-6 align-items-center">
-                            <img src={post.photo} alt={post.id} className='rounded-start mw-100 postImage' height="auto"/>
+                            <img src={post.photo} alt={post.id} className='rounded-start postImage' style={{height: "auto"}} />
                         </div>
                         <div className="col-md-6">
                             {/* Header + Like and edit buttons */}
@@ -180,16 +152,23 @@ export default function Post({ currentUser, setCurrentUser }){
                                     { curUser ? <button className='btn mt-0 shadow-none editHeaderBtn' onClick={handleDelete}> Delete</button> : <p></p>}
                                 </div>
                             </div>
+                            <div className="row card-body d-flex justify-content-start p-0 m-1">
+                                    {/* <div className='col-7 me-0 p-0'> */}
+                                        <p className="card-text">{post.content}</p>
+                                    {/* </div> */}
+                            </div>
+                                    <div className='card-body d-flex p-0 m-2 justify-content-between align-items-center cardPostBody'>
+                                        <div className='d-flex align-items-top'>
+                                            <button onClick={handleLikes} type='button' className='mx-2 p-0 shadow-none likeBtnPost'>
+                                            {like ? "❤️" : "🤍"}</button>
+                                            
+                                            <p className='mt-2'>{likes} likes</p>
+                                        </div>
+                                        <p className="card-text mt-2"><Moment fromNow>{post.createdAt}</Moment></p>
+                                    </div>
 
                             <div className="row card-body d-flex justify-content-start commentsSection p-0 m-1">
-                                <div className='row d-inline-flex justify-content-start mb-3 p-0 m-auto'>
-                                    {/* <div className='col-5 mt-1 p-0 fw-bold'>
-                                        <h1 className='postCardTitle'>@{user.username}</h1>
-                                    </div> */}
-                                    <div className='col-7 me-0 p-0'>
-                                        <p className="card-text d-flex justify-content-start">{post.content}</p>
-                                    </div>
-                                </div>
+
                                 <div className='cardComments'>
                                     {/* Render the list of comments */}
                                     {renderComments}
@@ -199,15 +178,6 @@ export default function Post({ currentUser, setCurrentUser }){
                                 </div>
                             </div>
 
-                            <div className='card-body d-flex p-0 m-2 justify-content-between align-items-center cardPostBody'>
-                                <div className='d-flex align-items-top'>
-                                    <button onClick={handleLikes} type='button' className='mx-2 p-0 shadow-none likeBtnPost'>
-                                    {like ? "❤️" : "🤍"}</button>
-                                    
-                                    <p className='mt-2'>{likes} likes</p>
-                                </div>
-                                <p className="card-text mt-2"><Moment fromNow>{post.createdAt}</Moment></p>
-                            </div>
 
                             <div className='card-footer d-flex align-items-start mt-1 p-0'>
                                 <div className="d-flex cardSubComment p-0">
