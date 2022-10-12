@@ -61,7 +61,7 @@ export default function Search() {
             <div className="card" style={{width: "30rem", height: "auto"}} key={user._id}>
                  {photoCheck()}
             <div className="card-body">
-                    <Link className="card-title" to={`/${user.username}`}>{user.username}</Link>
+                    <Link className="card-title" to={`/${user.username}`}>@{user.username}</Link>
                 <p className="card-text">{`Posts: ${user.posts.length} Follwers: ${user.followers.length} Following: ${user.following.length}`}</p>
                 
             </div>

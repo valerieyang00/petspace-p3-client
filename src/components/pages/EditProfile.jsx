@@ -70,6 +70,7 @@ export default function EditProfile({handleLogout}) {
 			// hit the auth locked endpoint
 			const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/${username}`, options)
 			handleLogout()
+            navigate('/')
 
 		}catch(err) {
 			console.warn(err)
