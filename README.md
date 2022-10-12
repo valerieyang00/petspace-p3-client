@@ -25,12 +25,12 @@ Users can also view, comment and like posts created by their friends.
 
 * Fork and clone this repository to your local directory
 * Navigate to the directory in your terminal and run ` npm i ` to install dependencies
-* Run `touch .env `in the terminal and type in the following code in the .env file: <br/>
+* Run `touch .env.local `in the terminal and type in the following code in the .env file: <br/>
 ```REACT_APP_SERVER_URL=http://localhost:8000``` <br/>
 * Go to the <a href="https://github.com/mousesaver/petspace-p3-server" target="_blank">server repository</a> and folow the installation instruction
 * Once finished, use `npx nodemon` (or just `nodemon` if you installed it globally) in the server terminal and `npm start` in the client terminal to start your application
 ## ERDs
-![plot](UpdatedERD.png)
+![plot](finalERD.png)
 
 ## Restful Routing Chart
 ### User Routes
