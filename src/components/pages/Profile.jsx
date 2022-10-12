@@ -45,6 +45,7 @@ export default function Profile({ currentUser, handleLogout }) {
 		setFormImg(file)
 	}
 
+	
 	// Find a profile
 	useEffect(() => {
 		const getProfile = async () => {
@@ -199,14 +200,14 @@ export default function Profile({ currentUser, handleLogout }) {
 			photoMsg = 'Change Photo'
 			return (
 				<>
-					<img src={user.image} className='rounded-5 mw-100 profilePic' />
+					<img src={user.image} className='rounded-5 mw-100 profilePic' alt={`${user.username}'s photo` } />
 				</>
 			)
 		} else {
 			photoMsg = 'Add Photo'
 			return (
 				<>
-					<img src={require('../../assets/paw.png')} className='rounded-5 mw-100 profilePic' />
+					<img src={require('../../assets/paw.png') } className='rounded-5 mw-100 profilePic' alt={`default user photo` } />
 				</>
 			)
 		}
