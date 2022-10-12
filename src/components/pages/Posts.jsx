@@ -11,6 +11,7 @@ export default function Posts({ currentUser, setCurrentUser }){
     const [errorMessage, setErrorMessage] = useState("")
     const [content, setContent] = useState("")
     const [comment, setComment] = useState("")
+    const [commentNum, setCommentNum] = useState({})
     const [imageIds, setImagesIds] = useState()
     const [like, setLike] = useState({})
     const [likeNum, setLikeNum] = useState({})
@@ -28,6 +29,7 @@ export default function Posts({ currentUser, setCurrentUser }){
                 response.data.forEach((post) => {
                     likeNum[post._id] = post.likes.length
                     setLikeNum(likeNum)
+                    commentNum[post._id] = post.comments.length
                     post.likes.forEach((love) => {
                         if (love.user === currentUser.id) {
                         like[post._id] = true
@@ -60,6 +62,8 @@ const handleComment = async (e, post_id) => {
     try{
         const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${post_id}/comments`, {content: comment, userId : currentUser.id})
         setComment("")
+        commentNum[post_id] = commentNum[post_id] + 1
+        setCommentNum(commentNum)
     }catch(err){
         setErrorMessage(err.message)
     }
@@ -132,7 +136,7 @@ const renderPosts = posts.map((post, idx) => {
                                 </div>
 
                                 <div className='d-flex'>
-                                    <p><Link to={`/posts/${post._id}`} className='commentsLink'>View all {post.comments.length} coments</Link> </p>
+                                    <p><Link to={`/posts/${post._id}`} className='commentsLink'>View all {commentNum[post._id]} comments</Link> </p>
                                 </div>
                                 <div className='d-flex justify-content-start align-items-center'>
                                     <form onSubmit={(e) => handleComment(e, post._id)}>
