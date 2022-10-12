@@ -85,6 +85,14 @@ nav {
   color: #696767;
 }
 
+.inputBarPosts {
+  box-shadow: none;
+}
+
+.subBtnPosts {
+  margin: 0;
+}
+
 /* Post Page (singular) */
 .postCard {
   max-width: 800px;
@@ -165,3 +173,5 @@ nav {
 .postCardHeader {
  max-height: 40px;
 }
+
+

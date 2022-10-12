@@ -96,16 +96,18 @@ const renderPosts = posts.map((post, idx) => {
     return (
        <div className="container " key={post._id}>
         <div className="row justify-content-center">
-            <div className="col-sm-8 ">
+            <div className="col-sm-8 p-0">
                     <div className="card my-2" key={`key-${idx}`}>
-                        <div className="card-header">
-                            <div className='d-flex align-items-center justify-content-between'>
-                                <div className="d-flex align-items-center">
+                        <div className="card-header d-flex align-items-center justify-content-between">
+                            <div className='col d-flex align-items-center justify-content-between'>
+                                <div className="d-flex">
                                     {/* profile pic */}
-                                    <h6 className='mb-0 ms-2'>{post.user.username}</h6>
+                                    <h6 className='mb-0 fw-bold'>{post.user.username}</h6>
                                 </div>
-                                <div>
-                                    <i className="bi bi-three-dots"></i>
+                                <div className="d-flex justify-content-end">
+                                    <Link to={`/posts/${post._id}`} className='commentsLink'>
+                                        <i className="bi bi-three-dots d-flex justify-content-end"></i>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -117,35 +119,42 @@ const renderPosts = posts.map((post, idx) => {
                         </div>
                             
 
-                        <div className="card-footer ">
-                            <div className='d-flex align-items-center justify-content-between'>
-                                <div>
+                        <div className="card-footer row p-0 m-0">
+                            <div className='col d-flex align-items-center justify-content-between'>
+                                <div className='d-flex p-0'>
                                     {/* <i class="fa-regular fa-heart fs-3 me-2"></i> */}
                                     
                                     {/* {like[post._id]? <button><i className="fa-regular fa-heart fs-3 me-2" style = {{backgroundColor: '#FC6767'}}></i></button> : <button><i className="fa-regular fa-heart fs-3 me-2" style = {{backgroundColor: 'white'}}></i></button>} */}
-                                    {like[post._id]? <button onClick={() => handleLikes(post._id)}>❤️</button> : <button onClick={() => handleLikes(post._id)}>🤍</button>}
+                                    {like[post._id]? <button className='postsLikeBtn' onClick={() => handleLikes(post._id)}>❤️</button> : <button className='postsLikeBtn' onClick={() => handleLikes(post._id)}>🤍</button>}
                                     {/* <i class="fa-regular fa-comment fs-3"></i> */}
+                                    <p className="ms-2 mt-3">{likeNum[post._id]} likes</p>
                                 </div>
                                 <div>
-                                    <p>{likeNum[post._id]} likes</p>
+                                    <Moment fromNow>{post.createdAt}</Moment>
                                 </div>
                             </div>
-                                <div className='d-flex justify-content-start align-items-center'>
-                                    <h4 className='fw-bold me-2 postTitleNCont'>{post.user.username}</h4>
-                                    <h4 className='postTitleNCont'>{post.content}</h4>
-                                </div>
+                            <div className='d-flex justify-content-start align-items-center'>
+                                <h4 className='fw-bold me-2 postTitleNCont'>{post.user.username}</h4>
+                                <h4 className='postTitleNCont'>{post.content}</h4>
+                            </div>
 
-                                <div className='d-flex'>
-                                    <p><Link to={`/posts/${post._id}`} className='commentsLink'>View all {commentNum[post._id]} comments</Link> </p>
-                                </div>
-                                <div className='d-flex justify-content-start align-items-center'>
-                                    <form onSubmit={(e) => handleComment(e, post._id)}>
-                                        <label htmlFor="comment">{currentUser.username}</label>
-                                        <input type="text" value={comment} onChange={(e) => setComment(e.target.value)} id="comment"/>
-                                        <button type="submit" style = {{backgroundColor: '#FC6767', width: '100px' }}>Submit</button>
-                                    </form>
-                                </div>
-                                <Moment fromNow>{post.createdAt}</Moment>
+                            <div className='d-flex justify-content-start mt-2 border-bottom p-2'>
+                                <p><Link to={`/posts/${post._id}`} className='commentsLink'>View all {commentNum[post._id]} comments</Link> </p>
+                            </div>
+                            <div className='row d-flex p-1 m-0'>
+                                <form className='p-0 m-auto' onSubmit={(e) => handleComment(e, post._id)}>
+                                    <div className='col m-0 p-0'>
+                                        <div className='d-flex justify-content-start'>
+                                            <label className='form-label' htmlFor="comment"><i className="bi bi-emoji-smile"></i> {currentUser.username}</label>
+                                        </div>
+                                        <div className='row d-flex justify-content-start m-0 p-1'>
+                                            <input type="text" className='col-9 d-flex inputBarPosts border justify-content-start' placeholder='add comment...' value={comment} onChange={(e) => setComment(e.target.value)} id="comment"/>
+                                            <button type="submit" className='col-sm-2 d-flex p-0 m-1 justify-content-center align-items-center subBtnPosts' style = {{backgroundColor: '#FC6767', width: '80px' }}>Submit</button>
+                                        </div>
+                                        
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
