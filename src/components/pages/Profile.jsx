@@ -101,12 +101,14 @@ export default function Profile({ currentUser, handleLogout }) {
 			console.warn(err)
 		}
 	}
-
+	
 	// Render Posts to a map
 	const renderPostsAll = posts.map((post, idx) => {
 		return (
 			<div key={`key-${idx}`}>
 				{/* <img src={post.photo} alt={post._id}/> */}
+				
+				
 				<p>{post.content}</p>
 				<Moment fromNow>{post.createdAt}</Moment>
 				{/* need to map an array of comments and hide it on Posts route */}
@@ -120,19 +122,22 @@ export default function Profile({ currentUser, handleLogout }) {
 	const renderPostsUser = posts.map((post, idx) => {
 		// console.log(posts)
 		return (
-			<div key={`key-${idx}`}>
-				{/* <img src={post.photo} alt={post._id}/> */}
+			<div className='d-flex justify-content-center'  key={`key-${idx}`}>
+			<div className="card" style={{width: "25rem", height: "auto"}}>
+				<img src={post.photo} alt={post._id} style={{width: "25rem"}}/>
 				<p>{post.content}</p>
 				<Moment fromNow>{post.createdAt}</Moment>
 				{/* need to map an array of comments and hide it on Posts route */}
 				{/* <p>{post.comment}</p> */}
 				{/* changed this to '.length' to show number of likes */}
+				<div className="card-body">
 				<p>{post.likes.length} likes</p>
 				<Link to={`/posts/${post._id}/edit`}>
 					<button style={{ backgroundColor: '#FC6767', width: '150px' }}>Edit</button>
 				</Link>
 				<button style={{ backgroundColor: '#FC6767', width: '150px' }} onClick={(e) => handleDeletePost(post._id)}>Delete</button>
-
+				</div>
+			</div>
 			</div>
 		)
 	})
@@ -240,6 +245,7 @@ export default function Profile({ currentUser, handleLogout }) {
 					<div className='col-6 me-auto'>
 						<div className='row justify-content-space-between'>
 							<div className='col-5'>
+								
 								<h3>@{username}</h3>
 							</div>
 							<div className='col-3 justify-content-end'>
