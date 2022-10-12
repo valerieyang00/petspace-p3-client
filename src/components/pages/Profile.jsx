@@ -277,22 +277,44 @@ export default function Profile({ currentUser, handleLogout }) {
 	)
 
 	const viewOtherProfile = (
-		<>
-			{/* if the user viewing someone else's profile... */}
-			<h1>{username}'s profile</h1>
-			<h4>{user.bio}</h4>
-			{/* button to switch between follow/unfollow based on state changes */}
-			<button onClick={handleFollowClick}>{follow ? "unfollow" : "Follow"}</button>
-			<p>{posts.length} Posts</p>
-			<p>{followers.length} Followers</p>
-			<p>{following.length} Following</p>
+		// if the user is viewing someone else's profile...
+		<div className='profile'>
+
+		<div className='container text-center'>
+			<div className='row mt-5'>
+				<div className='col-11 ms-auto justify-content-start' style={{ display: 'flex', position: "relative"}}>
+					{photoCheck()} 
+
+					</div>
+				</div>
+				<div className='col-7 me-auto'>
+					<div className='row justify-content-space-between'>
+						<div className='col-5'>
+							
+							<h3>@{username}</h3>
+							<p>{user.bio}</p>
+						<button onClick={handleFollowClick} 
+							className='btn btn-sm btn-outline-secondary btn-light fw-bold' 
+							style={{ backgroundColor: '#FC6767', width: '150px' }}>
+							{follow ? "unfollow" : "Follow"}
+					</button>
+						</div>
+
+					</div>
+					<div className='row justify-content-start'>
+						<div className='col-2 m-0 fw-bold'><p>{posts.length} Posts</p></div>
+						<div className='col-3 m-0 fw-bold'><p>{followers.length} Followers</p></div>
+						<div className='col-3 m-0 fw-bold'><p>{following.length} Following</p></div>
+					</div>
+				</div>
+
+
+
+
 			<ul>Posts: {renderPostsAll}</ul>
-
-		</>
-	)
-
-
-
+			</div>
+		</div>
+)
 
 	return (
 		<div>

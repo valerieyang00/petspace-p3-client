@@ -59,11 +59,11 @@ export default function EditComment() {
                 </div>
 
                 <button type='submit' style = {{backgroundColor: '#FC6767', width: '150px' }}>Submit</button>
-            </form>
-            
             <Link to={`/posts/${postid}`}>
                 <button style = {{backgroundColor: '#FC6767', width: '150px' }}>Cancel</button>
             </Link>
+            </form>
+            
         </div>
     )
 }
