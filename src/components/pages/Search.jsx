@@ -12,7 +12,7 @@ export default function Search() {
             try{
                 const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/users`)
                 setResults(response.data)
-                console.log(results)
+                // console.log(results)
             }catch(err){
                 setErrorMessage(err.message)
 
@@ -21,7 +21,7 @@ export default function Search() {
         getUsers()
     },[])
     
-    console.log(results)
+    // console.log(results)
 
 
     const handleSearch = (e) => {
@@ -38,18 +38,33 @@ export default function Search() {
     }
 
 
-    const userLinks = filteredUsers.map(user => {
-        return (
-            // <div key={user._id}>
-            //     <Link to={`/${user.username}`}>{user.username}</Link>
-            // </div>
 
-            <div className="card" style={{width: "14rem", display:'flex',float: "inline-start", height: "auto", alignContent: "center"}} key={user._id}>
-                 <img src={user.image} className="card-img-top" style={{width: "15rem", height: "15rem"}} />
+    const userLinks = filteredUsers.map(user => {
+        const photoCheck = () => {
+            if (user.image) {
+                return (
+                    <>
+                        <img src={user.image} className="card-img-top mx-auto" style={{width: "20rem", height: "auto"}} />
+                    </>
+                )
+            } else {
+                return (
+                    <>
+                        <img src={require('../../assets/paw.png')} className="card-img-top mx-auto" style={{width: "20rem", height: "auto"}} />
+                    </>
+                )
+            }
+        }
+        return (
+
+            <div className='d-flex justify-content-center' key={user._id}>
+            <div className="card" style={{width: "30rem", height: "auto"}} key={user._id}>
+                 {photoCheck()}
             <div className="card-body">
                     <Link className="card-title" to={`/${user.username}`}>{user.username}</Link>
                 <p className="card-text">{`Posts: ${user.posts.length} Follwers: ${user.followers.length} Following: ${user.following.length}`}</p>
                 
+            </div>
             </div>
             </div>
         )
@@ -67,8 +82,7 @@ export default function Search() {
                             placeholder='search username...'
                             onChange={handleSearch}
                         />
-                        {/* <button type='submit'>Search</button> */}
-                        <button onClick={handleClear} style = {{backgroundColor: '#FC6767', width: '150px' }}>Clear</button>
+                          <button onClick={handleClear} style = {{backgroundColor: '#FC6767', width: '150px' }}>Clear</button>
                 </form>
             </div>
 

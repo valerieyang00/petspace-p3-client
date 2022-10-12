@@ -145,6 +145,7 @@ const renderPosts = posts.map((post, idx) => {
                                         <button type="submit" style = {{backgroundColor: '#FC6767', width: '100px' }}>Submit</button>
                                     </form>
                                 </div>
+                                <Moment fromNow>{post.createdAt}</Moment>
                         </div>
                     </div>
                 </div>
