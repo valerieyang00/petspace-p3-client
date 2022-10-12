@@ -245,14 +245,14 @@ export default function Profile({ currentUser, handleLogout }) {
 						</div>
 					</div>
 					<div className='col-7 me-auto'>
-						<div className='row col-7 justify-content-start'>
+						<div className='row col-7 justify-content-center'>
 							<div className='col-5' style={{display: "inline-block"}}>
 							<button onClick={setModalIsOpenToTrue}className='btn btn-sm btn-outline-secondary btn-light fw-bold' style={{ backgroundColor: '#FC6767', width: '150px' }}>{photoMsg}</button>
 							</div>
 							
 							<div className='col-1 me-auto justify-content-end' style={{display: "inline-block"}}>
 								<Link to={`/${username}/edit`} className=''>
-									<button className='btn btn-sm btn-outline-secondary btn-light fw-bold' style={{ backgroundColor: '#FC6767', width: '150px' }}>Edit Profile</button>
+									<button className='btn btn-sm btn-outline-secondary btn-light fw-bold'  style={{ backgroundColor: '#FC6767', width: '150px', }}>Edit Profile</button>
 								</Link>
 								<h3 className='me-auto row' style={{display:'flex', fontSize: "30px"}}>@{username}</h3>
 							</div>

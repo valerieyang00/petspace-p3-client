@@ -30,7 +30,6 @@ export default function Search() {
 
     const filteredUsers = results.filter(result => {
         return result.username.toLowerCase().includes(search.toLowerCase())
-    
     })
  
     const handleClear = () => {
