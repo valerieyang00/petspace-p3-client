@@ -12,7 +12,8 @@ export default function Search() {
             try{
                 const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/users`)
                 setResults(response.data)
-                // console.log(results)
+                console.log(results)
+
             }catch(err){
                 setErrorMessage(err.message)
 
@@ -21,8 +22,7 @@ export default function Search() {
         getUsers()
     },[])
     
-    // console.log(results)
-
+  
 
     const handleSearch = (e) => {
         setSearch(e.target.value)

@@ -1,6 +1,6 @@
 
-import { useEffect, useReducer, useState } from "react"
-import { useParams, Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useParams, Link, useNavigate} from "react-router-dom"
 import Moment from 'react-moment';
 import axios from 'axios'
 
@@ -18,6 +18,8 @@ export default function Post({ currentUser, setCurrentUser }){
     const [comments, setComments] = useState([])
     const [commentLikes, setCommentLikes] = useState(0)
     const [commentErrorMessage, setCommentErrorMessage] = useState("")
+
+    const navigate = useNavigate()
 
 
     //Renders the post and comments
@@ -53,6 +55,7 @@ export default function Post({ currentUser, setCurrentUser }){
         try{
             const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api-v1/posts/${postid}`)
             setPost(response.data)
+            navigate('/posts')
         }catch(err){
             setErrorMessage(err.message)
         }
@@ -135,9 +138,9 @@ export default function Post({ currentUser, setCurrentUser }){
                     <div className='col-sm-2 d-flex align-items-center'>
                         {comment.user.username === currentUser.username ?<div className='d-flex justify-content-end align-items-center p-0'> 
                         <Link className='p-0 m-1 btnComment' to={`/posts/${postid}/comments/${comment._id}/edit`}>
-                        <button className="btnComment p-0 shadow-none"><i class="bi bi-pencil-square"></i></button>
+                        <button className="btnComment p-0 shadow-none"><i className="bi bi-pencil-square"></i></button>
                         </Link> 
-                        <button className='btnComment p-0 shadow-none' onClick={() => deleteComment(comment._id)}><i class="bi bi-trash3-fill"></i></button> 
+                        <button className='btnComment p-0 shadow-none' onClick={() => deleteComment(comment._id)}><i className="bi bi-trash3-fill"></i></button> 
                         </div>: <p></p>}
                         {/* <button onClick={handleCommentLikes}>Like</button> */}
                     </div>
@@ -168,12 +171,13 @@ export default function Post({ currentUser, setCurrentUser }){
                             <div className='card-header d-flex justify-content-between postCardHeader'>
                                 <div>
                                     <a href={`/${user.username}`} className='postCardTitle'>
-                                        <h5 className="card-title d-flex justify-content-start mt-1 fw-bold">{user.username}</h5>
+                                        <h5 className="card-title d-flex justify-content-start mt-1 fw-bold">@{user.username}</h5>
                                     </a>
                                 </div>
                                 <div>
                                     { curUser ? <Link to={`/posts/${post._id}/edit`}> <button className='btn mt-0 shadow-none editHeaderBtn'> Edit</button>
                                     </Link>: <p></p>}
+                                    { curUser ? <button className='btn mt-0 shadow-none editHeaderBtn' onClick={handleDelete}> Delete</button> : <p></p>}
                                 </div>
                             </div>
 
@@ -213,7 +217,7 @@ export default function Post({ currentUser, setCurrentUser }){
                                             <div className='col'>
                                                 <div className="d-flex ms-2 p-0">
                                                     <label htmlFor="comment">
-                                                    <i class="bi bi-emoji-smile"></i> {currentUser.username}
+                                                    <i className="bi bi-emoji-smile"></i> {currentUser.username}
                                                     </label>  
                                                 </div>
                                                 
