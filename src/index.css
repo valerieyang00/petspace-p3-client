@@ -20,7 +20,7 @@ code {
   background: #262525 
 }
 
-
+/* Login and Register Pages */
 
 .Login {
   background-image: linear-gradient(134deg, rgb(0, 0, 0) 50%, rgb(118, 118, 118) 100%)
@@ -28,16 +28,6 @@ code {
 
 .Register {
   background-image: linear-gradient(134deg, rgb(0, 0, 0) 50%, rgb(118, 118, 118) 100%)
-}
-
-nav {
-  background-image: linear-gradient(134deg, rgb(0, 0, 0) 66%, rgb(64, 64, 64) 100%);
-}
-
-.logo {
-  display: flex;
-  max-width: 170px;
-  justify-content: flex-end;
 }
 
 .formLg {
@@ -49,12 +39,26 @@ nav {
   font-size: 20px;
 }
 
+/* NavBar */
+nav {
+  background-image: linear-gradient(134deg, rgb(0, 0, 0) 66%, rgb(64, 64, 64) 100%);
+}
+
+.logo {
+  display: flex;
+  max-width: 170px;
+  justify-content: flex-end;
+}
+
 .navBarCont {
   margin-left: 20px;
   margin-right: -10px;
   margin-top: -7px;
   margin-bottom: -3px;
 }
+
+
+/* profile page */
 
 .profile {
   display: flex;
@@ -70,10 +74,18 @@ nav {
   margin-top: 10px;
 }
 
+
+/* Posts page */
 .postTitleNCont {
   font-size:14px;
 }
 
+.commentsLink {
+  text-decoration: none;
+  color: #696767;
+}
+
+/* Post Page */
 .postCard {
   max-width: 850px;
   max-height: 600px;
@@ -90,7 +102,3 @@ nav {
   overflow: scroll;
 }
 
-.commentsLink {
-  text-decoration: none;
-  color: #696767;
-}

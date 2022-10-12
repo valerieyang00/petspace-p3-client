@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import Moment from 'react-moment';
 import axios from 'axios'
@@ -137,36 +137,58 @@ export default function Post({ currentUser, setCurrentUser }){
 
     return(
         <div>
-            <h1>Post</h1>
-            <a href={`/${user.username}`}>{user.username}</a>
-            <p><img src={post.photo} alt={post.id} width="500" height="auto"/></p>
-            <h1>{post.title}</h1>
-            <p>{post.content}</p>
-            <Moment fromNow>{post.createdAt}</Moment>
-            <p>{likes} likes</p>
-            <button onClick={handleLikes} style = {{backgroundColor: '#FC6767', width: '100px' }} >{like? "Unlike" : "Like"}</button>
-            { curUser ? <Link to={`/posts/${post._id}/edit`}> <button style = {{backgroundColor: '#FC6767', width: '100px' }}> Edit</button>
-            	</Link>: <p></p>}
-            
-            
-            {/* Comment form to create a new comment */}
-            <h1>Comments</h1>
-            {currentUser?
-            {currentUser?
-            <form onSubmit={handleComment}>
-            <label htmlFor="comment">@{currentUser.username}</label>
-            <input type="text" value={comment} onChange={(e) => setComment(e.target.value)}/>
-            <button type="submit" style = {{backgroundColor: '#FC6767', width: '150px' }}>Submit</button>
-            </form> 
-            : <p></p>}
-            
-            {/* Render the list of comments */}
-            {renderComments}
-            {/* Error messages if they occur */}
-            {/* {errorMessage}
-            {commentErrorMessage} */}
+            <h1 className="postTitlePage my-3">Post</h1>
+            <div className='container d-flex justify-content-center'>
+                <div className="card mb-3 postCard">
+                    <div className="row g-0">
+                        <div className="col-md-6">
+                            <img src={post.photo} alt={post.id} className='rounded-start mw-100' height="auto"/>
+                        </div>
+                        <div className="col-md-6">
+                            <div className='card-header d-flex justify-content-between'>
+                                <div>
+                                    <a href={`/${user.username}`} className='postCardTitle'>
+                                        <h5 className="card-title d-flex justify-content-start">{user.username}</h5>
+                                    </a>
+                                </div>
+                                <div>
+                                    <button onClick={handleLikes}>{like ? "Unlike" : "Like"}</button>
+                                    { curUser ? <Link to={`/posts/${post._id}/edit`}> <button> Edit</button>
+                                    </Link>: <p></p>}
+                                </div>
+                                
+                            </div>
 
+                            <div className=" row card-body commentsSection">
+                                <h1>@{user.username}</h1>
+                                <p className="card-text d-flex justify-content-start">{post.content}</p>
+                                <div className='cardComments'>
+                                    {/* Render the list of comments */}
+                                    {renderComments}
+                                    {/* Error messages if they occur */}
+                                    {errorMessage}
+                                    {commentErrorMessage}
+                                </div>
+                            </div>
 
-        // </div>
+                            <div className='card-body d-flex justify-content-center'>
+                                <p>{likes} likes</p>
+                                <p className="card-text"><Moment fromNow>{post.createdAt}</Moment></p>
+                            </div>
+
+                            <div className='card-footer'>
+                                {currentUser?
+                                    <form onSubmit={handleComment}>
+                                    <label htmlFor="comment">@{currentUser.username}</label>
+                                    <input type="text" placeholder='add comment...' value={comment} onChange={(e) => setComment(e.target.value)}/>
+                                    <button type="submit" style = {{backgroundColor: '#FC6767', width: '90px' }}>Submit</button>
+                                    </form> 
+                                : <p></p>}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
