@@ -126,7 +126,7 @@ export default function Post({ currentUser, setCurrentUser }){
 
     const renderComments = comments.map((comment) => {
         return (
-            <div key={comment._id}>
+            <div key={`comment-${comment._id}`}>
                 <p>@{comment.user.username} {comment.content}</p>
                 <Moment fromNow>{comment.createdAt}</Moment>
                 {comment.user.username === currentUser.username ? <div> <Link to={`/posts/${postid}/comments/${comment._id}/edit`}><button>Edit</button></Link> <button onClick={() => deleteComment(comment._id)}>Delete</button> </div>: <p></p>}
