@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef} from 'react'
 import { useParams, Link } from 'react-router-dom'
 import axios from 'axios'
 import Moment from 'react-moment';
@@ -45,7 +45,6 @@ export default function Profile({ currentUser, handleLogout }) {
 		setFormImg(file)
 	}
 
-	
 	// Find a profile
 	useEffect(() => {
 		const getProfile = async () => {
@@ -200,14 +199,14 @@ export default function Profile({ currentUser, handleLogout }) {
 			photoMsg = 'Change Photo'
 			return (
 				<>
-					<img src={user.image} className='rounded-5 mw-100 profilePic' alt={`${user.username}'s photo` } />
+					<img src={user.image} className='rounded-5 mw-100 profilePic' />
 				</>
 			)
 		} else {
 			photoMsg = 'Add Photo'
 			return (
 				<>
-					<img src={require('../../assets/paw.png') } className='rounded-5 mw-100 profilePic' alt={`default user photo` } />
+					<img src={require('../../assets/paw.png')} className='rounded-5 mw-100 profilePic' />
 				</>
 			)
 		}
@@ -218,9 +217,9 @@ export default function Profile({ currentUser, handleLogout }) {
 			{/* if the user viewing their own profile... */}
 			<div className='container text-center'>
 				<div className='row mt-5'>
-					<div className='col-5  ms-auto align-item-center'>
+					
+					<div className='col-11 ms-auto justify-content-start' style={{ display: 'flex', position: "relative"}}>
 						{photoCheck()}
-						<button onClick={setModalIsOpenToTrue}className='btn btn-sm btn-outline-secondary btn-light fw-bold' style={{ backgroundColor: '#FC6767', width: '150px' }}>{photoMsg}</button>
 						<Modal isOpen={modalIsOpen}>
 								<button onClick={setModalIsOpenToFalse}>close</button>
 								<form className='mb-3' onSubmit={handlePhotoUpdate}>
@@ -234,25 +233,28 @@ export default function Profile({ currentUser, handleLogout }) {
 										value={fileInputState}    
 									/>
 									<label htmlFor='file'>Upload Profile Photo:</label>
+									
 								</div>
 								<div className='d-grid gap-2 mb-3'>
 									<button type="submit" className='btn btn-dark btn-lg border-0 rounded-4'>Submit</button>
+									
 								</div>
 								</form>
             			</Modal>	
-
+						
 						</div>
 					</div>
-					<div className='col-6 me-auto'>
-						<div className='row justify-content-space-between'>
-							<div className='col-5'>
-								
-								<h3>@{username}</h3>
+					<div className='col-7 me-auto'>
+						<div className='row col-7 justify-content-start'>
+							<div className='col-5' style={{display: "inline-block"}}>
+							<button onClick={setModalIsOpenToTrue}className='btn btn-sm btn-outline-secondary btn-light fw-bold' style={{ backgroundColor: '#FC6767', width: '150px' }}>{photoMsg}</button>
 							</div>
-							<div className='col-3 justify-content-end'>
+							
+							<div className='col-1 me-auto justify-content-end' style={{display: "inline-block"}}>
 								<Link to={`/${username}/edit`} className=''>
 									<button className='btn btn-sm btn-outline-secondary btn-light fw-bold' style={{ backgroundColor: '#FC6767', width: '150px' }}>Edit Profile</button>
 								</Link>
+								<h3 className='me-auto row' style={{display:'flex', fontSize: "30px"}}>@{username}</h3>
 							</div>
 
 						</div>
@@ -292,7 +294,7 @@ export default function Profile({ currentUser, handleLogout }) {
 					<div className='row justify-content-space-between'>
 						<div className='col-5'>
 							
-							<h3>@{username}</h3>
+							<h3 style={{fontSize: "30px"}}>@{username}</h3>
 							<p>{user.bio}</p>
 						<button onClick={handleFollowClick} 
 							className='btn btn-sm btn-outline-secondary btn-light fw-bold' 
