@@ -31,7 +31,7 @@ export default function NewPost({ currentUser, setCurrentUser }){
     const handleFileInputChange = (e) => {
         const file = e.target.files[0]
         previewFile(file);
-        // setFormImg(file)
+        setFormImg(file)
     }
 
 
