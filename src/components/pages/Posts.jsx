@@ -153,9 +153,6 @@ const renderPosts = posts.map((post, idx) => {
             {/* <div className="col-sm-4"></div> */}
         </div>
 
-        
-
-        //     
         //     <Moment fromNow>{post.createdAt}</Moment>
         //     {/* need to map an array of comments and hide it on Posts route */}
         //     {/* <p>{post.comment}</p> */}

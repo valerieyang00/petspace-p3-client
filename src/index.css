@@ -20,7 +20,7 @@ code {
   background: #262525 
 }
 
-
+/* Login and Register Pages */
 
 .Login {
   background-image: linear-gradient(134deg, rgb(0, 0, 0) 50%, rgb(118, 118, 118) 100%)
@@ -28,16 +28,6 @@ code {
 
 .Register {
   background-image: linear-gradient(134deg, rgb(0, 0, 0) 50%, rgb(118, 118, 118) 100%)
-}
-
-nav {
-  background-image: linear-gradient(134deg, rgb(0, 0, 0) 66%, rgb(64, 64, 64) 100%);
-}
-
-.logo {
-  display: flex;
-  max-width: 170px;
-  justify-content: flex-end;
 }
 
 .formLg {
@@ -49,12 +39,26 @@ nav {
   font-size: 20px;
 }
 
+/* NavBar */
+nav {
+  background-image: linear-gradient(134deg, rgb(0, 0, 0) 66%, rgb(64, 64, 64) 100%);
+}
+
+.logo {
+  display: flex;
+  max-width: 170px;
+  justify-content: flex-end;
+}
+
 .navBarCont {
   margin-left: 20px;
   margin-right: -10px;
   margin-top: -7px;
   margin-bottom: -3px;
 }
+
+
+/* profile page */
 
 .profile {
   display: flex;
@@ -70,6 +74,8 @@ nav {
   margin-top: 10px;
 }
 
+
+/* Posts page (plural) */
 .postTitleNCont {
   font-size:14px;
 }
@@ -77,4 +83,85 @@ nav {
 .commentsLink {
   text-decoration: none;
   color: #696767;
+}
+
+/* Post Page (singular) */
+.postCard {
+  max-width: 800px;
+  max-height: 900px;
+  border: #262525;
+}
+.postCardTitle {
+  text-decoration: none;
+  color:#d86e03;
+  font-weight:bold;
+}
+
+.editHeaderBtn {
+  width: 52px;
+  height: 25px;
+  margin: -1;
+  padding: 0;
+  text-align: center;
+}
+
+.btnComment {
+  display: flex;
+  margin: 0;
+  background-color: none;
+  border: none;
+  border-radius: 15px;
+  width: 25px;
+  height: 25px;
+  align-content: center;
+  justify-content: center;
+  color: #d86e03;
+}
+
+.commentsSection {
+  max-width: 400px;
+  max-height: 225px;
+  overflow: scroll;
+  font-size: 14px;
+}
+
+.postImage {
+ height: fit-content;
+ width: fit-content;
+}
+
+.inputBarPost {
+  width: 260px;
+  height: 35px;
+}
+
+.cardSubComment {
+  display: flex;
+  max-height: 100px;
+  align-items: flex-start;
+  padding-top: -20px;
+  overflow: hidden;
+}
+.postTitlePage {
+  font-size: 40px;
+}
+
+.likeBtnPost {
+  display: flex;
+  background-color: none;
+  border: none;
+  border-radius: 15px;
+  width: 25px;
+  height: 25px;
+  align-content: center;
+  justify-content: center;
+  font-size: smaller;
+}
+
+.cardPostBody {
+  max-height: 30px;
+}
+
+.postCardHeader {
+ max-height: 40px;
 }
