@@ -22,7 +22,7 @@ import EditProfile from './components/pages/EditProfile'
 
 function App() {
   // the currently logged in user will be stored up here in state
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState(localStorage.getItem('jwt')? jwt_decode(localStorage.getItem('jwt')): null)
 
   // useEffect -- if the user navigates away form the page, we will log them back in
   useEffect(() => {
@@ -60,7 +60,7 @@ function App() {
         <Routes>
           <Route 
             path="/posts"
-            element={<Posts currentUser={currentUser} setCurrentUser={setCurrentUser} />}
+            element={currentUser ? <Posts currentUser={currentUser} setCurrentUser={setCurrentUser} /> : <Navigate to="/" />}
           />
 
           <Route 
@@ -84,27 +84,31 @@ function App() {
 
           <Route 
             path="/posts/:postid/comments/:commentid/edit"
-            element={<EditComment />}
+            element={currentUser ? <EditComment /> : <Navigate to="/" />}
           />
            <Route 
             path="posts/:postid/edit"
-            element={<EditPost />}
+            element={currentUser ? <EditPost /> : <Navigate to="/" />}
           />
            <Route 
             path="/posts/new"
-            element={<NewPost currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
+            element={currentUser ? <NewPost currentUser={currentUser} setCurrentUser={setCurrentUser}/> : <Navigate to="/" />}
           />
            <Route 
             path="/posts/:postid"
-            element={<Post currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
+            element={currentUser ? <Post currentUser={currentUser} setCurrentUser={setCurrentUser}/> : <Navigate to="/" />}
           />
            <Route 
             path="/:username/edit"
-            element={<EditProfile handleLogout={handleLogout}/>}
+            element={currentUser ? <EditProfile handleLogout={handleLogout}/> : <Navigate to="/" />}
           />
            <Route 
             path="/search"
-            element={<Search />}
+            element={currentUser ? <Search /> : <Navigate to="/" />}
+          />
+           <Route 
+            path="/*"
+            element={<Navigate to="/" />}
           />
         </Routes>
       </div>

@@ -12,10 +12,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 	const [formText, setFormText] = useState('No profile photo currently selected')
 	    // Cloudinary 
 		const [fileInputState, setFileInputState] = useState('')
-		// const [selectedFile, setSelectedFile] = useState('')
-		// const [previewSource, setPreviewSource] = useState('')
-		// const [imageIds, setImagesIds] = useState()
-		
+	
 	
 		// Multer
 		const inputRef = useRef(null)
@@ -33,20 +30,11 @@ export default function Register({ currentUser, setCurrentUser }) {
 			}else{
 		
 			}
-		  }
-		
+		  }		
 			useEffect(() => {
 				handleFormText()
 			}, [formImg])
-
-		// const previewFile = (file) => {
-		// 	const reader = new FileReader();
-		// 	reader.readAsDataURL(file); //Converts the file to a url
-		// 	reader.onloadend = () => { //Once the reader is done loading
-		// 		setPreviewSource(reader.result);	
-		// 	}
-		// }
-		
+	
 		
 
 	// submit event handler
@@ -143,7 +131,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 						
 								<div className="form-floating mb-3">
 									<input className="form-control form-control-sm"
-										title='add a profile photo (optional)...'
+										placeholder='add a profile photo (optional)...'
 										type = "file"  
 										name = "image" 
 										id = "image"
@@ -154,7 +142,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 										style = {{height: '60px', color: 'transparent'}}
 
 									/>
-								<div class="preview">
+								<div className="preview">
    									 <p>{formText}</p>
   								</div>
 
