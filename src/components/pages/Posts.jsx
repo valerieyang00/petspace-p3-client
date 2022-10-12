@@ -147,9 +147,9 @@ const renderPosts = posts.map((post, idx) => {
                                         <div className='d-flex justify-content-start'>
                                             <label className='form-label' htmlFor="comment"><i className="bi bi-emoji-smile"></i> {currentUser.username}</label>
                                         </div>
-                                        <div className='d-inline-flex justify-content-start m-0 p-0'>
-                                            <input type="text" className='form-control d-flex p-0 m-0 inputBarPosts border justify-content-start' value={comment} onChange={(e) => setComment(e.target.value)} id="comment"/>
-                                            <button type="submit" className='d-flex p-0 ms-1 justify-content-center align-items-center subBtnPosts' style = {{backgroundColor: '#FC6767', width: '80px' }}>Submit</button>
+                                        <div className='row d-flex justify-content-start m-0 p-1'>
+                                            <input type="text" className='col-9 d-flex inputBarPosts border justify-content-start' placeholder='add comment...' value={comment} onChange={(e) => setComment(e.target.value)} id="comment"/>
+                                            <button type="submit" className='col-sm-2 d-flex p-0 m-1 justify-content-center align-items-center subBtnPosts' style = {{backgroundColor: '#FC6767', width: '80px' }}>Submit</button>
                                         </div>
                                         
                                     </div>
