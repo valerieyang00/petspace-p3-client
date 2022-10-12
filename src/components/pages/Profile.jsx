@@ -102,45 +102,124 @@ export default function Profile({ currentUser, handleLogout }) {
 		}
 	}
 	
+	// console.log(posts[1].comments, 'SS')
+    // const renderComments = posts[1].comments.map((comment, idx) => {
+    //     return (
+    //         <div key={`comment-${comment._id}-${idx}`}>
+    //             <div className="row p-0 d-flex border-bottom border-2">
+    //                 <div className='col-md-9 d-flex p-0 align-items-start mt-1 ms-2'>
+    //                    <p><span className='fw-bold d-flex'>{comment.user.username}: </span>
+    //                      {comment.content}</p>
+    //                 </div>
+    //                 <div className='col-sm-2 d-flex align-items-center'>
+    //                     {comment.user.username === currentUser.username ?<div className='d-flex justify-content-end align-items-center p-0'> 
+    //                     {/* <Link className='p-0 m-1 btnComment' to={`/posts/${postid}/comments/${comment._id}/edit`}> */}
+    //                     <button className="btnComment p-0 shadow-none"><i className="bi bi-pencil-square"></i></button>
+    //                     {/* </Link>  */}
+    //                     </div>: <p></p>}
+    //                     {/* <button onClick={handleCommentLikes}>Like</button> */}
+    //                 </div>
+    //                     <div className="d-flex justify-content-end">
+    //                         <Moment fromNow>{comment.createdAt}</Moment>
+    //                     </div>
+    //             </div>
+
+    //         </div>
+    //     )
+    // })
+
+
 	// Render Posts to a map
 	const renderPostsAll = posts.map((post, idx) => {
+		console.log(post)
 		return (
-			<div key={`key-${idx}`}>
-				{/* <img src={post.photo} alt={post._id}/> */}
+			// <div key={`key-${idx}`}>
+			// 	{/* <img src={post.photo} alt={post._id}/> */}
 				
 				
-				<p>{post.content}</p>
-				<Moment fromNow>{post.createdAt}</Moment>
-				{/* need to map an array of comments and hide it on Posts route */}
-				{/* <p>{post.comment}</p> */}
-				{/* changed this to '.length' to show number of likes */}
-				<p>{post.likes.length} likes</p>
+			// 	<p>{post.content}</p>
+			// 	<Moment fromNow>{post.createdAt}</Moment>
+			// 	{/* need to map an array of comments and hide it on Posts route */}
+			// 	{/* <p>{post.comment}</p> */}
+			// 	{/* changed this to '.length' to show number of likes */}
+			// 	<p>{post.likes.length} likes</p>
+
+			// </div>
+
+			<div key={`key-${idx}`} className="post">
+				<h1 className="postTitlePage my-3">Post</h1>
+				<div className='container d-flex justify-content-center'>
+				<div className="card mb-3 border postCard" style={{width: "75vw"}}>
+                    <div className="row g-0">
+                         {/* Holds image for card */}
+                        <div className="col-md-6 align-items-center">
+                            <img src={post.photo} alt={post.id} className='rounded-start postImage' style={{height: "auto"}} />
+                        </div>
+						<div className="col-md-6">
+                            {/* Header + Like and edit buttons */}
+                            <div className='card-header d-flex justify-content-between postCardHeader'>
+                                <div>
+                                    <a href={`/${user.username}`} className='postCardTitle'>
+                                        <h5 className="card-title d-flex justify-content-start mt-1 fw-bold">@{user.username}</h5>
+                                    </a>
+                                </div>
+								<div className="row card-body d-flex justify-content-start p-0 m-1">
+                                    {/* <div className='col-7 me-0 p-0'> */}
+                                        <p className="card-text">{post.content}</p>
+                                    {/* </div> */}
+                            </div>
+							<div className='card-body d-flex p-0 m-2 justify-content-between align-items-center cardPostBody'>
+                                        <div className='d-flex align-items-top'>
+                                            {/* <button onClick={handleLikes} type='button' className='mx-2 p-0 shadow-none likeBtnPost'> */}
+                                            {/* {like ? "❤️" : "🤍"}</button> */}
+                                            
+                                            {/* <p className='mt-2'>{likes} likes</p> */}
+                                        </div>
+                                        <p className="card-text mt-2"><Moment fromNow>{post.createdAt}</Moment></p>
+                                    </div>
+									<div className="row card-body d-flex justify-content-start commentsSection p-0 m-1">
+
+							<div className='cardComments'>
+								
+								{/* Render the list of comments */}
+								{/* {renderComments} */}
+							</div>
+							</div>
+						</div>
+						</div>
+						</div>
+						</div>
+						</div>
+
+
 
 			</div>
+			 
 		)
 	})
-	const renderPostsUser = posts.map((post, idx) => {
-		// console.log(posts)
-		return (
-			<div className='d-flex justify-content-center'  key={`key-${idx}`}>
-			<div className="card" style={{width: "25rem", height: "auto"}}>
-				<img src={post.photo} alt={post._id} style={{width: "25rem"}}/>
-				<p>{post.content}</p>
-				<Moment fromNow>{post.createdAt}</Moment>
-				{/* need to map an array of comments and hide it on Posts route */}
-				{/* <p>{post.comment}</p> */}
-				{/* changed this to '.length' to show number of likes */}
-				<div className="card-body">
-				<p>{post.likes.length} likes</p>
-				<Link to={`/posts/${post._id}/edit`}>
-					<button style={{ backgroundColor: '#FC6767', width: '150px' }}>Edit</button>
-				</Link>
-				<button style={{ backgroundColor: '#FC6767', width: '150px' }} onClick={(e) => handleDeletePost(post._id)}>Delete</button>
-				</div>
-			</div>
-			</div>
-		)
-	})
+		
+	// const renderPostsUser = posts.map((post, idx) => {
+	// 	// console.log(posts)
+	// 	return (
+	// 		<div className='d-flex justify-content-center'  key={`key-${idx}`}>
+	// 		<div className="card" style={{width: "25rem", height: "auto"}}>
+	// 			<img src={post.photo} alt={post._id} style={{width: "25rem"}}/>
+	// 			<p>{post.content}</p>
+	// 			<Moment fromNow>{post.createdAt}</Moment>
+	// 			{/* need to map an array of comments and hide it on Posts route */}
+	// 			{/* <p>{post.comment}</p> */}
+	// 			{/* changed this to '.length' to show number of likes */}
+	// 			<div className="card-body">
+	// 			<p>{post.likes.length} likes</p>
+	// 			<Link to={`/posts/${post._id}/edit`}>
+	// 				<button style={{ backgroundColor: '#FC6767', width: '150px' }}>Edit</button>
+	// 			</Link>
+	// 			<button style={{ backgroundColor: '#FC6767', width: '150px' }} onClick={(e) => handleDeletePost(post._id)}>Delete</button>
+	// 			</div>
+	// 		</div>
+	// 		</div>
+	// 	)
+	// })
 	const handleFollowClick = async (e) => {
 		try {
 			e.preventDefault()
@@ -269,7 +348,7 @@ export default function Profile({ currentUser, handleLogout }) {
 
 					{bioCheck()}
 
-					<ul>Posts: {renderPostsUser}</ul>
+					{/* <ul>Posts: {renderPostsAll}</ul> */}
 				</div>
 
 				<div className='row'>
@@ -314,7 +393,7 @@ export default function Profile({ currentUser, handleLogout }) {
 
 
 
-			<ul>Posts: {renderPostsAll}</ul>
+			{/* <ul>Posts: {renderPostsAll}</ul> */}
 			</div>
 		</div>
 )
@@ -323,6 +402,8 @@ export default function Profile({ currentUser, handleLogout }) {
 		<div>
 			{/* conditionally render based on currentUser and profileUser */}
 			{profile ? viewUserProfile : viewOtherProfile}
+			<ul>Posts: {renderPostsAll}</ul>
 		</div>
 	)
+	
 }
