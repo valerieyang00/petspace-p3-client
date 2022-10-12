@@ -69,40 +69,43 @@ export default function NewPost({ currentUser, setCurrentUser }) {
     }
     // console.log("NEW POST",currentUser)
 
-    const [formText, setFormText] = useState('Drag and drop or browse to upload an image')
-    const [formSize, setFormSize] = useState('100px')
-    const [formWidth, setFormWidth] = useState('400px')
-    const [padding, setPadding] = useState('2em')
-    const [left, setLeft] = useState('-30px')
+    // const [formText, setFormText] = useState('Drag and drop or browse to upload an image')
+    // const [formSize, setFormSize] = useState('100px')
+    // const [formWidth, setFormWidth] = useState('400px')
+    // const [padding, setPadding] = useState('2em')
+    // const [left, setLeft] = useState('-30px')
 
-    const handleFormStyle = (e) => {
-        if (previewSource != "") {
-            setFormStyle('transparent')
-            setFormText('Image uploaded successfully! Wrong image? Click to upload a new one.')
-            // setFormSize('45px')
-            // setFormWidth('109px')
-            // setPadding('4px 16px')
-            // setLeft('-10px')
-        }
-    }
+    // const handleFormStyle = (e) => {
+    //     if (previewSource != "") {
+    //         setFormStyle('transparent')
+    //         setFormText('Image uploaded successfully! Wrong image? Click to upload a new one.')
+    //         // setFormSize('45px')
+    //         // setFormWidth('109px')
+    //         // setPadding('4px 16px')
+    //         // setLeft('-10px')
+    //     }
+    // }
 
-    useEffect(() => {
-        handleFormStyle()
-    }, [previewSource])
+    // useEffect(() => {
+    //     handleFormStyle()
+    // }, [previewSource])
 
+    
 
     return (
         <div>
             <h1>New Post</h1>
             <div className='d-flex justify-content-center'>
-                <div className='card' style={{ width: '40rem' }}>
+                <div className='card' style={{ width: '50rem' }}>
+                    {previewSource? 
                     <img
                         src={previewSource} alt="User uploaded image"
                         style={{ height: 'auto', width: '100%' }}
-                    />
+                    /> : ''                 
+                }
                     <div className='card-body'>
                         <form>
-                            <label htmlFor="file" >{formText} </label>
+                            <label htmlFor="file" >{previewSource ? 'Image uploaded successfully! Wrong image? Click to upload a new one.' : 'Drag and drop or browse to upload an image'} </label>
                             <input className='card-title'
                                 type="file"
                                 // title = "Browse Files or Drag and drop " 
@@ -115,7 +118,7 @@ export default function NewPost({ currentUser, setCurrentUser }) {
                                     // height: formSize, 
                                     fontSize: "14pt",
                                     // width: formWidth,
-                                    color: formStyle,
+                                    color: previewSource ? 'transparent' : '',
                                     // left: left, 
                                     // position: "relative",
                                     textAlign: 'center',
