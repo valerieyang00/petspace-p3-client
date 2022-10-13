@@ -1,5 +1,4 @@
 import {
-    useEffect,
     useState,
     useRef
 } from "react"
@@ -10,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function NewPost({ currentUser, setCurrentUser }) {
     const [content, setContent] = useState("")
-    const [errorMessage, setErrorMessage] = useState("")
+    const [msg, setMsg] = useState("")
 
     // Cloudinary 
     const [fileInputState, setFileInputState] = useState('')
@@ -64,33 +63,12 @@ export default function NewPost({ currentUser, setCurrentUser }) {
             setContent("")
             navigate('/posts')
         } catch (err) {
-            setErrorMessage(err.message)
+            console.warn(err)
+            if(err.response) {
+                setMsg(err.response.data.msg)
+            }
         }
-    }
-    // console.log("NEW POST",currentUser)
-
-    // const [formText, setFormText] = useState('Drag and drop or browse to upload an image')
-    // const [formSize, setFormSize] = useState('100px')
-    // const [formWidth, setFormWidth] = useState('400px')
-    // const [padding, setPadding] = useState('2em')
-    // const [left, setLeft] = useState('-30px')
-
-    // const handleFormStyle = (e) => {
-    //     if (previewSource != "") {
-    //         setFormStyle('transparent')
-    //         setFormText('Image uploaded successfully! Wrong image? Click to upload a new one.')
-    //         // setFormSize('45px')
-    //         // setFormWidth('109px')
-    //         // setPadding('4px 16px')
-    //         // setLeft('-10px')
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     handleFormStyle()
-    // }, [previewSource])
-
-    
+    }   
 
     return (
         <div>
@@ -108,22 +86,15 @@ export default function NewPost({ currentUser, setCurrentUser }) {
                             <label htmlFor="file" >{previewSource ? 'Image uploaded successfully! Wrong image? Click to upload a new one.' : 'Drag and drop or browse to upload an image'} </label>
                             <input className='card-title'
                                 type="file"
-                                // title = "Browse Files or Drag and drop " 
-                                id="image"
+                                     id="image"
                                 ref={inputRef}
                                 onChange={handleFileInputChange}
                                 value={fileInputState}
                                 style={{
-                                    // padding: padding,
-                                    // height: formSize, 
-                                    fontSize: "14pt",
-                                    // width: formWidth,
-                                    color: previewSource ? 'transparent' : '',
-                                    // left: left, 
-                                    // position: "relative",
+                                    fontSize: "14pt",         
+                                    color: previewSource ? 'transparent' : '',                                    
                                     textAlign: 'center',
                                     accept: ".jpg, .jpeg, .png"
-
                                 }}
                                 required
                             />
@@ -139,16 +110,11 @@ export default function NewPost({ currentUser, setCurrentUser }) {
                                 style={{ height: "15rem", fontSize: "14pt", width: "100%" }}
                             >Caption:</textarea>
 
-
                             <button type="submit" style={{ backgroundColor: '#FC6767', width: '10rem' }} onClick={handleCreate}>Submit</button>
                         </form>
-
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     )
 }
