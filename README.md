@@ -67,10 +67,10 @@ https://beautiful-otter-058b32.netlify.app
 | PUT | `/posts/:postid/comment/:commentid/` | edit a comment to a specific post, then redirects to `GET /posts/:postid/`|
 | DELETE | `/posts/:postid/comment/:commentid/` | delete a specific comment|
 
-## Initial Wireframe
+### Initial Wireframe
 ![plot](Wireframe.png)
-#### Final App
-![plot](login.png)
+### Final App
+![plot](loginpage.png)
 ![plot](profile.png)
 ## User Stories
 - As a user, I want to create an account for my pet.
