@@ -13,17 +13,12 @@ export default function NewPost({ currentUser, setCurrentUser }) {
 
     // Cloudinary 
     const [fileInputState, setFileInputState] = useState('')
-    // const [selectedFile, setSelectedFile] = useState('')
     const [previewSource, setPreviewSource] = useState('')
-    // const [imageIds, setImagesIds] = useState()
 
 
     // Multer
     const inputRef = useRef(null)
     const [formImg, setFormImg] = useState('')
-
-    // const [formStyle, setFormStyle] = useState('')
-    // const [imgSelected, setImgSelected] = useState('')
 
     const navigate = useNavigate()
 
@@ -47,7 +42,6 @@ export default function NewPost({ currentUser, setCurrentUser }) {
     const handleCreate = async (e) => {
         e.preventDefault()
         if (!previewSource) return;
-        // uploadImage(previewSource);
         try {
             const formData = new FormData()
             formData.append('image', formImg)
@@ -72,6 +66,7 @@ export default function NewPost({ currentUser, setCurrentUser }) {
 
     return (
         <div>
+            {msg}
             <h1 className="postTitlePage my-3">New Post</h1>
             <div className='d-flex justify-content-center'>
                 <div className='card' style={{ width: '50rem' }}>
@@ -86,7 +81,7 @@ export default function NewPost({ currentUser, setCurrentUser }) {
                             <label htmlFor="file" >{previewSource ? 'Image uploaded successfully! Wrong image? Click to upload a new one.' : 'Drag and drop or browse to upload an image'} </label>
                             <input className='card-title'
                                 type="file"
-                                     id="image"
+                                id="image"
                                 ref={inputRef}
                                 onChange={handleFileInputChange}
                                 value={fileInputState}

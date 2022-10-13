@@ -16,6 +16,7 @@ export default function Profile({ currentUser, handleLogout }) {
 	const [follow, setFollow] = useState(false)
 	const [msg, setMsg] = useState('')
 	const [modalIsOpen, setModalIsOpen] = useState(false);
+	const [previewSource, setPreviewSource] = useState('')
 
 
 	const { username } = useParams()
@@ -28,6 +29,15 @@ export default function Profile({ currentUser, handleLogout }) {
 	const inputRef = useRef(null)
 	const [formImg, setFormImg] = useState('')
 
+	const previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file); //Converts the file to a url
+        reader.onloadend = () => { //Once the reader is done loading
+            setPreviewSource(reader.result);
+
+        }
+    }
+
 	const setModalIsOpenToTrue = () => {
 		setModalIsOpen(true)
 	}
@@ -38,7 +48,7 @@ export default function Profile({ currentUser, handleLogout }) {
 
 	const handleFileInputChange = (e) => {
 		const file = e.target.files[0]
-		// previewFile(file);
+		previewFile(file);
 		setFormImg(file)
 	}
 
@@ -173,10 +183,14 @@ export default function Profile({ currentUser, handleLogout }) {
 									ref={inputRef}
 									onChange={handleFileInputChange}
 									value={fileInputState}
+									accept=".jpg, .jpeg, .png"
+									style={{ color: formImg ? 'transparent' : '' }}
 								/>
 								<label htmlFor='file'>Upload Profile Photo:</label>
-
 							</div>
+							{previewSource ?
+								<img src={previewSource} alt="User uploaded image" style={{ height: 'auto', width: '100%' }} /> : ''
+							}
 							<div className='d-grid gap-2 mb-3'>
 								<button type="submit" className='btn btn-dark btn-lg border-0 rounded-4'>Submit</button>
 
@@ -221,14 +235,14 @@ export default function Profile({ currentUser, handleLogout }) {
 				<div className='col-1 fw-bold'><p>{following.length} Following</p></div>
 			</div>
 
-				<button onClick={handleFollowClick}
-					className='btn btn-sm btn-outline-secondary btn-light fw-bold'
-					style={{ backgroundColor: '#FC6767', width: '150px' }}>
-					{follow ? "unfollow" : "Follow"}
-				</button>
-			</div>
+			<button onClick={handleFollowClick}
+				className='btn btn-sm btn-outline-secondary btn-light fw-bold'
+				style={{ backgroundColor: '#FC6767', width: '150px' }}>
+				{follow ? "unfollow" : "Follow"}
+			</button>
+		</div>
 
-		)
+	)
 
 	return (
 		<div>
@@ -237,6 +251,6 @@ export default function Profile({ currentUser, handleLogout }) {
 			{profile ? viewUserProfile : viewOtherProfile}
 			<ProfilePosts username={username} currentUser={currentUser} follow={follow} />
 		</div>
-		)
+	)
 
 }
