@@ -101,11 +101,11 @@ https://beautiful-otter-058b32.netlify.app
 
 ## Approach and Roadblocks
 Once we received our groups, we discussed ideas for our app. Eventually, we settled on PetSpace, a social media platform for your furry friends. When designing the site, we took inspiration from other social media sites and how we could implement ideas from their site into our app. Our group took the work into two categories: server and client. We tackled the issues of our project from both sides simultaneously.
------
+
 During the development phase of our project, we began by stubbing out a rough draft of our routes to ensure that we could connect to each page and have basic functionality. After having the initial site planned out, we re-evaluated the initial routes on the backend to more accurately fit our needs now that we had the site in front of us and had a better grasp on what we needed.
------
+
 After we passed the initial development phase, we moved on to debugging. Debugging is where our team spent most of our time. We decided the best approach was to tackle one page at a time, assigning everyone a page to work on Trello. We did this to ensure minimal merge conflicts. We communicated with the front and back end to solve our bugs.
------
+
 Major roadblocks:
 - Attaching our local database with Cloudinary proved challenging as we needed to connect the user to every post - they created with the cloud.
 - Styling: our team wanted to ensure the functionality of our site functioned the way we intended before we began work on the styling of the page; this left us with only 1 ½ days before our project to do the styling for our site.
