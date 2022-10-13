@@ -43,7 +43,7 @@ export default function Posts({ username, currentUser, follow }) {
             }
         }
         getPosts()
-    }, [currentUser, likeNum, username, follow])
+    }, [follow, likeNum, username, currentUser])
 
 
 
