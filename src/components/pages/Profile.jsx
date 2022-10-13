@@ -131,71 +131,63 @@ export default function Profile({ currentUser, handleLogout }) {
 
 	// Render Posts to a map
 	const renderPostsAll = posts.map((post, idx) => {
-		console.log(post)
 		return (
-			// <div key={`key-${idx}`}>
-			// 	{/* <img src={post.photo} alt={post._id}/> */}
-				
-				
-			// 	<p>{post.content}</p>
-			// 	<Moment fromNow>{post.createdAt}</Moment>
-			// 	{/* need to map an array of comments and hide it on Posts route */}
-			// 	{/* <p>{post.comment}</p> */}
-			// 	{/* changed this to '.length' to show number of likes */}
-			// 	<p>{post.likes.length} likes</p>
-
-			// </div>
-
-			<div key={`key-${idx}`} className="post">
-				<h1 className="postTitlePage my-3">Post</h1>
-				<div className='container d-flex justify-content-center'>
-				<div className="card mb-3 border postCard" style={{width: "75vw"}}>
-                    <div className="row g-0">
-                         {/* Holds image for card */}
-                        <div className="col-md-6 align-items-center">
-                            <img src={post.photo} alt={post.id} className='rounded-start postImage' style={{height: "auto"}} />
-                        </div>
-						<div className="col-md-6">
-                            {/* Header + Like and edit buttons */}
-                            <div className='card-header d-flex justify-content-between postCardHeader'>
-                                <div>
-                                    <a href={`/${user.username}`} className='postCardTitle'>
-                                        <h5 className="card-title d-flex justify-content-start mt-1 fw-bold">@{user.username}</h5>
-                                    </a>
-                                </div>
-								<div className="row card-body d-flex justify-content-start p-0 m-1">
-                                    {/* <div className='col-7 me-0 p-0'> */}
-                                        <p className="card-text">{post.content}</p>
-                                    {/* </div> */}
-                            </div>
-							<div className='card-body d-flex p-0 m-2 justify-content-between align-items-center cardPostBody'>
-                                        <div className='d-flex align-items-top'>
-                                            {/* <button onClick={handleLikes} type='button' className='mx-2 p-0 shadow-none likeBtnPost'> */}
-                                            {/* {like ? "❤️" : "🤍"}</button> */}
-                                            
-                                            {/* <p className='mt-2'>{likes} likes</p> */}
-                                        </div>
-                                        <p className="card-text mt-2"><Moment fromNow>{post.createdAt}</Moment></p>
-                                    </div>
-									<div className="row card-body d-flex justify-content-start commentsSection p-0 m-1">
-
-							<div className='cardComments'>
+		   <div className="container " key={post._id}>
+			<div className="row justify-content-center">
+				<div className="col-sm-8 p-0">
+						<div className="card my-2" key={`key-${idx}`}>
+							<div className="card-header d-flex align-items-center justify-content-between">
+								<div className='col d-flex align-items-center justify-content-between'>
+									<div className="d-flex">
+										{/* profile pic */}
+										<h6 className='mb-0 fw-bold'>{post.user.username}</h6>
+									</div>
+									<div className="d-flex justify-content-end">
+										<Link to={`/posts/${post._id}`} className='commentsLink'>
+											<i className="bi bi-three-dots d-flex justify-content-end"></i>
+										</Link>
+									</div>
+								</div>
+							</div>
 								
-								{/* Render the list of comments */}
-								{/* {renderComments} */}
+							<div className="card-body p-0">
+								<div>
+									<img src={post.photo} alt={post._id} className='mw-100' height="auto"/>
+								</div>
 							</div>
+								
+	
+							<div className="card-footer row p-0 m-0">
+								<div className='col d-flex align-items-center justify-content-between'>
+									<div className='d-flex p-0'>
+										{/* <i class="fa-regular fa-heart fs-3 me-2"></i> */}
+										
+										{/* {like[post._id]? <button><i className="fa-regular fa-heart fs-3 me-2" style = {{backgroundColor: '#FC6767'}}></i></button> : <button><i className="fa-regular fa-heart fs-3 me-2" style = {{backgroundColor: 'white'}}></i></button>} */}
+										{like[post._id]? <button className='postsLikeBtn' onClick={() => handleLikes(post._id)}>❤️</button> : <button className='postsLikeBtn' onClick={() => handleLikes(post._id)}>🤍</button>}
+										{/* <i class="fa-regular fa-comment fs-3"></i> */}
+										<p className="ms-2 mt-3">{likeNum[post._id]} likes</p>
+									</div>
+									<div>
+										<Moment fromNow>{post.createdAt}</Moment>
+									</div>
+								</div>
+								<div className='d-flex justify-content-start align-items-center'>
+									<h4 className='fw-bold ms-0 mt-3'>{post.user.username}</h4>
+									<h4 className='ms-2 mt-3'>{post.content}</h4>
+								</div>
+	
+								<div className='d-flex justify-content-start mt-2 border-bottom p-2'>
+									<p><Link to={`/posts/${post._id}`} className='commentsLink'>View all {commentNum[post._id]} comments</Link> </p>
+								</div>
+					
 							</div>
 						</div>
-						</div>
-						</div>
-						</div>
-						</div>
-
-
-
+					</div>
+				</div>
+				{/* <div className="col-sm-4"></div> */}
 			</div>
-			 
 		)
+	
 	})
 		
 	// const renderPostsUser = posts.map((post, idx) => {
