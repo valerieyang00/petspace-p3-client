@@ -108,6 +108,7 @@ During the development phase of our project, we began by stubbing out a rough dr
 After we passed the initial development phase, we moved on to debugging. Debugging is where our team spent most of our time. We decided the best approach was to tackle one page at a time, assigning everyone a page to work on Trello. We did this to ensure minimal merge conflicts. We communicated with the front and back end to solve our bugs.
 
 Major roadblocks:
+- Setting up backend to update data accordingly based on user interaction as we had 2 models with embedded subdocs and multiple references to models
 - Attaching our local database with Cloudinary proved challenging as we needed to connect the user to every post they created with the cloud.
 - Styling: our team wanted to ensure the functionality of our site functioned the way we intended before we began work on the styling of the page; this left us with only 1 ½ days before our project to do the styling for our site.
 
