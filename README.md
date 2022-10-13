@@ -7,7 +7,7 @@ Users can also view, comment and like posts created by their friends.
 
 
 ## App Link
-
+https://beautiful-otter-058b32.netlify.app
 
 ## Tech Used
 - CSS/Bootstrap

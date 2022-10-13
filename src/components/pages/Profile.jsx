@@ -1,14 +1,14 @@
-import { useState, useEffect, useRef} from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import axios from 'axios'
 import Moment from 'react-moment';
 import Modal from 'react-modal';
-Modal.setAppElement('*'); 
+import ProfilePosts from './ProfilePosts'
+Modal.setAppElement('*');
 
 
 export default function Profile({ currentUser, handleLogout }) {
 	const [posts, setPosts] = useState([])
-	const [errorMessage, setErrorMessage] = useState('')
 	const [user, setUser] = useState([])
 	const [profile, setProfile] = useState(true)
 	const [followers, setFollowers] = useState([])
@@ -16,32 +16,39 @@ export default function Profile({ currentUser, handleLogout }) {
 	const [follow, setFollow] = useState(false)
 	const [msg, setMsg] = useState('')
 	const [modalIsOpen, setModalIsOpen] = useState(false);
+	const [previewSource, setPreviewSource] = useState('')
 
-	
+
 	const { username } = useParams()
-	
+
 	// Cloudinary 
 	const [fileInputState, setFileInputState] = useState('')
-	// const [selectedFile, setSelectedFile] = useState('')
-	// const [previewSource, setPreviewSource] = useState('')
-	// const [imageIds, setImagesIds] = useState()
-	
-	
+
+
 	// Multer
 	const inputRef = useRef(null)
 	const [formImg, setFormImg] = useState('')
-	
-    const setModalIsOpenToTrue =()=>{
-        setModalIsOpen(true)
+
+	const previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file); //Converts the file to a url
+        reader.onloadend = () => { //Once the reader is done loading
+            setPreviewSource(reader.result);
+
+        }
     }
 
-	const setModalIsOpenToFalse =()=>{
-        setModalIsOpen(false)
-    }
+	const setModalIsOpenToTrue = () => {
+		setModalIsOpen(true)
+	}
+
+	const setModalIsOpenToFalse = () => {
+		setModalIsOpen(false)
+	}
 
 	const handleFileInputChange = (e) => {
 		const file = e.target.files[0]
-		// previewFile(file);
+		previewFile(file);
 		setFormImg(file)
 	}
 
@@ -75,6 +82,7 @@ export default function Profile({ currentUser, handleLogout }) {
 				// setFriends(response.data.friends)
 			} catch (err) {
 				console.warn(err)
+				setMsg(err.response.data.msg)
 				handleLogout()
 			}
 		}
@@ -256,7 +264,7 @@ export default function Profile({ currentUser, handleLogout }) {
 	const bioCheck = () => {
 		if (user.bio) {
 			return (
-				<h3 className='userBio'>{user.bio}</h3>
+				<h3 className='fs-4'>{user.bio}</h3>
 			)
 		} else {
 			return (
@@ -264,13 +272,14 @@ export default function Profile({ currentUser, handleLogout }) {
 			)
 		}
 	}
+
 	let photoMsg;
 	const photoCheck = () => {
 		if (user.image) {
 			photoMsg = 'Change Photo'
 			return (
 				<>
-					<img src={user.image} className='rounded-5 mw-100 profilePic' />
+					<img src={user.image} className='rounded-5' style={{ width: '300px', height: 'auto' }} />
 				</>
 			)
 		} else {
@@ -284,118 +293,92 @@ export default function Profile({ currentUser, handleLogout }) {
 	}
 
 	const viewUserProfile = (
-		<div className='profile'>
+		<div>
 			{/* if the user viewing their own profile... */}
 			<div className='container text-center'>
-				<div className='row mt-5'>
-					
-					<div className='col-11 ms-auto justify-content-start' style={{ display: 'flex', position: "relative"}}>
-						{photoCheck()}
-						<Modal isOpen={modalIsOpen}>
-								<button onClick={setModalIsOpenToFalse}>close</button>
-								<form className='mb-3' onSubmit={handlePhotoUpdate}>
-								<div className="form-floating mb-3">
-									<input className="form-control form-control-sm"
-										type = "file"  
-										name = "image" 
-										id = "image"
-										ref = {inputRef}					
-										onChange={handleFileInputChange} 
-										value={fileInputState}    
-									/>
-									<label htmlFor='file'>Upload Profile Photo:</label>
-									
-								</div>
-								<div className='d-grid gap-2 mb-3'>
-									<button type="submit" className='btn btn-dark btn-lg border-0 rounded-4'>Submit</button>
-									
-								</div>
-								</form>
-            			</Modal>	
-						
-						</div>
-					</div>
-					<div className='col-7 me-auto'>
-						<div className='row col-7 justify-content-center'>
-							<div className='col-5' style={{display: "inline-block"}}>
-							<button onClick={setModalIsOpenToTrue}className='btn btn-sm btn-outline-secondary btn-light fw-bold' style={{ backgroundColor: '#FC6767', width: '150px' }}>{photoMsg}</button>
-							</div>
-							
-							<div className='col-1 me-auto justify-content-end' style={{display: "inline-block"}}>
-								<Link to={`/${username}/edit`} className=''>
-									<button className='btn btn-sm btn-outline-secondary btn-light fw-bold'  style={{ backgroundColor: '#FC6767', width: '150px', }}>Edit Profile</button>
-								</Link>
-								<h3 className='me-auto row' style={{display:'flex', fontSize: "30px"}}>@{username}</h3>
-							</div>
-
-						</div>
-						<div className='row justify-content-start'>
-							<div className='col-2 m-0 fw-bold'><p>{posts.length} Posts</p></div>
-							<div className='col-3 m-0 fw-bold'><p>{followers.length} Followers</p></div>
-							<div className='col-3 m-0 fw-bold'><p>{following.length} Following</p></div>
-						</div>
-					</div>
-
-
-
+				<div className='col-12 ms-auto justify-content-center'>
+					{photoCheck()}
+					<h3 className='col-12 ms-auto justify-content-center' style={{ display: 'flex', fontSize: "30px" }}>@{username}</h3>
 					{bioCheck()}
+					<Modal isOpen={modalIsOpen}>
+						<button onClick={setModalIsOpenToFalse}>close</button>
+						<form className='mb-3' onSubmit={handlePhotoUpdate}>
+							<div className="form-floating mb-3">
+								<input className="form-control form-control-sm"
+									type="file"
+									name="image"
+									id="image"
+									ref={inputRef}
+									onChange={handleFileInputChange}
+									value={fileInputState}
+									accept=".jpg, .jpeg, .png"
+									style={{ color: formImg ? 'transparent' : '' }}
+								/>
+								<label htmlFor='file'>Upload Profile Photo:</label>
+							</div>
+							{previewSource ?
+								<img src={previewSource} alt="User uploaded image" style={{ height: 'auto', width: '100%' }} /> : ''
+							}
+							<div className='d-grid gap-2 mb-3'>
+								<button type="submit" className='btn btn-dark btn-lg border-0 rounded-4'>Submit</button>
 
-					{/* <ul>Posts: {renderPostsAll}</ul> */}
+							</div>
+						</form>
+					</Modal>
 				</div>
 
-				<div className='row'>
-
+				<div className='d-flex justify-content-center'>
+					<div className='col-1 fw-bold'><p>{posts.length} Posts</p></div>
+					<div className='col-1 fw-bold'><p>{followers.length} Followers</p></div>
+					<div className='col-1 fw-bold'><p>{following.length} Following</p></div>
 				</div>
 
+				<div className='col-12 ms-auto'>
+					<div className='d-flex justify-content-center'>
+						<div className='d-flex justify-content-center'>
+							<button onClick={setModalIsOpenToTrue} className='btn btn-sm btn-outline-secondary btn-light fw-bold' style={{ backgroundColor: '#FC6767', width: '150px' }}>{photoMsg}</button>
+						</div>
+
+						<Link to={`/${username}/edit`}>
+							<button className='btn btn-sm btn-outline-secondary btn-light fw-bold' style={{ backgroundColor: '#FC6767', width: '150px', }}>Edit Profile</button>
+						</Link>
+					</div>
+				</div>
 			</div>
+		</div>
 	)
 
 	const viewOtherProfile = (
 		// if the user is viewing someone else's profile...
-		<div className='profile'>
-
 		<div className='container text-center'>
-			<div className='row mt-5'>
-				<div className='col-11 ms-auto justify-content-start' style={{ display: 'flex', position: "relative"}}>
-					{photoCheck()} 
-
-					</div>
-				</div>
-				<div className='col-7 me-auto'>
-					<div className='row justify-content-space-between'>
-						<div className='col-5'>
-							
-							<h3 style={{fontSize: "30px"}}>@{username}</h3>
-							<p>{user.bio}</p>
-						<button onClick={handleFollowClick} 
-							className='btn btn-sm btn-outline-secondary btn-light fw-bold' 
-							style={{ backgroundColor: '#FC6767', width: '150px' }}>
-							{follow ? "unfollow" : "Follow"}
-					</button>
-						</div>
-
-					</div>
-					<div className='row justify-content-start'>
-						<div className='col-2 m-0 fw-bold'><p>{posts.length} Posts</p></div>
-						<div className='col-3 m-0 fw-bold'><p>{followers.length} Followers</p></div>
-						<div className='col-3 m-0 fw-bold'><p>{following.length} Following</p></div>
-					</div>
-				</div>
-
-
-
-
-			{/* <ul>Posts: {renderPostsAll}</ul> */}
+			<div className='col-12 ms-auto justify-content-center'>
+				{photoCheck()}
+				<h3 className='col-12 ms-auto justify-content-center' style={{ display: 'flex', fontSize: "30px" }}>@{username}</h3>
+				{user.bio}
 			</div>
+
+			<div className='d-flex justify-content-center'>
+				<div className='col-1 fw-bold'><p>{posts.length} Posts</p></div>
+				<div className='col-1 fw-bold'><p>{followers.length} Followers</p></div>
+				<div className='col-1 fw-bold'><p>{following.length} Following</p></div>
+			</div>
+
+			<button onClick={handleFollowClick}
+				className='btn btn-sm btn-outline-secondary btn-light fw-bold'
+				style={{ backgroundColor: '#FC6767', width: '150px' }}>
+				{follow ? "unfollow" : "Follow"}
+			</button>
 		</div>
-)
+
+	)
 
 	return (
 		<div>
+			{msg}
 			{/* conditionally render based on currentUser and profileUser */}
 			{profile ? viewUserProfile : viewOtherProfile}
-			<ul>Posts: {renderPostsAll}</ul>
+			<ProfilePosts username={username} currentUser={currentUser} follow={follow} />
 		</div>
 	)
-	
+
 }
